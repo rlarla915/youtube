@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <integer name="secondOfYear">31536000</integer>
+    <integer name="secondOfMonth">2592000</integer>
+    <integer name="secondOfWeek">604800</integer>
+    <integer name="secondOfDay">86400</integer>
+    <integer name="secondOfHour">3600</integer>
+
+</resources>
