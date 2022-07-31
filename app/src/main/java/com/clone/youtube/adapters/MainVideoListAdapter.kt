@@ -9,9 +9,11 @@ import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.clone.youtube.R
+import com.clone.youtube.databinding.BottomSheetDialogEtcBinding
 import com.clone.youtube.databinding.ListItemMainvideoBinding
 import com.clone.youtube.extensions.toLiteralString
 import com.clone.youtube.model.MainVideoListItem
+import com.google.android.material.bottomsheet.BottomSheetDialog
 import java.time.Duration
 import java.time.LocalDateTime
 
@@ -19,15 +21,22 @@ import java.time.LocalDateTime
 class MainVideoListAdapter(val dataSet: ArrayList<MainVideoListItem>) :
         RecyclerView.Adapter<MainVideoListAdapter.ViewHolder>() {
 
-        class ViewHolder(private val binding: ListItemMainvideoBinding) :
+        class ViewHolder(private val binding: ListItemMainvideoBinding, private val viewGroup: ViewGroup) :
                 RecyclerView.ViewHolder(binding.root) {
+                val bottomSheetView : BottomSheetDialogEtcBinding = DataBindingUtil.inflate(LayoutInflater.from(viewGroup.context), R.layout.bottom_sheet_dialog_etc, viewGroup, false)
+                val bottomSheetDialog : BottomSheetDialog = BottomSheetDialog(viewGroup.context)
+                init {
+                        bottomSheetDialog.setContentView(bottomSheetView.root)
+                }
                 fun bind(data: MainVideoListItem) {
                         binding.listItemTitle.text = data.title
                         binding.listItemSubtitle.text = data.channel.name + " • " + integerToString(data.view) + "회" + " • " + data.time.toLiteralString() + " 전"
 
                         Glide.with(itemView).load(data.thumbnailUrl).into(binding.listItemVideoThumbnail)
                         Glide.with(itemView).load(data.channel.profileUrl).into(binding.listItemChannelImage)
-
+                        binding.listItemButton.setOnClickListener {
+                                bottomSheetDialog.show()
+                        }
                 }
                 fun integerToString(number : Int) : String{
                         return when{
@@ -50,7 +59,7 @@ class MainVideoListAdapter(val dataSet: ArrayList<MainVideoListItem>) :
                                 false
                         )
 
-                        return ViewHolder(binding)
+                        return ViewHolder(binding, viewGroup)
                 }
 
                 // Replace the contents of a view (invoked by the layout manager)
