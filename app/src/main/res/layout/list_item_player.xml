@@ -16,7 +16,9 @@
             android:id="@+id/video_title_box"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="12dp"
+            android:paddingTop="12dp"
+            android:paddingHorizontal="12dp"
+            android:paddingBottom="2dp"
             app:layout_constraintTop_toTopOf="parent">
             <TextView
                 android:id="@+id/video_text_title"
@@ -24,15 +26,18 @@
                 android:layout_height="wrap_content"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintLeft_toLeftOf="parent"
-                android:textSize="@dimen/video_title_fontSize"
+                android:textSize="@dimen/player_title_fontSize"
+                android:textColor="@color/main_font_color"
                 app:layout_constraintRight_toLeftOf="@+id/player_ic_down"/>
             <TextView
                 android:id="@+id/video_text_subtitle"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="6dp"
                 app:layout_constraintTop_toBottomOf="@+id/video_text_title"
                 app:layout_constraintLeft_toLeftOf="parent"
                 android:textSize="@dimen/video_subtitle_fontSize"
+                android:textColor="@color/sub_font_color"
                 app:layout_constraintRight_toLeftOf="@+id/player_ic_down"/>
             <ImageView
                 android:id="@+id/player_ic_down"
@@ -134,12 +139,13 @@
             android:id="@+id/video_channel_box"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="@drawable/border_line_top_bottom"
             app:layout_constraintTop_toBottomOf="@+id/video_like_box">
             <de.hdodenhof.circleimageview.CircleImageView
                 android:id="@+id/video_channel_image"
                 android:layout_width="@dimen/profile_radius"
                 android:layout_height="@dimen/profile_radius"
-                android:layout_margin="6dp"
+                android:layout_margin="12dp"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent"/>
@@ -148,9 +154,11 @@
                 android:id="@+id/video_channel_name"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_margin="8dp"
+                android:layout_marginLeft="8dp"
+                android:layout_marginTop="12dp"
                 android:gravity="left"
-                android:textSize="@dimen/video_title_fontSize"
+                android:textSize="@dimen/channel_name_fontSize"
+                android:textColor="@color/main_font_color"
                 app:layout_constraintLeft_toRightOf="@+id/video_channel_image"
                 app:layout_constraintRight_toLeftOf="@+id/video_channel_text_subscribe"
                 app:layout_constraintTop_toTopOf="parent"/>
@@ -159,9 +167,11 @@
                 android:id="@+id/video_channel_num_subscribe"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_margin="8dp"
+                android:layout_marginTop="2dp"
+                android:layout_marginLeft="8dp"
                 android:gravity="left"
-                android:textSize="@dimen/video_subtitle_fontSize"
+                android:textSize="@dimen/channel_sub_fontSize"
+                android:textColor="@color/sub_font_color"
                 app:layout_constraintLeft_toRightOf="@id/video_channel_image"
                 app:layout_constraintRight_toLeftOf="@id/video_channel_text_subscribe"
                 app:layout_constraintTop_toBottomOf="@id/video_channel_name"/>
@@ -200,6 +210,7 @@
                     android:id="@+id/video_comment_num_comment"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginLeft="6dp"
                     android:textColor="@color/sub_font_color"/>
             </LinearLayout>
             <ImageView

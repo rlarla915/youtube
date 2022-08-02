@@ -4,6 +4,9 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.WindowCompat
+import androidx.core.view.WindowInsetsCompat
+import androidx.core.view.WindowInsetsControllerCompat
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -18,6 +21,13 @@ import com.clone.youtube.model.Channel
 import com.clone.youtube.model.Comment
 import com.clone.youtube.model.MainVideoListItem
 import com.clone.youtube.ui.home.HomeViewModel
+import com.google.android.exoplayer2.ExoPlayer
+import com.google.android.exoplayer2.MediaItem
+import com.google.android.exoplayer2.SimpleExoPlayer
+import com.google.android.exoplayer2.Timeline
+import com.google.android.exoplayer2.source.MediaSource
+import com.google.android.exoplayer2.ui.AspectRatioFrameLayout
+import com.google.android.exoplayer2.util.Util
 import java.time.LocalDateTime
 
 class PlayFragment : Fragment() {
@@ -28,6 +38,12 @@ class PlayFragment : Fragment() {
     private lateinit var binding: FragmentPlayBinding
     val homeViewModel : HomeViewModel by viewModels()
     var videoInfo : MainVideoListItem? = null
+    private var player : ExoPlayer? = null
+
+    // need to move to viewmodel livadata
+    private var PlayWhenReady : Boolean = true
+    private var currentWindow : Int = 0
+    private var playBackPosition : Long = 0L
 
 
     override fun onCreateView(
@@ -47,6 +63,12 @@ class PlayFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+
+
+
+
+        // player 아래 채우기
         var mainVideoDataList : ArrayList<MainVideoListItem> = arrayListOf()
 
         var testComments : ArrayList<Comment> = arrayListOf()
@@ -71,5 +93,70 @@ class PlayFragment : Fragment() {
 
 
     }
+
+    override fun onPause() {
+        super.onPause()
+        if (Util.SDK_INT < 24){
+            releasePlayer()
+        }
+    }
+
+    override fun onStop() {
+        super.onStop()
+        if(Util.SDK_INT >= 24){
+            releasePlayer()
+        }
+    }
+
+    override fun onStart() {
+        super.onStart()
+        if (Util.SDK_INT >= 24){
+            initPlayer()
+        }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        //hideSystemUi()
+        if ((Util.SDK_INT < 24 || player == null)){
+            initPlayer()
+        }
+    }
+
+    // need to fix to make adaptive streaming format
+    // https://developer.android.com/codelabs/exoplayer-intro#4
+    private fun initPlayer(){
+        player = ExoPlayer.Builder(mainActivity).build().also{
+            exoPlayer ->
+            binding.videoPlayer.player = exoPlayer
+            val mediaItem = MediaItem.fromUri("http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4")
+            exoPlayer.setMediaItem(mediaItem)
+            exoPlayer.playWhenReady = PlayWhenReady
+            exoPlayer.seekTo(currentWindow, playBackPosition)
+            exoPlayer.prepare()
+
+        }
+
+    }
+
+    private fun releasePlayer() {
+        player?.run {
+            playBackPosition = this.currentPosition
+            currentWindow = this.currentMediaItemIndex
+            PlayWhenReady = this.playWhenReady
+            release()
+        }
+        player = null
+    }
+
+    private fun hideSystemUi() {
+        WindowCompat.setDecorFitsSystemWindows(mainActivity.window, false)
+        WindowInsetsControllerCompat(mainActivity.window, binding.videoPlayer).let { controller ->
+            controller.hide(WindowInsetsCompat.Type.systemBars())
+            controller.systemBarsBehavior = WindowInsetsControllerCompat.BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE
+        }
+    }
+
+
 
 }
