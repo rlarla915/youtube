@@ -1,6 +1,8 @@
 package com.clone.youtube.ui.play
 
+import android.content.pm.ActivityInfo
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -17,6 +19,7 @@ import com.clone.youtube.adapters.MainVideoListAdapter
 import com.clone.youtube.adapters.VideoPlayerListAdapter
 import com.clone.youtube.databinding.FragmentHomeBinding
 import com.clone.youtube.databinding.FragmentPlayBinding
+import com.clone.youtube.databinding.VideoControllerBinding
 import com.clone.youtube.model.Channel
 import com.clone.youtube.model.Comment
 import com.clone.youtube.model.MainVideoListItem
@@ -28,6 +31,8 @@ import com.google.android.exoplayer2.Timeline
 import com.google.android.exoplayer2.source.MediaSource
 import com.google.android.exoplayer2.ui.AspectRatioFrameLayout
 import com.google.android.exoplayer2.util.Util
+import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.video_controller.view.*
 import java.time.LocalDateTime
 
 class PlayFragment : Fragment() {
@@ -36,6 +41,7 @@ class PlayFragment : Fragment() {
     // onDestroyView.
     lateinit var mainActivity: MainActivity
     private lateinit var binding: FragmentPlayBinding
+    private lateinit var controllerBinding: VideoControllerBinding
     val homeViewModel : HomeViewModel by viewModels()
     var videoInfo : MainVideoListItem? = null
     private var player : ExoPlayer? = null
@@ -44,6 +50,8 @@ class PlayFragment : Fragment() {
     private var PlayWhenReady : Boolean = true
     private var currentWindow : Int = 0
     private var playBackPosition : Long = 0L
+
+    var fullscreen : Boolean = false
 
 
     override fun onCreateView(
@@ -57,6 +65,10 @@ class PlayFragment : Fragment() {
 
         videoInfo  = arguments?.getParcelable<MainVideoListItem>("videoInfo")
 
+
+        binding.videoPlayer.exo_fullscreen.setOnClickListener {
+            changeFullScreen(it)
+        }
 
         return binding.root
     }
@@ -154,6 +166,35 @@ class PlayFragment : Fragment() {
         WindowInsetsControllerCompat(mainActivity.window, binding.videoPlayer).let { controller ->
             controller.hide(WindowInsetsCompat.Type.systemBars())
             controller.systemBarsBehavior = WindowInsetsControllerCompat.BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE
+        }
+    }
+
+    private fun showSystemUi() {
+        WindowCompat.setDecorFitsSystemWindows(mainActivity.window, true)
+        WindowInsetsControllerCompat(mainActivity.window, binding.videoPlayer).let { controller ->
+            controller.show(WindowInsetsCompat.Type.systemBars())
+            controller.systemBarsBehavior = WindowInsetsControllerCompat.BEHAVIOR_SHOW_BARS_BY_SWIPE
+        }
+    }
+
+    private fun changeFullScreen(view: View) {
+        if (fullscreen){
+            if (mainActivity.supportActionBar != null){
+                mainActivity.supportActionBar!!.show()
+            }
+            mainActivity.requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
+            showSystemUi()
+            mainActivity.nav_view.visibility = View.VISIBLE
+            fullscreen = false
+        }
+        else {
+            if (mainActivity.supportActionBar != null){
+                mainActivity.supportActionBar!!.hide()
+            }
+            mainActivity.requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE
+            hideSystemUi()
+            mainActivity.nav_view.visibility = View.GONE
+            fullscreen = true
         }
     }
 

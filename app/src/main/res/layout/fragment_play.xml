@@ -16,6 +16,9 @@
             android:id="@+id/video_player"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            app:controller_layout_id="@layout/video_controller"
+            app:show_timeout="10000"
+            app:use_controller="true"
             app:layout_constraintTop_toTopOf="parent"/>
 
         <androidx.recyclerview.widget.RecyclerView
