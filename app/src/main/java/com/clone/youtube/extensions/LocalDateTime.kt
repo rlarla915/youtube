@@ -12,7 +12,6 @@ fun LocalDateTime.toLiteralString() : String {
         TODO("VERSION.SDK_INT < O")
     }
     val seconds= Duration.between(this, nowTime).seconds
-    Log.d("XXXXXXX", (seconds >= 3600L).toString())
     return when{
         seconds >= 31536000L -> "${seconds/31536000L}년"
         seconds >= 2592000L -> "${seconds/2592000L}달"

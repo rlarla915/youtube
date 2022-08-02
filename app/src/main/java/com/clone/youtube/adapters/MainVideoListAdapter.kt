@@ -2,17 +2,20 @@ package com.clone.youtube.adapters;
 
 import android.content.res.Resources
 import android.os.Build
+import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.clone.youtube.MainActivity
 import com.clone.youtube.R
 import com.clone.youtube.databinding.BottomSheetDialogEtcBinding
 import com.clone.youtube.databinding.ListItemMainvideoBinding
 import com.clone.youtube.extensions.toLiteralString
 import com.clone.youtube.model.MainVideoListItem
+import com.clone.youtube.ui.play.PlayFragment
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import java.time.Duration
 import java.time.LocalDateTime
@@ -36,6 +39,11 @@ open class MainVideoListAdapter(val dataSet: ArrayList<MainVideoListItem>) :
                         Glide.with(itemView).load(data.channel.profileUrl).into(binding.listItemChannelImage)
                         binding.listItemButton.setOnClickListener {
                                 bottomSheetDialog.show()
+                        }
+                        binding.root.setOnClickListener {
+                                val playFragment : PlayFragment = PlayFragment()
+                                val mainActivity = viewGroup.context as MainActivity
+                                mainActivity.supportFragmentManager.beginTransaction().replace(R.id.nav_host_fragment_activity_main, playFragment.apply { arguments = Bundle().apply { putParcelable("videoInfo", data)} }).commit()
                         }
                 }
                 fun integerToString(number : Int) : String{

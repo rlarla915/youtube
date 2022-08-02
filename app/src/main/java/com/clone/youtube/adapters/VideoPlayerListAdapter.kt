@@ -13,27 +13,33 @@ import com.clone.youtube.databinding.BottomSheetDialogEtcBinding
 import com.clone.youtube.databinding.ListItemMainvideoBinding
 import com.clone.youtube.databinding.ListItemPlayerBinding
 import com.clone.youtube.extensions.toLiteralString
+import com.clone.youtube.model.Channel
+import com.clone.youtube.model.Comment
 import com.clone.youtube.model.MainVideoListItem
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import java.time.Duration
 import java.time.LocalDateTime
 
 
-class VideoPlayerListAdapter(val dataSet: ArrayList<MainVideoListItem>) :
-        MainVideoListAdapter(dataSet) {
-
+class VideoPlayerListAdapter(val videoInfo : MainVideoListItem, val VideodataSet: ArrayList<MainVideoListItem>) :
+        MainVideoListAdapter(VideodataSet) {
 
         class PlayerViewHolder(private val binding: ListItemPlayerBinding, private val viewGroup: ViewGroup) :
                 RecyclerView.ViewHolder(binding.root) {
                 fun bind(data: MainVideoListItem) {
-                        binding.listItemTitle.text = data.title
-                        binding.listItemSubtitle.text = data.channel.name + " • " + integerToString(data.view) + "회" + " • " + data.time.toLiteralString() + " 전"
-
-                        Glide.with(itemView).load(data.thumbnailUrl).into(binding.listItemVideoThumbnail)
-                        Glide.with(itemView).load(data.channel.profileUrl).into(binding.listItemChannelImage)
-                        binding.listItemButton.setOnClickListener {
-                                bottomSheetDialog.show()
+                        binding.videoTextTitle.text = data.title
+                        binding.videoTextSubtitle.text = "조회수 " + integerToString(data.view)+"회 • " + data.time.toLiteralString() + " 전"
+                        binding.videoTextLike.text = integerToString(data.likes)
+                        Glide.with(itemView).load(data.channel.profileUrl).into(binding.videoChannelImage)
+                        binding.videoChannelName.text = data.channel.name
+                        binding.videoChannelNumSubscribe.text = "구독자 " + integerToString(data.channel.subscribe)+"명"
+                        binding.videoChannelTextSubscribe.setOnClickListener {
+                                // need to add
                         }
+                        binding.videoCommentNumComment.text = data.comments.size.toString()
+                        var bestComment : Comment = Comment(Channel("침착맨", R.drawable.sample_profile, 150000), LocalDateTime.of(2022, 1, 26, 19, 30, 20), 150000, "너무 재밌어용~")
+                        Glide.with(itemView).load(bestComment.channel.profileUrl).into(binding.videoCommentImage)
+                        binding.videoCommentText.text = bestComment.text
                 }
                 fun integerToString(number : Int) : String{
                         return when{
@@ -71,8 +77,8 @@ class VideoPlayerListAdapter(val dataSet: ArrayList<MainVideoListItem>) :
         // Replace the contents of a view (invoked by the layout manager)
         override fun onBindViewHolder(viewHolder: RecyclerView.ViewHolder, position: Int) {
                 when (position) {
-                        1 -> {
-
+                        0 -> {
+                                (viewHolder as PlayerViewHolder).bind(videoInfo)
                         }
                         else -> {
                                 super.onBindViewHolder(viewHolder, position-1)
@@ -85,11 +91,11 @@ class VideoPlayerListAdapter(val dataSet: ArrayList<MainVideoListItem>) :
         }
 
         // Return the size of your dataset (invoked by the layout manager)
-        override fun getItemCount() = dataSet.size
+        override fun getItemCount() = VideodataSet.size + 1
 
         override fun getItemViewType(position: Int): Int {
                 return when (position) {
-                    1 -> 0
+                    0 -> 0
                     else -> 1
                 }
         }
