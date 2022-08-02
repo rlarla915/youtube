@@ -18,8 +18,8 @@ import java.time.Duration
 import java.time.LocalDateTime
 
 
-class MainVideoListAdapter(val dataSet: ArrayList<MainVideoListItem>) :
-        RecyclerView.Adapter<MainVideoListAdapter.ViewHolder>() {
+open class MainVideoListAdapter(val dataSet: ArrayList<MainVideoListItem>) :
+        RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
         class ViewHolder(private val binding: ListItemMainvideoBinding, private val viewGroup: ViewGroup) :
                 RecyclerView.ViewHolder(binding.root) {
@@ -51,7 +51,7 @@ class MainVideoListAdapter(val dataSet: ArrayList<MainVideoListItem>) :
         }
 
                 // Create new views (invoked by the layout manager)
-                override fun onCreateViewHolder(viewGroup: ViewGroup, viewType: Int): ViewHolder {
+                override fun onCreateViewHolder(viewGroup: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
                         // Create a new view, which defines the UI of the list item
                         val binding : ListItemMainvideoBinding = DataBindingUtil.inflate(
                                 LayoutInflater.from(viewGroup.context), R.layout.list_item_mainvideo,
@@ -63,11 +63,11 @@ class MainVideoListAdapter(val dataSet: ArrayList<MainVideoListItem>) :
                 }
 
                 // Replace the contents of a view (invoked by the layout manager)
-                override fun onBindViewHolder(viewHolder: ViewHolder, position: Int) {
+                override fun onBindViewHolder(viewHolder: RecyclerView.ViewHolder, position: Int) {
 
                         // Get element from your dataset at this position and replace the
                         // contents of the view with that element
-                        viewHolder.bind(dataSet[position])
+                        (viewHolder as ViewHolder).bind(dataSet[position])
                 }
 
                 // Return the size of your dataset (invoked by the layout manager)
