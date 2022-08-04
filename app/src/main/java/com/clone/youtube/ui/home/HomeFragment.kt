@@ -12,6 +12,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.bumptech.glide.Glide
 import com.clone.youtube.MainActivity
 import com.clone.youtube.R
 import com.clone.youtube.adapters.MainVideoListAdapter
@@ -38,6 +39,8 @@ class HomeFragment : Fragment() {
         mainActivity = activity as MainActivity
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_home, container, false)
         binding.lifecycleOwner = this
+
+        mainActivity.setSupportActionBar(binding.mainToolbar)
 
 
         return binding.root
@@ -67,6 +70,10 @@ class HomeFragment : Fragment() {
 
         binding.recyclerMainVideo.layoutManager = LinearLayoutManager(mainActivity)
         binding.recyclerMainVideo.adapter = MainVideoListAdapter(mainVideoDataList)
+
+
+        // toolbar profile 설정
+        Glide.with(this).load(R.drawable.sample_profile).into(binding.fragmentToolbarProfile)
 
 
     }

@@ -15,7 +15,6 @@
 
     <ImageButton
         android:id="@id/exo_prev"
-        style="@style/ExoMediaButton.Rewind"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="32dp"
@@ -70,7 +69,6 @@
 
     <ImageButton
         android:id="@id/exo_next"
-        style="@style/ExoMediaButton.FastForward"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
@@ -90,19 +88,37 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
-    <!--
+
     <TextView
-        android:id="@+id/exo_position"
+        android:id="@id/exo_position"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginBottom="8dp"
-        android:text="@string/text_example"
         android:textColor="@color/white"
-        app:layout_constraintBottom_toTopOf="@+id/exo_progress"
-        app:layout_constraintEnd_toStartOf="@+id/exo_duration"
-        app:layout_constraintStart_toStartOf="@+id/exo_progress" />
-        -->
+        app:layout_constraintBottom_toTopOf="@id/exo_progress"
+        app:layout_constraintStart_toStartOf="@id/exo_progress" />
+
+    <TextView
+        android:id="@+id/text_time_slash"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginBottom="8dp"
+        android:textColor="@color/white"
+        android:text="/"
+        app:layout_constraintBottom_toTopOf="@id/exo_progress"
+        app:layout_constraintStart_toEndOf="@id/exo_position" />
+
+    <TextView
+        android:id="@id/exo_duration"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginBottom="8dp"
+        android:textColor="@color/white"
+        app:layout_constraintBottom_toTopOf="@id/exo_progress"
+        app:layout_constraintStart_toEndOf="@id/text_time_slash" />
 
     <ImageButton
         android:id="@+id/exo_fullscreen"

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/toolbar_notification"
+        android:icon="@drawable/ic_notifications_24"
+        android:title="notification" />
+
+    <item
+        android:id="@+id/toolbar_search"
+        android:icon="@drawable/ic_search_24"
+        android:title="search" />
+
+
+</menu>

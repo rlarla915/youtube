@@ -16,4 +16,6 @@
     <dimen name="profile_radius">40dp</dimen>
     <dimen name="comment_box_padding">12dp</dimen>
     <dimen name="comment_image_radius">25dp</dimen>
+    <dimen name="toolbar_profile_radius">24dp</dimen>
+    <dimen name="toolbar_margin">16dp</dimen>
 </resources>
