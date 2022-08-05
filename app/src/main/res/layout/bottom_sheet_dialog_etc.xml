@@ -7,93 +7,101 @@
             name="home"
             type="com.clone.youtube.ui.home.HomeViewModel" />
     </data>
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/bottom_sheet_dialog_etc"
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="8dp"
-        android:layout_margin="8dp"
-        app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior"
-        app:behavior_hideable="true"
-        app:behavior_draggable="false">
-        <ImageView
-            android:id="@+id/bottom_dialog_bar"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/bottom_sheet_bar"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"/>
-        <TextView
-            android:id="@+id/bottom_dialog_text_see_later"
+        android:background="@drawable/bottom_sheet_background_zeropadding"
+        android:orientation="vertical"
+        >
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/bottom_sheet_dialog_etc"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="@dimen/bottom_dialog_item_margin"
-            app:layout_constraintTop_toBottomOf="@id/bottom_dialog_bar"
-            app:layout_constraintLeft_toLeftOf="parent"
-            android:textSize="@dimen/bottom_dialog_item_fontSize"
-            android:text="    나중에 볼 동영상에 저장"
-            app:drawableLeftCompat="@drawable/ic_access_time_24" />
-        <TextView
-            android:id="@+id/bottom_dialog_text_save_playlist"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="@dimen/bottom_dialog_item_margin"
-            app:layout_constraintTop_toBottomOf="@id/bottom_dialog_text_see_later"
-            app:layout_constraintLeft_toLeftOf="parent"
-            android:textSize="@dimen/bottom_dialog_item_fontSize"
-            android:text="    재생목록에 저장"
-            app:drawableLeftCompat="@drawable/ic_library_add_24" />
-        <TextView
-            android:id="@+id/bottom_dialog_text_save_offline"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="@dimen/bottom_dialog_item_margin"
-            app:layout_constraintTop_toBottomOf="@id/bottom_dialog_text_save_playlist"
-            app:layout_constraintLeft_toLeftOf="parent"
-            android:textSize="@dimen/bottom_dialog_item_fontSize"
-            android:text="    동영상 오프라인 저장"
-            app:drawableLeftCompat="@drawable/ic_vertical_align_bottom_24" />
-        <TextView
-            android:id="@+id/bottom_dialog_text_share"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="@dimen/bottom_dialog_item_margin"
-            app:layout_constraintTop_toBottomOf="@id/bottom_dialog_text_save_offline"
-            app:layout_constraintLeft_toLeftOf="parent"
-            android:textSize="@dimen/bottom_dialog_item_fontSize"
-            android:text="    공유"
-            app:drawableLeftCompat="@drawable/ic_share_24" />
-        <TextView
-            android:id="@+id/bottom_dialog_text_dont_care"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="@dimen/bottom_dialog_item_margin"
-            app:layout_constraintTop_toBottomOf="@id/bottom_dialog_text_share"
-            app:layout_constraintLeft_toLeftOf="parent"
-            android:textSize="@dimen/bottom_dialog_item_fontSize"
-            android:text="    관심 없음"
-            app:drawableLeftCompat="@drawable/ic_do_not_disturb_alt_24" />
-        <TextView
-            android:id="@+id/bottom_dialog_text_not_recommend"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="@dimen/bottom_dialog_item_margin"
-            app:layout_constraintTop_toBottomOf="@id/bottom_dialog_text_dont_care"
-            app:layout_constraintLeft_toLeftOf="parent"
-            android:textSize="@dimen/bottom_dialog_item_fontSize"
-            android:text="    채널 추천 안함"
-            app:drawableLeftCompat="@drawable/ic_do_not_disturb_alt_24" />
-        <TextView
-            android:id="@+id/bottom_dialog_text_report"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="@dimen/bottom_dialog_item_margin"
-            app:layout_constraintTop_toBottomOf="@id/bottom_dialog_text_not_recommend"
-            app:layout_constraintLeft_toLeftOf="parent"
-            android:textSize="@dimen/bottom_dialog_item_fontSize"
-            android:text="    신고"
-            app:drawableLeftCompat="@drawable/ic_outlined_flag_24" />
+            android:padding="8dp"
+            android:layout_margin="8dp"
+            app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior"
+            app:behavior_hideable="true"
+            app:behavior_draggable="false">
+            <ImageView
+                android:id="@+id/bottom_dialog_bar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/bottom_sheet_bar"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"/>
+            <TextView
+                android:id="@+id/bottom_dialog_text_see_later"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/bottom_dialog_item_margin"
+                app:layout_constraintTop_toBottomOf="@id/bottom_dialog_bar"
+                app:layout_constraintLeft_toLeftOf="parent"
+                android:textSize="@dimen/bottom_dialog_item_fontSize"
+                android:text="    나중에 볼 동영상에 저장"
+                app:drawableLeftCompat="@drawable/ic_access_time_24" />
+            <TextView
+                android:id="@+id/bottom_dialog_text_save_playlist"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/bottom_dialog_item_margin"
+                app:layout_constraintTop_toBottomOf="@id/bottom_dialog_text_see_later"
+                app:layout_constraintLeft_toLeftOf="parent"
+                android:textSize="@dimen/bottom_dialog_item_fontSize"
+                android:text="    재생목록에 저장"
+                app:drawableLeftCompat="@drawable/ic_library_add_24" />
+            <TextView
+                android:id="@+id/bottom_dialog_text_save_offline"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/bottom_dialog_item_margin"
+                app:layout_constraintTop_toBottomOf="@id/bottom_dialog_text_save_playlist"
+                app:layout_constraintLeft_toLeftOf="parent"
+                android:textSize="@dimen/bottom_dialog_item_fontSize"
+                android:text="    동영상 오프라인 저장"
+                app:drawableLeftCompat="@drawable/ic_vertical_align_bottom_24" />
+            <TextView
+                android:id="@+id/bottom_dialog_text_share"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/bottom_dialog_item_margin"
+                app:layout_constraintTop_toBottomOf="@id/bottom_dialog_text_save_offline"
+                app:layout_constraintLeft_toLeftOf="parent"
+                android:textSize="@dimen/bottom_dialog_item_fontSize"
+                android:text="    공유"
+                app:drawableLeftCompat="@drawable/ic_share_24" />
+            <TextView
+                android:id="@+id/bottom_dialog_text_dont_care"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/bottom_dialog_item_margin"
+                app:layout_constraintTop_toBottomOf="@id/bottom_dialog_text_share"
+                app:layout_constraintLeft_toLeftOf="parent"
+                android:textSize="@dimen/bottom_dialog_item_fontSize"
+                android:text="    관심 없음"
+                app:drawableLeftCompat="@drawable/ic_do_not_disturb_alt_24" />
+            <TextView
+                android:id="@+id/bottom_dialog_text_not_recommend"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/bottom_dialog_item_margin"
+                app:layout_constraintTop_toBottomOf="@id/bottom_dialog_text_dont_care"
+                app:layout_constraintLeft_toLeftOf="parent"
+                android:textSize="@dimen/bottom_dialog_item_fontSize"
+                android:text="    채널 추천 안함"
+                app:drawableLeftCompat="@drawable/ic_do_not_disturb_alt_24" />
+            <TextView
+                android:id="@+id/bottom_dialog_text_report"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/bottom_dialog_item_margin"
+                app:layout_constraintTop_toBottomOf="@id/bottom_dialog_text_not_recommend"
+                app:layout_constraintLeft_toLeftOf="parent"
+                android:textSize="@dimen/bottom_dialog_item_fontSize"
+                android:text="    신고"
+                app:drawableLeftCompat="@drawable/ic_outlined_flag_24" />
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </RelativeLayout>
 </layout>

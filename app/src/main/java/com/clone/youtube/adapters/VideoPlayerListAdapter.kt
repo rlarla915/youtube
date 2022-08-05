@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.clone.youtube.MainActivity
 import com.clone.youtube.R
 import com.clone.youtube.databinding.BottomSheetDialogEtcBinding
 import com.clone.youtube.databinding.ListItemMainvideoBinding
@@ -16,6 +17,7 @@ import com.clone.youtube.extensions.toLiteralString
 import com.clone.youtube.model.Channel
 import com.clone.youtube.model.Comment
 import com.clone.youtube.model.MainVideoListItem
+import com.clone.youtube.ui.play.BottomSheetDialogComments
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import java.time.Duration
 import java.time.LocalDateTime
@@ -37,6 +39,13 @@ class VideoPlayerListAdapter(val videoInfo : MainVideoListItem, val VideodataSet
                                 // need to add
                         }
                         binding.videoCommentNumComment.text = data.comments.size.toString()
+
+                        binding.videoCommentBox.setOnClickListener {
+                                Log.d("AA", "QQQQ")
+                                var bottomSheetDialogComments = BottomSheetDialogComments()
+                                var mainActivity = viewGroup.context as MainActivity
+                                bottomSheetDialogComments.show(mainActivity.supportFragmentManager, "comments")
+                        }
                         var bestComment : Comment = Comment(Channel("침착맨", R.drawable.sample_profile, 150000), LocalDateTime.of(2022, 1, 26, 19, 30, 20), 150000, "너무 재밌어용~")
                         Glide.with(itemView).load(bestComment.channel.profileUrl).into(binding.videoCommentImage)
                         binding.videoCommentText.text = bestComment.text
