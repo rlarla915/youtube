@@ -41,7 +41,6 @@ class VideoPlayerListAdapter(val videoInfo : MainVideoListItem, val VideodataSet
                         binding.videoCommentNumComment.text = data.comments.size.toString()
 
                         binding.videoCommentBox.setOnClickListener {
-                                Log.d("AA", "QQQQ")
                                 var bottomSheetDialogComments = BottomSheetDialogComments()
                                 var mainActivity = viewGroup.context as MainActivity
                                 bottomSheetDialogComments.show(mainActivity.supportFragmentManager, "comments")
