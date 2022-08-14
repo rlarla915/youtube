@@ -33,7 +33,7 @@ open class MainVideoListAdapter(val dataSet: ArrayList<MainVideoListItem>) :
                 }
                 fun bind(data: MainVideoListItem) {
                         binding.listItemTitle.text = data.title
-                        binding.listItemSubtitle.text = data.channel.name + " • " + integerToString(data.view) + "회" + " • " + data.time.toLiteralString() + " 전"
+                        binding.listItemSubtitle.text = data.channel.name + " • " + integerToString(data.view) + "회" + " • " + data.createTime.toLiteralString() + " 전"
 
                         Glide.with(itemView).load(data.thumbnailUrl).into(binding.listItemVideoThumbnail)
                         Glide.with(itemView).load(data.channel.profileUrl).into(binding.listItemChannelImage)

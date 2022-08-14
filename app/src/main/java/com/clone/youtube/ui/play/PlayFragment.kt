@@ -2,7 +2,6 @@ package com.clone.youtube.ui.play
 
 import android.content.pm.ActivityInfo
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -15,21 +14,15 @@ import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.clone.youtube.MainActivity
 import com.clone.youtube.R
-import com.clone.youtube.adapters.MainVideoListAdapter
 import com.clone.youtube.adapters.VideoPlayerListAdapter
-import com.clone.youtube.databinding.FragmentHomeBinding
 import com.clone.youtube.databinding.FragmentPlayBinding
 import com.clone.youtube.databinding.VideoControllerBinding
 import com.clone.youtube.model.Channel
 import com.clone.youtube.model.Comment
 import com.clone.youtube.model.MainVideoListItem
-import com.clone.youtube.ui.home.HomeViewModel
+import com.clone.youtube.viewmodel.HomeViewModel
 import com.google.android.exoplayer2.ExoPlayer
 import com.google.android.exoplayer2.MediaItem
-import com.google.android.exoplayer2.SimpleExoPlayer
-import com.google.android.exoplayer2.Timeline
-import com.google.android.exoplayer2.source.MediaSource
-import com.google.android.exoplayer2.ui.AspectRatioFrameLayout
 import com.google.android.exoplayer2.util.Util
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.video_controller.view.*
@@ -141,7 +134,7 @@ class PlayFragment : Fragment() {
         player = ExoPlayer.Builder(mainActivity).build().also{
             exoPlayer ->
             binding.videoPlayer.player = exoPlayer
-            val mediaItem = MediaItem.fromUri("http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4")
+            val mediaItem = MediaItem.fromUri("http://sample.vodobox.net/skate_phantom_flex_4k/skate_phantom_flex_4k.m3u8")
             exoPlayer.setMediaItem(mediaItem)
             exoPlayer.playWhenReady = PlayWhenReady
             exoPlayer.seekTo(currentWindow, playBackPosition)

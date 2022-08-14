@@ -1,26 +1,22 @@
 package com.clone.youtube.ui.home
 
-import android.content.ContentValues
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
 import com.clone.youtube.MainActivity
 import com.clone.youtube.R
 import com.clone.youtube.adapters.MainVideoListAdapter
-import com.clone.youtube.databinding.ActivityMainBinding
 import com.clone.youtube.databinding.FragmentHomeBinding
 import com.clone.youtube.model.Channel
 import com.clone.youtube.model.Comment
 import com.clone.youtube.model.MainVideoListItem
+import com.clone.youtube.viewmodel.HomeViewModel
 import java.time.LocalDateTime
 
 class HomeFragment : Fragment() {
