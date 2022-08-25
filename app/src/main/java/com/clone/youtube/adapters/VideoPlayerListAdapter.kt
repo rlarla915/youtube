@@ -30,15 +30,15 @@ class VideoPlayerListAdapter(val videoInfo : MainVideoListItem, val VideodataSet
                 RecyclerView.ViewHolder(binding.root) {
                 fun bind(data: MainVideoListItem) {
                         binding.videoTextTitle.text = data.title
-                        binding.videoTextSubtitle.text = "조회수 " + integerToString(data.view)+"회 • " + data.time.toLiteralString() + " 전"
-                        binding.videoTextLike.text = integerToString(data.likes)
+                        binding.videoTextSubtitle.text = "조회수 " + integerToString(data.view)+"회 • " + data.createTime.toLiteralString() + " 전"
+                        binding.videoTextLike.text = "1.5만"//integerToString(data.likes)
                         Glide.with(itemView).load(data.channel.profileUrl).into(binding.videoChannelImage)
                         binding.videoChannelName.text = data.channel.name
                         binding.videoChannelNumSubscribe.text = "구독자 " + integerToString(data.channel.subscribe)+"명"
                         binding.videoChannelTextSubscribe.setOnClickListener {
                                 // need to add
                         }
-                        binding.videoCommentNumComment.text = data.comments.size.toString()
+                        binding.videoCommentNumComment.text = "12"//data.comments.size.toString()
 
                         binding.videoCommentBox.setOnClickListener {
                                 var bottomSheetDialogComments = BottomSheetDialogComments()
