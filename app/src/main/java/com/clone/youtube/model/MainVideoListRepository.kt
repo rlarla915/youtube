@@ -8,8 +8,13 @@ import javax.inject.Singleton
 
 @Module
 @InstallIn(SingletonComponent::class)
-class MainVideoListRepository constructor(private val mainVideoListService: MainVideoListService){
-    @Singleton
-    @Provides
-    fun getVideos() = mainVideoListService.getVideos()
+class MainVideoListRepository {
+    constructor(){
+
+    }
+    constructor(mainVideoListService: MainVideoListService) {
+        @Singleton
+        @Provides
+        fun getVideos() = mainVideoListService.getVideos()
+    }
 }
