@@ -4,17 +4,8 @@ import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
-import javax.inject.Singleton
+import javax.inject.Inject
 
-@Module
-@InstallIn(SingletonComponent::class)
-class MainVideoListRepository {
-    constructor(){
-
-    }
-    constructor(mainVideoListService: MainVideoListService) {
-        @Singleton
-        @Provides
+class MainVideoListRepository @Inject constructor(private val mainVideoListService: MainVideoListService) {
         fun getVideos() = mainVideoListService.getVideos()
-    }
 }

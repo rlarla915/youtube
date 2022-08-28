@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
 import com.clone.youtube.MainActivity
@@ -17,8 +18,10 @@ import com.clone.youtube.model.Channel
 import com.clone.youtube.model.Comment
 import com.clone.youtube.model.MainVideoListItem
 import com.clone.youtube.viewmodel.HomeViewModel
+import dagger.hilt.android.AndroidEntryPoint
 import java.time.LocalDateTime
 
+@AndroidEntryPoint
 class HomeFragment : Fragment() {
 
     // This property is only valid between onCreateView and
@@ -58,9 +61,12 @@ class HomeFragment : Fragment() {
         mainVideoDataList.add(MainVideoListItem(thumbnailUrl = R.drawable.test9, title = "test9", view = 10000, createTime = LocalDateTime.of(2022, 1, 26, 19, 30, 20), channel = Channel(name = "테스터9", profileUrl = R.drawable.test9, subscribe = 10000)))
         mainVideoDataList.add(MainVideoListItem(thumbnailUrl = R.drawable.test10, title = "test10", view = 10000, createTime = LocalDateTime.of(2022, 1, 26, 19, 30, 20), channel = Channel(name = "테스터10", profileUrl = R.drawable.test10, subscribe = 10000)))
 
+        homeViewModel.getVideos()
+
+
 
         binding.recyclerMainVideo.layoutManager = LinearLayoutManager(mainActivity)
-        binding.recyclerMainVideo.adapter = MainVideoListAdapter(mainVideoDataList)
+        binding.recyclerMainVideo.adapter = MainVideoListAdapter()
 
 
         // toolbar profile 설정

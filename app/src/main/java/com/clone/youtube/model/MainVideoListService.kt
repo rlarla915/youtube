@@ -20,7 +20,6 @@ interface MainVideoListService {
     companion object {
         var mainVideoListService : MainVideoListService? = null
 
-
         @Singleton
         @Provides
         fun getInstance() : MainVideoListService {

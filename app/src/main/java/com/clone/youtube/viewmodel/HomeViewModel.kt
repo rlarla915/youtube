@@ -24,11 +24,11 @@ class HomeViewModel @Inject constructor(private val mainVideoListRepository: Mai
 
     fun getVideos() {
         val response = mainVideoListRepository.getVideos()
-        response.enqueue(object : Callback<MainVideoList> {
-            override fun onResponse(call: Call<MainVideoList>, response: Response<MainVideoList>) {
-                mainVideoList.postValue(response.body()?.mainVideoList)
+        response.enqueue(object : Callback<List<MainVideoListItem>> {
+            override fun onResponse(call: Call<List<MainVideoListItem>>, response: Response<List<MainVideoListItem>>) {
+                mainVideoList.postValue(response.body())
             }
-            override fun onFailure(call: Call<MainVideoList>, t: Throwable) {
+            override fun onFailure(call: Call<List<MainVideoListItem>>, t: Throwable) {
                 TODO("Not yet implemented")
             }
         })
