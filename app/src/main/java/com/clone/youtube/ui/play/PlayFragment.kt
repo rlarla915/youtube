@@ -71,8 +71,9 @@ class PlayFragment : Fragment() {
 
 
 
+        var mainVideoDataList : ArrayList<MainVideoListItem> = arrayListOf()
 
-
+        /*
         // player 아래 채우기
         var mainVideoDataList : ArrayList<MainVideoListItem> = arrayListOf()
 
@@ -92,6 +93,7 @@ class PlayFragment : Fragment() {
         mainVideoDataList.add(MainVideoListItem(thumbnailUrl = R.drawable.test9, videoUrl = "", title = "test9", view = 10000, time = LocalDateTime.of(2022, 1, 26, 19, 30, 20), channel = Channel(name = "테스터9", profileUrl = R.drawable.test9, subscribe = 10000), likes = 12000, comments = testComments))
         mainVideoDataList.add(MainVideoListItem(thumbnailUrl = R.drawable.test10, videoUrl = "", title = "test10", view = 10000, time = LocalDateTime.of(2022, 1, 26, 19, 30, 20), channel = Channel(name = "테스터10", profileUrl = R.drawable.test10, subscribe = 10000), likes = 12000, comments = testComments))
 
+         */
 
         binding.recyclerVideoPlayer.layoutManager = LinearLayoutManager(mainActivity)
         binding.recyclerVideoPlayer.adapter = VideoPlayerListAdapter(videoInfo!!, mainVideoDataList)

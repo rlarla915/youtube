@@ -48,6 +48,7 @@ class HomeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        /*
         var mainVideoDataList : ArrayList<MainVideoListItem> = arrayListOf()
 
         mainVideoDataList.add(MainVideoListItem(thumbnailUrl = R.drawable.test1, title = "test1", view = 10000, createTime = LocalDateTime.of(2022, 1, 26, 19, 30, 20), channel = Channel(name = "테스터1", profileUrl = R.drawable.test1, subscribe = 10000)))
@@ -60,8 +61,9 @@ class HomeFragment : Fragment() {
         mainVideoDataList.add(MainVideoListItem(thumbnailUrl = R.drawable.test8, title = "test8", view = 10000, createTime = LocalDateTime.of(2022, 1, 26, 19, 30, 20), channel = Channel(name = "테스터8", profileUrl = R.drawable.test8, subscribe = 10000)))
         mainVideoDataList.add(MainVideoListItem(thumbnailUrl = R.drawable.test9, title = "test9", view = 10000, createTime = LocalDateTime.of(2022, 1, 26, 19, 30, 20), channel = Channel(name = "테스터9", profileUrl = R.drawable.test9, subscribe = 10000)))
         mainVideoDataList.add(MainVideoListItem(thumbnailUrl = R.drawable.test10, title = "test10", view = 10000, createTime = LocalDateTime.of(2022, 1, 26, 19, 30, 20), channel = Channel(name = "테스터10", profileUrl = R.drawable.test10, subscribe = 10000)))
+*/
 
-        homeViewModel.getVideos()
+        homeViewModel.loadMainVideoList()
 
 
 

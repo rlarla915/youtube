@@ -24,7 +24,7 @@ import java.time.LocalDateTime
 
 
 class VideoPlayerListAdapter(val videoInfo : MainVideoListItem, val VideodataSet: ArrayList<MainVideoListItem>) :
-        MainVideoListAdapter(VideodataSet) {
+        MainVideoListAdapter() {
 
         class PlayerViewHolder(private val binding: ListItemPlayerBinding, private val viewGroup: ViewGroup) :
                 RecyclerView.ViewHolder(binding.root) {

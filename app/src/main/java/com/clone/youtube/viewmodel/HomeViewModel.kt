@@ -22,15 +22,7 @@ class HomeViewModel @Inject constructor(private val mainVideoListRepository: Mai
 
     val mainVideoList = MutableLiveData<List<MainVideoListItem>>()
 
-    fun getVideos() {
-        val response = mainVideoListRepository.getVideos()
-        response.enqueue(object : Callback<List<MainVideoListItem>> {
-            override fun onResponse(call: Call<List<MainVideoListItem>>, response: Response<List<MainVideoListItem>>) {
-                mainVideoList.postValue(response.body())
-            }
-            override fun onFailure(call: Call<List<MainVideoListItem>>, t: Throwable) {
-                TODO("Not yet implemented")
-            }
-        })
+    fun loadMainVideoList(){
+        mainVideoListRepository.getVideoList(mainVideoList)
     }
 }

@@ -7,7 +7,7 @@ import java.time.LocalDateTime
 
 @Parcelize
 data class MainVideoListItem(
-    var thumbnailUrl: Any,
+    var thumbnailUrl: String,
     var title: String,
     var createTime: LocalDateTime,
     var view: Int,
