@@ -23,7 +23,8 @@ import java.time.LocalDateTime
 
 open class MainVideoListAdapter() :
         RecyclerView.Adapter<RecyclerView.ViewHolder>() {
-        var dataSet = listOf<MainVideoListItem>()
+        var dataSet = arrayListOf<MainVideoListItem>()
+
         class ViewHolder(private val binding: ListItemMainvideoBinding, private val viewGroup: ViewGroup) :
                 RecyclerView.ViewHolder(binding.root) {
                 val bottomSheetView : BottomSheetDialogEtcBinding = DataBindingUtil.inflate(LayoutInflater.from(viewGroup.context), R.layout.bottom_sheet_dialog_etc, viewGroup, false)

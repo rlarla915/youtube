@@ -14,5 +14,5 @@ import javax.inject.Singleton
 
 interface MainVideoListServiceInstance {
     @GET("videos")
-    fun getVideoList(): Call<List<MainVideoListItem>>
+    fun getVideoList(): Call<ArrayList<MainVideoListItem>>
 }

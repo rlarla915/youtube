@@ -1,5 +1,6 @@
 package com.clone.youtube.model
 
+import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import dagger.Module
 import dagger.Provides
@@ -12,14 +13,14 @@ import javax.inject.Inject
 
 class MainVideoListRepository @Inject constructor(private val mainVideoListServiceInstance: MainVideoListServiceInstance) {
         // 여기다 query문 집어 넣을 수 있음
-        fun getVideoList(liveDataList : MutableLiveData<List<MainVideoListItem>>) {
+        fun getVideoList(liveDataList : MutableLiveData<ArrayList<MainVideoListItem>>) {
                 val call = mainVideoListServiceInstance.getVideoList()
-                call.enqueue(object : Callback<List<MainVideoListItem>> {
-                        override fun onResponse(call: Call<List<MainVideoListItem>>, response: Response<List<MainVideoListItem>>) {
+                call.enqueue(object : Callback<ArrayList<MainVideoListItem>> {
+                        override fun onResponse(call: Call<ArrayList<MainVideoListItem>>, response: Response<ArrayList<MainVideoListItem>>) {
                                 liveDataList.postValue(response.body())
                         }
-                        override fun onFailure(call: Call<List<MainVideoListItem>>, t: Throwable) {
-                                TODO("Not yet implemented")
+                        override fun onFailure(call: Call<ArrayList<MainVideoListItem>>, t: Throwable) {
+                                Log.d("XX", t.message!!)
                         }
                 })
         }

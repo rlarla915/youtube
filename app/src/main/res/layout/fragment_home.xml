@@ -5,7 +5,7 @@
     tools:context=".ui.home.HomeFragment">
     <data>
         <variable
-            name="home"
+            name="viewModel"
             type="com.clone.youtube.viewmodel.HomeViewModel" />
     </data>
     <androidx.coordinatorlayout.widget.CoordinatorLayout
@@ -66,7 +66,7 @@
                 app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                setList="@{home.mainVideoList}">
+                app:setList="@{viewModel.mainVideoList}">
             </androidx.recyclerview.widget.RecyclerView>
         </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 

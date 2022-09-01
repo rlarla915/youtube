@@ -45,7 +45,7 @@ class VideoPlayerListAdapter(val videoInfo : MainVideoListItem, val VideodataSet
                                 var mainActivity = viewGroup.context as MainActivity
                                 bottomSheetDialogComments.show(mainActivity.supportFragmentManager, "comments")
                         }
-                        var bestComment : Comment = Comment(Channel("침착맨", R.drawable.sample_profile, 150000), LocalDateTime.of(2022, 1, 26, 19, 30, 20), 150000, "너무 재밌어용~")
+                        var bestComment : Comment = Comment(Channel("침착맨", "https://picsum.photos/600/600/?random", 150000), LocalDateTime.of(2022, 1, 26, 19, 30, 20), 150000, "너무 재밌어용~")
                         Glide.with(itemView).load(bestComment.channel.profileUrl).into(binding.videoCommentImage)
                         binding.videoCommentText.text = bestComment.text
                 }

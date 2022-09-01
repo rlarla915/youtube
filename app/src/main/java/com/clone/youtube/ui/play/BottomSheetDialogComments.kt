@@ -69,10 +69,10 @@ class BottomSheetDialogComments : BottomSheetDialogFragment() {
 
 
         var testComments : ArrayList<Comment> = arrayListOf()
-        testComments.add(Comment(Channel("침착맨", R.drawable.sample_profile, 150000), LocalDateTime.of(2022, 1, 26, 19, 30, 20), 15000, "테스트 댓글"))
-        testComments.add(Comment(Channel("침착맨", R.drawable.sample_profile, 150000), LocalDateTime.of(2022, 1, 26, 19, 30, 20), 15000, "테스트 댓글"))
-        testComments.add(Comment(Channel("침착맨", R.drawable.sample_profile, 150000), LocalDateTime.of(2022, 1, 26, 19, 30, 20), 15000, "테스트 댓글"))
-        testComments.add(Comment(Channel("침착맨", R.drawable.sample_profile, 150000), LocalDateTime.of(2022, 1, 26, 19, 30, 20), 15000, "테스트 댓글"))
+        testComments.add(Comment(Channel("침착맨", "https://picsum.photos/600/600/?random", 150000), LocalDateTime.of(2022, 1, 26, 19, 30, 20), 15000, "테스트 댓글"))
+        testComments.add(Comment(Channel("침착맨", "https://picsum.photos/600/600/?random", 150000), LocalDateTime.of(2022, 1, 26, 19, 30, 20), 15000, "테스트 댓글"))
+        testComments.add(Comment(Channel("침착맨", "https://picsum.photos/600/600/?random", 150000), LocalDateTime.of(2022, 1, 26, 19, 30, 20), 15000, "테스트 댓글"))
+        testComments.add(Comment(Channel("침착맨", "https://picsum.photos/600/600/?random", 150000), LocalDateTime.of(2022, 1, 26, 19, 30, 20), 15000, "테스트 댓글"))
 
         binding.recyclerComments.layoutManager = LinearLayoutManager(mainActivity)
         binding.recyclerComments.adapter = CommentListAdapter(testComments)

@@ -1,12 +1,14 @@
 package com.clone.youtube.ui.home
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
@@ -37,10 +39,10 @@ class HomeFragment : Fragment() {
     ): View {
         mainActivity = activity as MainActivity
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_home, container, false)
-        binding.lifecycleOwner = this
+        binding.viewModel = homeViewModel
+        binding.lifecycleOwner = viewLifecycleOwner
 
         mainActivity.setSupportActionBar(binding.mainToolbar)
-
 
         return binding.root
     }
@@ -48,33 +50,12 @@ class HomeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        /*
-        var mainVideoDataList : ArrayList<MainVideoListItem> = arrayListOf()
-
-        mainVideoDataList.add(MainVideoListItem(thumbnailUrl = R.drawable.test1, title = "test1", view = 10000, createTime = LocalDateTime.of(2022, 1, 26, 19, 30, 20), channel = Channel(name = "테스터1", profileUrl = R.drawable.test1, subscribe = 10000)))
-        mainVideoDataList.add(MainVideoListItem(thumbnailUrl = R.drawable.test2, title = "test2", view = 10000, createTime = LocalDateTime.of(2022, 1, 26, 19, 30, 20), channel = Channel(name = "테스터2", profileUrl = R.drawable.test2, subscribe = 10000)))
-        mainVideoDataList.add(MainVideoListItem(thumbnailUrl = R.drawable.test3, title = "test3", view = 10000, createTime = LocalDateTime.of(2022, 1, 26, 19, 30, 20), channel = Channel(name = "테스터3", profileUrl = R.drawable.test3, subscribe = 10000)))
-        mainVideoDataList.add(MainVideoListItem(thumbnailUrl = R.drawable.test4, title = "test4", view = 10000, createTime = LocalDateTime.of(2022, 1, 26, 19, 30, 20), channel = Channel(name = "테스터4", profileUrl = R.drawable.test4, subscribe = 10000)))
-        mainVideoDataList.add(MainVideoListItem(thumbnailUrl = R.drawable.test5, title = "test5", view = 10000, createTime = LocalDateTime.of(2022, 1, 26, 19, 30, 20), channel = Channel(name = "테스터5", profileUrl = R.drawable.test5, subscribe = 10000)))
-        mainVideoDataList.add(MainVideoListItem(thumbnailUrl = R.drawable.test6, title = "test6", view = 10000, createTime = LocalDateTime.of(2022, 1, 26, 19, 30, 20), channel = Channel(name = "테스터6", profileUrl = R.drawable.test6, subscribe = 10000)))
-        mainVideoDataList.add(MainVideoListItem(thumbnailUrl = R.drawable.test7, title = "test7", view = 10000, createTime = LocalDateTime.of(2022, 1, 26, 19, 30, 20), channel = Channel(name = "테스터7", profileUrl = R.drawable.test7, subscribe = 10000)))
-        mainVideoDataList.add(MainVideoListItem(thumbnailUrl = R.drawable.test8, title = "test8", view = 10000, createTime = LocalDateTime.of(2022, 1, 26, 19, 30, 20), channel = Channel(name = "테스터8", profileUrl = R.drawable.test8, subscribe = 10000)))
-        mainVideoDataList.add(MainVideoListItem(thumbnailUrl = R.drawable.test9, title = "test9", view = 10000, createTime = LocalDateTime.of(2022, 1, 26, 19, 30, 20), channel = Channel(name = "테스터9", profileUrl = R.drawable.test9, subscribe = 10000)))
-        mainVideoDataList.add(MainVideoListItem(thumbnailUrl = R.drawable.test10, title = "test10", view = 10000, createTime = LocalDateTime.of(2022, 1, 26, 19, 30, 20), channel = Channel(name = "테스터10", profileUrl = R.drawable.test10, subscribe = 10000)))
-*/
-
         homeViewModel.loadMainVideoList()
-
-
 
         binding.recyclerMainVideo.layoutManager = LinearLayoutManager(mainActivity)
         binding.recyclerMainVideo.adapter = MainVideoListAdapter()
-
-
         // toolbar profile 설정
         Glide.with(this).load(R.drawable.sample_profile).into(binding.fragmentToolbarProfile)
-
-
     }
 
 }
