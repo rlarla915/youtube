@@ -1,0 +1,47 @@
+{
+    "videos" : [
+    {
+        "thumbnailUrl": "https://picsum.photos/600/600/?random",
+        "title": "test",
+        "createTime":"2019-12-10T12:14:20",
+        "view": 150000,
+        "channel": {
+            "name": "침착맨",
+            "profileUrl" : "https://picsum.photos/600/600/?random",
+            "subscribe": 15000
+        }
+    },
+    {
+        "thumbnailUrl": "https://picsum.photos/600/600/?random",
+        "title": "test",
+        "createTime":"2019-12-10T12:14:20",
+        "view": 150000,
+        "channel": {
+            "name": "침착맨",
+            "profileUrl" : "https://picsum.photos/600/600/?random",
+            "subscribe": 15000
+        }
+    },
+    {
+        "thumbnailUrl": "https://picsum.photos/600/600/?random",
+        "title": "test",
+        "createTime":"2019-12-10T12:14:20",
+        "view": 150000,
+        "channel": {
+            "name": "침착맨",
+            "profileUrl" : "https://picsum.photos/600/600/?random",
+            "subscribe": 15000
+        }
+    },{
+        "thumbnailUrl": "https://picsum.photos/600/600/?random",
+        "title": "test",
+        "createTime":"2019-12-10T12:14:20",
+        "view": 150000,
+        "channel": {
+            "name": "침착맨",
+            "profileUrl" : "https://picsum.photos/600/600/?random",
+            "subscribe": 15000
+        }
+    }
+]
+}

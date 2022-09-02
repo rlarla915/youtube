@@ -41,7 +41,7 @@ object MainVideoListModule {
     }
 
     @Singleton
-    @Provides // 여기서 provide 해주는 MainVideoListServiceInstance를 다른 곳에서 inject해서 사용함.
+    @Provides // module에서 provides를 하는 이유는 retrofit같은 외부 라이브러리 객체도 의존성 주입을 할 수 있기 때문. inject를 못함
     fun getMainVideoListServiceInstance(retrofit: Retrofit): MainVideoListServiceInstance {
         return retrofit.create(MainVideoListServiceInstance::class.java)
     }
