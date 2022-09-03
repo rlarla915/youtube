@@ -1,7 +1,6 @@
-package com.clone.youtube.model
+package com.clone.youtube.repository
 
 import android.os.Build
-import android.util.Log
 import com.google.gson.*
 import dagger.Module
 import dagger.Provides
@@ -16,8 +15,7 @@ import javax.inject.Singleton
 
 @Module
 @InstallIn(SingletonComponent::class)
-object MainVideoListModule {
-
+object RetrofitModule {
     class MyJsonDeserializer() : JsonDeserializer<LocalDateTime>{
         override fun deserialize(
             json: JsonElement?,
@@ -42,13 +40,7 @@ object MainVideoListModule {
 
     @Singleton
     @Provides // module에서 provides를 하는 이유는 retrofit같은 외부 라이브러리 객체도 의존성 주입을 할 수 있기 때문. inject를 못함
-    fun getMainVideoListServiceInstance(retrofit: Retrofit): MainVideoListServiceInstance {
-        return retrofit.create(MainVideoListServiceInstance::class.java)
-    }
-
-    @Singleton
-    @Provides
-    fun getMainVideoListInstance() : Retrofit {
+    fun getRetrofitInstance() : Retrofit {
         return Retrofit.Builder()
             .baseUrl("http://10.0.2.2:8080/")
             .addConverterFactory(GsonConverterFactory.create(gson))

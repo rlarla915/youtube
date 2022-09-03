@@ -1,6 +1,7 @@
 {
     "videos" : [
     {
+        "id": "a1",
         "thumbnailUrl": "https://picsum.photos/600/600/?random",
         "title": "test",
         "createTime":"2019-12-10T12:14:20",
@@ -12,6 +13,7 @@
         }
     },
     {
+        "id": "a2",
         "thumbnailUrl": "https://picsum.photos/600/600/?random",
         "title": "test",
         "createTime":"2019-12-10T12:14:20",
@@ -23,6 +25,7 @@
         }
     },
     {
+        "id": "a3",
         "thumbnailUrl": "https://picsum.photos/600/600/?random",
         "title": "test",
         "createTime":"2019-12-10T12:14:20",
@@ -33,6 +36,7 @@
             "subscribe": 15000
         }
     },{
+        "id": "a4",
         "thumbnailUrl": "https://picsum.photos/600/600/?random",
         "title": "test",
         "createTime":"2019-12-10T12:14:20",
@@ -43,5 +47,19 @@
             "subscribe": 15000
         }
     }
-]
+],
+
+    "video_info":[
+        {
+        "videoUrl":"http://sample.vodobox.net/skate_phantom_flex_4k/skate_phantom_flex_4k.m3u8",
+        "playerVideoInfo":{
+            "like":15000,
+            "bestComment":{
+                "channelProfileUrl":"https://picsum.photos/600/600/?random",
+                "text":"너무 재밌어용"
+            },
+            "numComments":85
+        }
+        }
+    ]
 }

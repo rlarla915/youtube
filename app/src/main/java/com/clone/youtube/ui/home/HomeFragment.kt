@@ -21,6 +21,7 @@ import com.clone.youtube.model.Comment
 import com.clone.youtube.model.MainVideoListItem
 import com.clone.youtube.viewmodel.HomeViewModel
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.runBlocking
 import java.time.LocalDateTime
 
 @AndroidEntryPoint
@@ -49,6 +50,7 @@ class HomeFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
 
         homeViewModel.loadMainVideoList()
 

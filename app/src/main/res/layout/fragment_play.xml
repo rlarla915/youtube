@@ -2,29 +2,36 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context=".ui.home.HomeFragment">
+    tools:context=".ui.play.PlayFragment">
     <data>
         <variable
-            name="home"
-            type="com.clone.youtube.viewmodel.HomeViewModel" />
+            name="viewModel"
+            type="com.clone.youtube.viewmodel.PlayViewModel" />
     </data>
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/white">
-        <com.google.android.exoplayer2.ui.PlayerView
+        <com.google.android.exoplayer2.ui.StyledPlayerView
             android:id="@+id/video_player"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:controller_layout_id="@layout/video_controller"
             app:show_timeout="10000"
             app:use_controller="true"
+            app:setVideoUrl="@{viewModel.videoUrl}"
+            app:setPlayWhenReady="@{viewModel.playWhenReady}"
+            app:setCurrentWindow="@{viewModel.currentWindow}"
+            app:setPlayBackPosition="@{viewModel.playBackPosition}"
             app:layout_constraintTop_toTopOf="parent"/>
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recycler_video_player"
             android:layout_width="match_parent"
             android:layout_height="0dp"
+            app:setPlayerInfo="@{viewModel.playerVideoInfo}"
+            app:setPlayerInfoFromList="@{viewModel.playerVideoInfoFromList}"
+            app:setPlayerVideoList="@{viewModel.playerVideoList}"
             app:layout_constraintTop_toBottomOf="@+id/video_player"
             app:layout_constraintBottom_toBottomOf="parent">
 

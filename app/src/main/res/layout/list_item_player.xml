@@ -4,8 +4,11 @@
     xmlns:tools="http://schemas.android.com/tools">
     <data>
         <variable
-            name="list_item"
-            type="com.clone.youtube.viewmodel.HomeViewModel" />
+            name="videoInfo"
+            type="com.clone.youtube.model.PlayerVideoInfo" />
+        <variable
+            name="videoInfoFromList"
+            type="com.clone.youtube.model.MainVideoListItem" />
     </data>
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -28,6 +31,7 @@
                 app:layout_constraintLeft_toLeftOf="parent"
                 android:textSize="@dimen/player_title_fontSize"
                 android:textColor="@color/main_font_color"
+                android:text="@{videoInfoFromList.title}"
                 app:layout_constraintRight_toLeftOf="@+id/player_ic_down"/>
             <TextView
                 android:id="@+id/video_text_subtitle"
@@ -38,6 +42,8 @@
                 app:layout_constraintLeft_toLeftOf="parent"
                 android:textSize="@dimen/video_subtitle_fontSize"
                 android:textColor="@color/sub_font_color"
+                app:setPlayerView="@{videoInfoFromList.view}"
+                app:setPlayerCreateTime="@{videoInfoFromList.createTime}"
                 app:layout_constraintRight_toLeftOf="@+id/player_ic_down"/>
             <ImageView
                 android:id="@+id/player_ic_down"
@@ -68,7 +74,7 @@
                     android:layout_marginHorizontal="@dimen/video_like_box_padding_horizontal"
                     android:textSize="@dimen/video_like_box_fontSize"
                     android:textAlignment="center"
-                    android:text="1.5천"
+                    app:setLiteralString="@{videoInfo.like}"
                     app:drawableTopCompat="@drawable/ic_thumb_up_24" />
                 <TextView
                     android:id="@+id/video_text_dislike"
@@ -146,6 +152,7 @@
                 android:layout_width="@dimen/profile_radius"
                 android:layout_height="@dimen/profile_radius"
                 android:layout_margin="12dp"
+                app:imageUrl="@{videoInfoFromList.channel.profileUrl}"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent"/>
@@ -159,6 +166,7 @@
                 android:gravity="left"
                 android:textSize="@dimen/channel_name_fontSize"
                 android:textColor="@color/main_font_color"
+                android:text="@{videoInfoFromList.channel.name}"
                 app:layout_constraintLeft_toRightOf="@+id/video_channel_image"
                 app:layout_constraintRight_toLeftOf="@+id/video_channel_text_subscribe"
                 app:layout_constraintTop_toTopOf="parent"/>
@@ -172,6 +180,7 @@
                 android:gravity="left"
                 android:textSize="@dimen/channel_sub_fontSize"
                 android:textColor="@color/sub_font_color"
+                app:setChannelSubscribe="@{videoInfoFromList.channel.subscribe}"
                 app:layout_constraintLeft_toRightOf="@id/video_channel_image"
                 app:layout_constraintRight_toLeftOf="@id/video_channel_text_subscribe"
                 app:layout_constraintTop_toBottomOf="@id/video_channel_name"/>
@@ -211,6 +220,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="6dp"
+                    android:text="@{String.valueOf(videoInfo.numComments)}"
                     android:textColor="@color/sub_font_color"/>
             </LinearLayout>
             <ImageView
@@ -226,12 +236,14 @@
                 app:layout_constraintTop_toBottomOf="@id/video_comment_num_box"
                 app:layout_constraintLeft_toLeftOf="parent"
                 android:layout_marginTop="6dp"
+                app:imageUrl="@{videoInfo.bestComment.channelProfileUrl}"
                 app:layout_constraintBottom_toBottomOf="parent"/>
             <TextView
                 android:id="@+id/video_comment_text"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="6dp"
+                android:text="@{videoInfo.bestComment.text}"
                 app:layout_constraintTop_toBottomOf="@id/video_comment_num_box"
                 app:layout_constraintLeft_toRightOf="@id/video_comment_image"
                 app:layout_constraintRight_toRightOf="parent"

@@ -33,11 +33,7 @@ open class MainVideoListAdapter() :
                         bottomSheetDialog.setContentView(bottomSheetView.root)
                 }
                 fun bind(data: MainVideoListItem) {
-                        binding.listItemTitle.text = data.title
-                        binding.listItemSubtitle.text = data.channel.name + " • " + integerToString(data.view) + "회" + " • " + data.createTime.toLiteralString() + " 전"
-
-                        Glide.with(itemView).load(data.thumbnailUrl).into(binding.listItemVideoThumbnail)
-                        Glide.with(itemView).load(data.channel.profileUrl).into(binding.listItemChannelImage)
+                        binding.listItem = data
                         binding.listItemButton.setOnClickListener {
                                 bottomSheetDialog.show()
                         }
@@ -47,16 +43,6 @@ open class MainVideoListAdapter() :
                                 mainActivity.supportFragmentManager.beginTransaction().replace(R.id.nav_host_fragment_activity_main, playFragment.apply { arguments = Bundle().apply { putParcelable("videoInfo", data)} }).commit()
                         }
                 }
-                fun integerToString(number : Int) : String{
-                        return when{
-                                number >= 1E8 -> "${String.format("%.1f", (number.toFloat()/1E8))}억"
-                                number >= 1E4 -> "${String.format("%.1f", (number.toFloat()/1E4))}만"
-                                number >= 1E3 -> "${String.format("%.1f", (number.toFloat()/1E8))}천"
-                                else -> number.toString()
-                        }
-                }
-
-
         }
         // Create new views (invoked by the layout manager)
         override fun onCreateViewHolder(viewGroup: ViewGroup, viewType: Int): RecyclerView.ViewHolder {

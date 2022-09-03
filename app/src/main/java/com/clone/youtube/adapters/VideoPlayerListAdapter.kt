@@ -1,11 +1,13 @@
 package com.clone.youtube.adapters;
 
+import android.content.Context
 import android.content.res.Resources
 import android.os.Build
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.FragmentActivity
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.clone.youtube.MainActivity
@@ -17,48 +19,34 @@ import com.clone.youtube.extensions.toLiteralString
 import com.clone.youtube.model.Channel
 import com.clone.youtube.model.Comment
 import com.clone.youtube.model.MainVideoListItem
+import com.clone.youtube.model.PlayerVideoInfo
 import com.clone.youtube.ui.play.BottomSheetDialogComments
 import com.google.android.material.bottomsheet.BottomSheetDialog
+import dagger.hilt.android.qualifiers.ActivityContext
 import java.time.Duration
 import java.time.LocalDateTime
+import javax.inject.Inject
 
 
-class VideoPlayerListAdapter(val videoInfo : MainVideoListItem, val VideodataSet: ArrayList<MainVideoListItem>) :
+class VideoPlayerListAdapter :
         MainVideoListAdapter() {
-
+        var playerVideoInfo : PlayerVideoInfo? = null
+        var playerVideoInfoEtc : MainVideoListItem? = null
         class PlayerViewHolder(private val binding: ListItemPlayerBinding, private val viewGroup: ViewGroup) :
                 RecyclerView.ViewHolder(binding.root) {
-                fun bind(data: MainVideoListItem) {
-                        binding.videoTextTitle.text = data.title
-                        binding.videoTextSubtitle.text = "조회수 " + integerToString(data.view)+"회 • " + data.createTime.toLiteralString() + " 전"
-                        binding.videoTextLike.text = "1.5만"//integerToString(data.likes)
-                        Glide.with(itemView).load(data.channel.profileUrl).into(binding.videoChannelImage)
-                        binding.videoChannelName.text = data.channel.name
-                        binding.videoChannelNumSubscribe.text = "구독자 " + integerToString(data.channel.subscribe)+"명"
+                fun bind(playerVideoInfo : PlayerVideoInfo?, playerVideoInfoFromList : MainVideoListItem?) {
                         binding.videoChannelTextSubscribe.setOnClickListener {
                                 // need to add
                         }
-                        binding.videoCommentNumComment.text = "12"//data.comments.size.toString()
 
                         binding.videoCommentBox.setOnClickListener {
                                 var bottomSheetDialogComments = BottomSheetDialogComments()
-                                var mainActivity = viewGroup.context as MainActivity
+                                val mainActivity = viewGroup.context as MainActivity
                                 bottomSheetDialogComments.show(mainActivity.supportFragmentManager, "comments")
                         }
-                        var bestComment : Comment = Comment(Channel("침착맨", "https://picsum.photos/600/600/?random", 150000), LocalDateTime.of(2022, 1, 26, 19, 30, 20), 150000, "너무 재밌어용~")
-                        Glide.with(itemView).load(bestComment.channel.profileUrl).into(binding.videoCommentImage)
-                        binding.videoCommentText.text = bestComment.text
+                        binding.videoInfo = playerVideoInfo
+                        binding.videoInfoFromList = playerVideoInfoFromList
                 }
-                fun integerToString(number : Int) : String{
-                        return when{
-                                number >= 1E8 -> "${String.format("%.1f", (number.toFloat()/1E8))}억"
-                                number >= 1E4 -> "${String.format("%.1f", (number.toFloat()/1E4))}만"
-                                number >= 1E3 -> "${String.format("%.1f", (number.toFloat()/1E8))}천"
-                                else -> number.toString()
-                        }
-                }
-
-
         }
 
 
@@ -86,7 +74,7 @@ class VideoPlayerListAdapter(val videoInfo : MainVideoListItem, val VideodataSet
         override fun onBindViewHolder(viewHolder: RecyclerView.ViewHolder, position: Int) {
                 when (position) {
                         0 -> {
-                                (viewHolder as PlayerViewHolder).bind(videoInfo)
+                                (viewHolder as PlayerViewHolder).bind(playerVideoInfo, playerVideoInfoEtc)
                         }
                         else -> {
                                 super.onBindViewHolder(viewHolder, position-1)
@@ -99,7 +87,7 @@ class VideoPlayerListAdapter(val videoInfo : MainVideoListItem, val VideodataSet
         }
 
         // Return the size of your dataset (invoked by the layout manager)
-        override fun getItemCount() = VideodataSet.size + 1
+        override fun getItemCount() = super.dataSet.size + 1
 
         override fun getItemViewType(position: Int): Int {
                 return when (position) {

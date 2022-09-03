@@ -8,6 +8,8 @@ import java.time.LocalDateTime
 
 @Parcelize
 data class MainVideoListItem(
+    @SerializedName("id")
+    var id: String,
     @SerializedName("thumbnailUrl")
     var thumbnailUrl: String,
     @SerializedName("title")
