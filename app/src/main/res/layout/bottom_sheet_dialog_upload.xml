@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+    <data>
+        <variable
+            name="home"
+            type="com.clone.youtube.viewmodel.HomeViewModel" />
+    </data>
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/bottom_sheet_dialog_comments"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior"
+        android:background="@drawable/bottom_sheet_background"
+        app:behavior_hideable="true"
+        app:behavior_draggable="false">
+
+        <ImageButton
+            android:id="@+id/bottom_dialog_close"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="#00000000"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            android:layout_margin="@dimen/bottom_dialog_item_margin"
+            android:src="@drawable/ic_close_24"/>
+
+        <TextView
+            android:id="@+id/bottom_dialog_text_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/bottom_dialog_item_margin"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            android:textSize="@dimen/bottom_dialog_item_fontSize"
+            android:textColor="@color/main_font_color"
+            android:text="@string/title_upload"/>
+
+        <LinearLayout
+            android:id="@+id/upload_shorts"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintTop_toBottomOf="@id/bottom_dialog_text_title">
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/list_item_icon_shorts"
+                android:layout_width="@dimen/upload_list_item_icon_radius"
+                android:layout_height="@dimen/upload_list_item_icon_radius"
+                android:layout_margin="@dimen/upload_list_item_margin"
+                android:src="@drawable/ic_shorts"
+                app:civ_circle_background_color="@color/dark_gray"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/upload_shorts"
+                android:layout_margin="@dimen/upload_list_item_margin"
+                android:textSize="@dimen/upload_list_item_fontSize"/>
+        </LinearLayout>
+        <LinearLayout
+            android:id="@+id/upload_video"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintTop_toBottomOf="@id/upload_shorts">
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/list_item_icon_video"
+                android:layout_width="@dimen/upload_list_item_icon_radius"
+                android:layout_height="@dimen/upload_list_item_icon_radius"
+                android:layout_margin="@dimen/upload_list_item_margin"
+                android:src="@drawable/ic_file_upload_24"
+                app:civ_circle_background_color="@color/dark_gray"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/upload_video"
+                android:layout_margin="@dimen/upload_list_item_margin"
+                android:textSize="@dimen/upload_list_item_fontSize"/>
+        </LinearLayout>
+        <LinearLayout
+            android:id="@+id/upload_streaming"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintTop_toBottomOf="@id/upload_video">
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/list_item_icon_streaming"
+                android:layout_width="@dimen/upload_list_item_icon_radius"
+                android:layout_height="@dimen/upload_list_item_icon_radius"
+                android:layout_margin="@dimen/upload_list_item_margin"
+                android:src="@drawable/ic_sensors_24"
+
+                app:civ_circle_background_color="@color/dark_gray"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/upload_streaming"
+                android:layout_margin="@dimen/upload_list_item_margin"
+                android:textSize="@dimen/upload_list_item_fontSize"/>
+        </LinearLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

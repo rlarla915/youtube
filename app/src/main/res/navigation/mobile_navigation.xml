@@ -32,14 +32,26 @@
     </fragment>
 
     <fragment
-        android:id="@+id/navigation_dashboard"
+        android:id="@+id/navigation_shorts"
         android:name="com.clone.youtube.ui.dashboard.DashboardFragment"
-        android:label="@string/title_dashboard"
+        android:label="@string/title_shorts"
         tools:layout="@layout/fragment_dashboard" />
 
     <fragment
-        android:id="@+id/navigation_notifications"
+        android:id="@+id/navigation_upload"
+        android:name="com.clone.youtube.ui.dashboard.DashboardFragment"
+        android:label="@string/title_shorts"
+        tools:layout="@layout/fragment_dashboard" />
+
+    <fragment
+        android:id="@+id/navigation_subscribe"
+        android:name="com.clone.youtube.ui.dashboard.DashboardFragment"
+        android:label="@string/title_subscribe"
+        tools:layout="@layout/fragment_dashboard" />
+
+    <fragment
+        android:id="@+id/navigation_store"
         android:name="com.clone.youtube.ui.notifications.NotificationsFragment"
-        android:label="@string/title_notifications"
+        android:label="@string/title_store"
         tools:layout="@layout/fragment_notifications" />
 </navigation>
