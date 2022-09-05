@@ -26,6 +26,7 @@ class VideoRepository @Inject constructor(retrofit: Retrofit) {
         suspend fun getVideoInfo(liveDataVideoInfo : MutableLiveData<PlayerVideoInfo>){
                 val response = client.getVideoInfo()
                 if (response.isSuccessful && response.body() != null){
+                        Log.d("QQ", response.body()!!.like.toString())
                         liveDataVideoInfo.postValue(response.body())
                 }
         }

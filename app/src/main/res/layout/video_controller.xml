@@ -3,9 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
     <data>
-        <variable
-            name="home"
-            type="com.clone.youtube.viewmodel.HomeViewModel" />
+
     </data>
 <androidx.constraintlayout.widget.ConstraintLayout
     android:id="@+id/constraintL_control"

@@ -9,6 +9,7 @@ import com.clone.youtube.model.PlayerVideoInfo
 import com.clone.youtube.model.VideoRepository
 import com.clone.youtube.ui.play.MediaPlayer.MediaPlayerImpl
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -40,7 +41,10 @@ class PlayViewModel @Inject constructor(private val videoRepository: VideoReposi
 
     fun loadPlayerVideoInfo(){
         viewModelScope.launch {
-            videoRepository.getVideoInfo(playerVideoInfo)
+            listOf(
+                async { videoRepository.getVideoInfo(playerVideoInfo) },
+                async { videoRepository.getVideoList(playerVideoList) }
+            )
         }
     }
 

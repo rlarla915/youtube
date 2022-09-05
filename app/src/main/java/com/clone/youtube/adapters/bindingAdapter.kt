@@ -93,8 +93,8 @@ object BindingAdapter {
 
     @BindingAdapter("setVideoUrl", "setPlayWhenReady", "setCurrentWindow", "setPlayBackPosition")
     @JvmStatic
-    fun setExoPlayerVideoUrl(styledPlayerView: StyledPlayerView, url:String?, playWhenReady : Boolean, currentWindow : Int, playBackPosition : Long){
-        val exoPlayer = styledPlayerView.player
+    fun setExoPlayerVideoUrl(playerView: PlayerView, url:String?, playWhenReady : Boolean, currentWindow : Int, playBackPosition : Long){
+        val exoPlayer = playerView.player
         if (url == null){
 
         }
@@ -104,7 +104,6 @@ object BindingAdapter {
             exoPlayer?.playWhenReady = playWhenReady
             exoPlayer?.seekTo(currentWindow, playBackPosition)
             exoPlayer?.prepare()
-            Log.d("ZZZ", url)
         }
     }
 }

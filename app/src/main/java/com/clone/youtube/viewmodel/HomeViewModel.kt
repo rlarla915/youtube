@@ -34,7 +34,7 @@ class HomeViewModel @Inject constructor(private val videoRepository: VideoReposi
                 async { videoRepository.getVideoList3() },
                 async { videoRepository.getVideoList4() }
             )
-        }.awaitAll()
+        }.awaitAll() // 이거 observable로 짜면 await 안 걸어도 되겠지?
 
          */
     }

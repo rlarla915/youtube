@@ -53,16 +53,13 @@
     }
 ],
 
-    "video_info":
-        {
-        "playerVideoInfo":{
-            "like":15000,
-            "bestComment":{
-                "channelProfileUrl":"https://picsum.photos/600/600/?random",
-                "text":"너무 재밌어용"
-            },
-            "numComments":85
-        }
+    "video_info": {
+        "like":15000,
+        "bestComment":{
+            "channelProfileUrl":"https://picsum.photos/600/600/?random",
+            "text":"너무 재밌어용"
+        },
+        "numComments":85
     }
     
 }
