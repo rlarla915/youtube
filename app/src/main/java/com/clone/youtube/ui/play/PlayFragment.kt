@@ -11,6 +11,8 @@ import androidx.core.view.WindowInsetsControllerCompat
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Observer
+import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.clone.youtube.MainActivity
 import com.clone.youtube.R
@@ -29,6 +31,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.video_controller.view.*
 import java.time.LocalDateTime
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class PlayFragment : Fragment() {
@@ -37,12 +40,13 @@ class PlayFragment : Fragment() {
     // onDestroyView.
     lateinit var mainActivity: MainActivity
     private lateinit var binding: FragmentPlayBinding
-    private lateinit var controllerBinding: VideoControllerBinding
+    //private lateinit var controllerBinding: VideoControllerBinding
     val playViewModel : PlayViewModel by viewModels()
     private var player : ExoPlayer? = null
 
     var fullscreen : Boolean = false
 
+    val args : PlayFragmentArgs by navArgs()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -54,7 +58,7 @@ class PlayFragment : Fragment() {
         binding.lifecycleOwner = viewLifecycleOwner
         binding.viewModel = playViewModel
 
-        playViewModel.playerVideoInfoFromList.value = arguments?.getParcelable<MainVideoListItem>("videoInfo")
+        playViewModel.playerVideoInfoFromList.value = args.videoInfoFromList
 
         binding.videoPlayer.exo_fullscreen.setOnClickListener {
             changeFullScreen(it)
@@ -77,21 +81,21 @@ class PlayFragment : Fragment() {
     override fun onPause() {
         super.onPause()
         if (Util.SDK_INT < 24){
-            releasePlayer()
+            playViewModel.release()
         }
     }
 
     override fun onStop() {
         super.onStop()
         if(Util.SDK_INT >= 24){
-            releasePlayer()
+            playViewModel.release()
         }
     }
 
     override fun onStart() {
         super.onStart()
         if (Util.SDK_INT >= 24){
-            //initPlayer()
+            initPlayer()
         }
     }
 
@@ -99,38 +103,20 @@ class PlayFragment : Fragment() {
         super.onResume()
         //hideSystemUi()
         if ((Util.SDK_INT < 24 || player == null)){
-            //initPlayer()
+            initPlayer()
         }
     }
 
     // need to fix to make adaptive streaming format
     // https://developer.android.com/codelabs/exoplayer-intro#4
-    /*
+
     private fun initPlayer(){
-        player = ExoPlayer.Builder(mainActivity).build().also{
-            exoPlayer ->
-            binding.videoPlayer.player = exoPlayer
-            val mediaItem = MediaItem.fromUri("http://sample.vodobox.net/skate_phantom_flex_4k/skate_phantom_flex_4k.m3u8")
-            exoPlayer.setMediaItem(mediaItem)
-            //exoPlayer.playWhenReady = PlayWhenReady
-            //exoPlayer.seekTo(currentWindow, playBackPosition)
-            //exoPlayer.prepare()
-
-        }
+        player = playViewModel.getMediaPlayer().getPlayer(mainActivity)
+        binding.videoPlayer.player = player
+        playViewModel.play()
 
     }
 
-     */
-
-    private fun releasePlayer() {
-        player?.run {
-            //playBackPosition = this.currentPosition
-            //currentWindow = this.currentMediaItemIndex
-            //PlayWhenReady = this.playWhenReady
-            release()
-        }
-        player = null
-    }
 
     private fun hideSystemUi() {
         WindowCompat.setDecorFitsSystemWindows(mainActivity.window, false)

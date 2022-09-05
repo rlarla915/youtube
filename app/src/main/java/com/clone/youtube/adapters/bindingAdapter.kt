@@ -21,9 +21,6 @@ object BindingAdapter {
     @BindingAdapter("setVideoList")
     @JvmStatic
     fun setVideoItemList(recyclerView: RecyclerView, itemList: ArrayList<MainVideoListItem>?) {
-        if (recyclerView.adapter == null) {
-            recyclerView.adapter = MainVideoListAdapter()
-        }
         val adapter = recyclerView.adapter as MainVideoListAdapter
         
         // 시작할 때는 itemList가 null이기 때문에
@@ -107,6 +104,7 @@ object BindingAdapter {
             exoPlayer?.playWhenReady = playWhenReady
             exoPlayer?.seekTo(currentWindow, playBackPosition)
             exoPlayer?.prepare()
+            Log.d("ZZZ", url)
         }
     }
 }

@@ -28,13 +28,15 @@ import java.time.LocalDateTime
 import javax.inject.Inject
 
 
-class VideoPlayerListAdapter :
+class VideoPlayerListAdapter @Inject constructor() :
         MainVideoListAdapter() {
-        var playerVideoInfo : PlayerVideoInfo? = null
+                var playerVideoInfo : PlayerVideoInfo? = null
         var playerVideoInfoEtc : MainVideoListItem? = null
         class PlayerViewHolder(private val binding: ListItemPlayerBinding, private val viewGroup: ViewGroup) :
                 RecyclerView.ViewHolder(binding.root) {
                 fun bind(playerVideoInfo : PlayerVideoInfo?, playerVideoInfoFromList : MainVideoListItem?) {
+                        binding.videoInfo = playerVideoInfo
+                        binding.videoInfoFromList = playerVideoInfoFromList
                         binding.videoChannelTextSubscribe.setOnClickListener {
                                 // need to add
                         }
@@ -44,8 +46,6 @@ class VideoPlayerListAdapter :
                                 val mainActivity = viewGroup.context as MainActivity
                                 bottomSheetDialogComments.show(mainActivity.supportFragmentManager, "comments")
                         }
-                        binding.videoInfo = playerVideoInfo
-                        binding.videoInfoFromList = playerVideoInfoFromList
                 }
         }
 

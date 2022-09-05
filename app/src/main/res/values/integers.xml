@@ -6,4 +6,6 @@
     <integer name="secondOfDay">86400</integer>
     <integer name="secondOfHour">3600</integer>
 
+    <integer name="slide">200</integer>
+
 </resources>

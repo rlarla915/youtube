@@ -2,6 +2,7 @@
     "videos" : [
     {
         "id": "a1",
+        "videoUrl":"http://sample.vodobox.net/skate_phantom_flex_4k/skate_phantom_flex_4k.m3u8",
         "thumbnailUrl": "https://picsum.photos/600/600/?random",
         "title": "test",
         "createTime":"2019-12-10T12:14:20",
@@ -14,6 +15,7 @@
     },
     {
         "id": "a2",
+        "videoUrl":"http://sample.vodobox.net/skate_phantom_flex_4k/skate_phantom_flex_4k.m3u8",
         "thumbnailUrl": "https://picsum.photos/600/600/?random",
         "title": "test",
         "createTime":"2019-12-10T12:14:20",
@@ -26,6 +28,7 @@
     },
     {
         "id": "a3",
+        "videoUrl":"http://sample.vodobox.net/skate_phantom_flex_4k/skate_phantom_flex_4k.m3u8",
         "thumbnailUrl": "https://picsum.photos/600/600/?random",
         "title": "test",
         "createTime":"2019-12-10T12:14:20",
@@ -37,6 +40,7 @@
         }
     },{
         "id": "a4",
+        "videoUrl":"http://sample.vodobox.net/skate_phantom_flex_4k/skate_phantom_flex_4k.m3u8",
         "thumbnailUrl": "https://picsum.photos/600/600/?random",
         "title": "test",
         "createTime":"2019-12-10T12:14:20",
@@ -49,9 +53,8 @@
     }
 ],
 
-    "video_info":[
+    "video_info":
         {
-        "videoUrl":"http://sample.vodobox.net/skate_phantom_flex_4k/skate_phantom_flex_4k.m3u8",
         "playerVideoInfo":{
             "like":15000,
             "bestComment":{
@@ -60,6 +63,6 @@
             },
             "numComments":85
         }
-        }
-    ]
+    }
+    
 }

@@ -23,6 +23,7 @@ import com.clone.youtube.viewmodel.HomeViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.runBlocking
 import java.time.LocalDateTime
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class HomeFragment : Fragment() {

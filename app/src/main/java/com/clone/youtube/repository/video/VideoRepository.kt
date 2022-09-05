@@ -23,11 +23,10 @@ class VideoRepository @Inject constructor(retrofit: Retrofit) {
                 }
         }
 
-        suspend fun getVideoInfo(liveDataVideoUrl : MutableLiveData<String>, liveDataVideoInfo : MutableLiveData<PlayerVideoInfo>){
+        suspend fun getVideoInfo(liveDataVideoInfo : MutableLiveData<PlayerVideoInfo>){
                 val response = client.getVideoInfo()
                 if (response.isSuccessful && response.body() != null){
-                        liveDataVideoUrl.postValue(response.body()?.videoUrl)
-                        liveDataVideoInfo.postValue(response.body()?.playerVideoInfo)
+                        liveDataVideoInfo.postValue(response.body())
                 }
         }
 }

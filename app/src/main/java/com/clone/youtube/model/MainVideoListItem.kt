@@ -10,6 +10,8 @@ import java.time.LocalDateTime
 data class MainVideoListItem(
     @SerializedName("id")
     var id: String,
+    @SerializedName("videoUrl")
+    var videoUrl : String,
     @SerializedName("thumbnailUrl")
     var thumbnailUrl: String,
     @SerializedName("title")
