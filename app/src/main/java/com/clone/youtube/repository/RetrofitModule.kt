@@ -11,11 +11,21 @@ import retrofit2.converter.gson.GsonConverterFactory
 import java.lang.reflect.Type
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
+import javax.inject.Qualifier
 import javax.inject.Singleton
+
+@Qualifier
+@Retention(AnnotationRetention.BINARY)
+annotation class LocalJsonServer
+
+@Qualifier
+@Retention(AnnotationRetention.BINARY)
+annotation class GoogleCloudStorage
 
 @Module
 @InstallIn(SingletonComponent::class)
 object RetrofitModule {
+
     class MyJsonDeserializer() : JsonDeserializer<LocalDateTime>{
         override fun deserialize(
             json: JsonElement?,
@@ -40,10 +50,21 @@ object RetrofitModule {
 
     @Singleton
     @Provides // module에서 provides를 하는 이유는 retrofit같은 외부 라이브러리 객체도 의존성 주입을 할 수 있기 때문. inject를 못함
-    fun getRetrofitInstance() : Retrofit {
+    @LocalJsonServer
+    fun getRetrofitInstanceLocal() : Retrofit {
         return Retrofit.Builder()
             .baseUrl("http://10.0.2.2:8080/")
             .addConverterFactory(GsonConverterFactory.create(gson))
+            .build()
+    }
+
+    @Singleton
+    @Provides // module에서 provides를 하는 이유는 retrofit같은 외부 라이브러리 객체도 의존성 주입을 할 수 있기 때문. inject를 못함
+    @GoogleCloudStorage
+    fun getRetrofitInstanceCloud() : Retrofit {
+        return Retrofit.Builder()
+            .baseUrl("https://storage.googleapis.com/")
+            .addConverterFactory(GsonConverterFactory.create())
             .build()
     }
 }

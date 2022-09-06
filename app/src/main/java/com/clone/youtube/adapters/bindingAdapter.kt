@@ -1,5 +1,6 @@
 package com.clone.youtube.adapters
 
+import android.graphics.Bitmap
 import android.util.Log
 import android.widget.ImageView
 import android.widget.TextView
@@ -64,6 +65,15 @@ object BindingAdapter {
     fun imageUrl(imageView: ImageView, url: String?){
         if (url != null) {
             Glide.with(imageView.context).load(url).into(imageView)
+        }
+    }
+
+    @BindingAdapter("thumbnailBitmap")
+    @JvmStatic
+    fun thumbnailBitmap(imageView: ImageView, bitmap: Bitmap?){
+        if (bitmap != null) {
+            Log.d("XX", "bitmap")
+            Glide.with(imageView.context).load(bitmap).into(imageView)
         }
     }
 

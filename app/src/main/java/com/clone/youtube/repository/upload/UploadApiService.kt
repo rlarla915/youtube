@@ -1,4 +1,4 @@
-package com.clone.youtube.repository.video
+package com.clone.youtube.repository.upload
 
 import com.clone.youtube.model.MainVideoListItem
 import com.clone.youtube.model.PlayerVideoInfo
@@ -11,10 +11,8 @@ import retrofit2.http.Headers
 import retrofit2.http.POST
 
 
-interface VideoApiService {
-    @GET("videos")
-    suspend fun getVideoList(): Response<ArrayList<MainVideoListItem>>
-
-    @GET("video_info")
-    suspend fun getVideoInfo(): Response<PlayerVideoInfo>
+interface UploadApiService {
+    @Headers("Content-Type: video/mp4")
+    @POST("youtube_videos_bucket")
+    suspend fun uploadVideo(@Body body: RequestBody)
 }
