@@ -38,12 +38,6 @@
         tools:layout="@layout/fragment_dashboard" />
 
     <fragment
-        android:id="@+id/navigation_upload"
-        android:name="com.clone.youtube.ui.dashboard.DashboardFragment"
-        android:label="@string/title_shorts"
-        tools:layout="@layout/fragment_dashboard" />
-
-    <fragment
         android:id="@+id/navigation_subscribe"
         android:name="com.clone.youtube.ui.dashboard.DashboardFragment"
         android:label="@string/title_subscribe"

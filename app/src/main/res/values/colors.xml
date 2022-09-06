@@ -9,5 +9,5 @@
     <color name="white">#FFFFFFFF</color>
     <color name="main_font_color">#000000</color>
     <color name="sub_font_color">#AAAAAA</color>
-    <color name="dark_gray">#333333</color>
+    <color name="dark_gray">#AAAAAA</color>
 </resources>

@@ -12,9 +12,10 @@
         android:title="@string/title_shorts" />
 
     <item
-        android:id="@+id/navigation_upload"
-        android:icon="@drawable/ic_add_circle_outline_36"
-        android:title="" />
+        android:id="@+id/action_empty"
+        android:title=""
+        android:enabled="false"
+        android:checkable="false"/>
     <item
         android:id="@+id/navigation_subscribe"
         android:icon="@drawable/ic_subscribe"

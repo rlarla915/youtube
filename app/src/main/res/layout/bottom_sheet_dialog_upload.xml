@@ -4,8 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools">
     <data>
         <variable
-            name="home"
-            type="com.clone.youtube.viewmodel.HomeViewModel" />
+            name="viewModel"
+            type="com.clone.youtube.ui.upload.BottomSheetDialogUploadViewModel" />
     </data>
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/bottom_sheet_dialog_comments"
@@ -64,6 +64,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
+            android:onClick="@{()->viewModel.clickUploadVideo()}"
             app:layout_constraintTop_toBottomOf="@id/upload_shorts">
             <de.hdodenhof.circleimageview.CircleImageView
                 android:id="@+id/list_item_icon_video"

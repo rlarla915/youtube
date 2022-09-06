@@ -13,4 +13,5 @@
     <string name="upload_video">동영상 업로드</string>
     <string name="upload_streaming">실시간 스트리밍 시작</string>
     <string name="mid_dot"> • </string>
+    <string name="title_upload_activity">업로드</string>
 </resources>

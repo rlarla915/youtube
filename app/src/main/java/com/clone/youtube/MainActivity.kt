@@ -1,5 +1,6 @@
 package com.clone.youtube
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.activity.viewModels
 import com.google.android.material.bottomnavigation.BottomNavigationView
@@ -11,6 +12,9 @@ import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.clone.youtube.databinding.ActivityMainBinding
+import com.clone.youtube.ui.upload.BottomSheetDialogUpload
+import com.clone.youtube.ui.upload.UploadActivity
+import com.clone.youtube.viewmodel.MainViewModel
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import dagger.hilt.android.AndroidEntryPoint
@@ -19,12 +23,13 @@ import dagger.hilt.android.AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
-    //val viewModel : MainViewModel by viewModels()
+    val mainViewModel : MainViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
+        binding.viewModel = mainViewModel
         binding.lifecycleOwner = this // liveData 관찰을 위해서
 
         val navView: BottomNavigationView = binding.navView
@@ -34,8 +39,14 @@ class MainActivity : AppCompatActivity() {
         // menu should be considered as top level destinations.
 
         val appBarConfiguration = AppBarConfiguration(setOf(
-                R.id.navigation_home, R.id.navigation_shorts, R.id.navigation_upload, R.id.navigation_subscribe, R.id.navigation_store))
+                R.id.navigation_home, R.id.navigation_shorts, R.id.action_empty, R.id.navigation_subscribe, R.id.navigation_store))
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
+
+        // 이거 어떻게 viewModel로 옮길지 생각
+        binding.fabUpload.setOnClickListener {
+            var bottomSheetDialogUpload = BottomSheetDialogUpload()
+            bottomSheetDialogUpload.show(supportFragmentManager, "comments")
+        }
     }
 }
