@@ -13,10 +13,7 @@ import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.clone.youtube.databinding.ActivityMainBinding
 import com.clone.youtube.ui.upload.BottomSheetDialogUpload
-import com.clone.youtube.ui.upload.UploadActivity
 import com.clone.youtube.viewmodel.MainViewModel
-import com.google.firebase.firestore.ktx.firestore
-import com.google.firebase.ktx.Firebase
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint

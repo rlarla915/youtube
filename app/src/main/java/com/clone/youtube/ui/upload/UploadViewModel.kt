@@ -19,10 +19,11 @@ import javax.inject.Inject
 @HiltViewModel
 class UploadViewModel @Inject constructor(private val uploadRepository: UploadRepository) : ViewModel(){
     val thumbnail = MutableLiveData<Bitmap>()
+    val checkUploadSuccess = MutableLiveData<Unit>()
 
     fun uploadVideo(inputStream: InputStream){
         viewModelScope.launch {
-            uploadRepository.uploadVideo(inputStream)
+            uploadRepository.uploadVideo(inputStream, checkUploadSuccess)
         }
     }
 

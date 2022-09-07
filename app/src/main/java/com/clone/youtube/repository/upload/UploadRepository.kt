@@ -18,8 +18,11 @@ import javax.inject.Inject
 class UploadRepository @Inject constructor(@GoogleCloudStorage retrofit: Retrofit) {
         private val client = retrofit.create(UploadApiService::class.java)
 
-        suspend fun uploadVideo(inputStream: InputStream){
+        suspend fun uploadVideo(inputStream: InputStream, checkUploadSuccess : MutableLiveData<Unit>){
                 val body = RequestBody.create(MediaType.parse("application/octet"), inputStream.readBytes())
-                client.uploadVideo(body)
+                val response = client.uploadVideo(body)
+                if (response.isSuccessful){
+                        checkUploadSuccess.postValue(Unit)
+                }
         }
 }
