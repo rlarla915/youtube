@@ -21,7 +21,9 @@ class UploadRepository @Inject constructor(@GoogleCloudStorage retrofit: Retrofi
         suspend fun uploadVideo(inputStream: InputStream, checkUploadSuccess : MutableLiveData<Unit>){
                 val body = RequestBody.create(MediaType.parse("application/octet"), inputStream.readBytes())
                 val response = client.uploadVideo(body)
-                if (response.isSuccessful){
+                //Log.d("network", response?.code().toString())
+                //Log.d("network", response?.isSuccessful.toString())
+                if (response != null && response.isSuccessful){
                         checkUploadSuccess.postValue(Unit)
                 }
         }

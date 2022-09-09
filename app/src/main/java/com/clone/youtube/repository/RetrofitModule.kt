@@ -6,6 +6,9 @@ import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
+import okhttp3.ResponseBody
+import retrofit2.Converter
+import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import java.lang.reflect.Type
@@ -25,6 +28,27 @@ annotation class GoogleCloudStorage
 @Module
 @InstallIn(SingletonComponent::class)
 object RetrofitModule {
+
+    @Singleton
+    @Provides // module에서 provides를 하는 이유는 retrofit같은 외부 라이브러리 객체도 의존성 주입을 할 수 있기 때문. inject를 못함
+    @LocalJsonServer
+    fun getRetrofitInstanceLocal() : Retrofit {
+        return Retrofit.Builder()
+            .baseUrl("http://10.0.2.2:8080/")
+            .addConverterFactory(GsonConverterFactory.create(gson))
+            .build()
+    }
+
+    @Singleton
+    @Provides // module에서 provides를 하는 이유는 retrofit같은 외부 라이브러리 객체도 의존성 주입을 할 수 있기 때문. inject를 못함
+    @GoogleCloudStorage
+    fun getRetrofitInstanceCloud() : Retrofit {
+        return Retrofit.Builder()
+            .baseUrl("https://storage.googleapis.com/")
+            .addConverterFactory(NullOnEmptyConverterFactory())
+            .addConverterFactory(GsonConverterFactory.create())
+            .build()
+    }
 
     class MyJsonDeserializer() : JsonDeserializer<LocalDateTime>{
         override fun deserialize(
@@ -48,23 +72,16 @@ object RetrofitModule {
         TODO("VERSION.SDK_INT < O")
     }
 
-    @Singleton
-    @Provides // module에서 provides를 하는 이유는 retrofit같은 외부 라이브러리 객체도 의존성 주입을 할 수 있기 때문. inject를 못함
-    @LocalJsonServer
-    fun getRetrofitInstanceLocal() : Retrofit {
-        return Retrofit.Builder()
-            .baseUrl("http://10.0.2.2:8080/")
-            .addConverterFactory(GsonConverterFactory.create(gson))
-            .build()
+    class NullOnEmptyConverterFactory : Converter.Factory() {
+        override fun responseBodyConverter(type: Type?, annotations: Array<Annotation>?, retrofit: Retrofit?): Converter<ResponseBody, *>? {
+            val delegate = retrofit!!.nextResponseBodyConverter<Any>(this, type!!, annotations!!)
+            return Converter<ResponseBody, Any> {
+                if (it.contentLength() == 0L)  return@Converter null
+                delegate.convert(it)
+            }
+        }
+
     }
 
-    @Singleton
-    @Provides // module에서 provides를 하는 이유는 retrofit같은 외부 라이브러리 객체도 의존성 주입을 할 수 있기 때문. inject를 못함
-    @GoogleCloudStorage
-    fun getRetrofitInstanceCloud() : Retrofit {
-        return Retrofit.Builder()
-            .baseUrl("https://storage.googleapis.com/")
-            .addConverterFactory(GsonConverterFactory.create())
-            .build()
-    }
+
 }

@@ -12,5 +12,5 @@ import java.io.InputStream
 interface UploadApiService {
     @Headers("Content-Type: video/mp4")
     @PUT("youtube_videos_bucket/test.mp4")
-    suspend fun uploadVideo(@Body body: RequestBody) : Response<RequestBody>
+    suspend fun uploadVideo(@Body body: RequestBody) : Response<RequestBody>?
 }

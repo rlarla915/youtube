@@ -13,10 +13,6 @@ import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import com.clone.youtube.R
 import com.clone.youtube.databinding.ActivityUploadBinding
-import com.google.cloud.storage.BlobId
-import com.google.cloud.storage.BlobInfo
-import com.google.cloud.storage.Storage
-import com.google.cloud.storage.StorageOptions
 import dagger.hilt.android.AndroidEntryPoint
 import okhttp3.MediaType.get
 import java.nio.ByteBuffer
@@ -57,7 +53,7 @@ class UploadActivity : AppCompatActivity() {
 
     fun initObserve(){
         uploadViewModel.checkUploadSuccess.observe(this, Observer {
-            Toast.makeText(this, "Upload Success", Toast.LENGTH_SHORT)
+            Toast.makeText(this, "Upload Success", Toast.LENGTH_SHORT).show()
         })
     }
 }
