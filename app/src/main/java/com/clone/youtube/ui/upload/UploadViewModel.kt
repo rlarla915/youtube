@@ -8,6 +8,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.clone.youtube.MainActivity
+import com.clone.youtube.extensions.Event
 import com.clone.youtube.model.UploadRepository
 import com.clone.youtube.ui.play.BottomSheetDialogComments
 import com.clone.youtube.ui.upload.BottomSheetDialogUpload
@@ -19,16 +20,20 @@ import javax.inject.Inject
 @HiltViewModel
 class UploadViewModel @Inject constructor(private val uploadRepository: UploadRepository) : ViewModel(){
     val thumbnail = MutableLiveData<Bitmap>()
-    val checkUploadSuccess = MutableLiveData<Unit>()
+    val checkUploadSuccess = MutableLiveData<Event<String>>()
+    val checkClose = MutableLiveData<Event<String>>()
+    lateinit var inputStream : InputStream
 
-    fun uploadVideo(inputStream: InputStream){
+    fun uploadVideo(){
         viewModelScope.launch {
             uploadRepository.uploadVideo(inputStream, checkUploadSuccess)
+            checkClose.postValue(Event("close"))
         }
     }
 
-
-
+    fun close(){
+        checkClose.value = Event("close")
+    }
 
 }
 /*

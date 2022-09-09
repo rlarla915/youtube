@@ -3,6 +3,7 @@ package com.clone.youtube.ui.upload
 import android.os.Build
 import android.os.Bundle
 import android.provider.MediaStore
+import android.util.Log
 import android.util.Size
 import android.widget.Toast
 import androidx.activity.result.PickVisualMediaRequest
@@ -44,16 +45,17 @@ class UploadActivity : AppCompatActivity() {
                 TODO("VERSION.SDK_INT < Q")
             }
             uploadViewModel.thumbnail.postValue(bitmap)
-
-            val stream = contentResolver.openInputStream(uri)
-            uploadViewModel.uploadVideo(stream!!)
+            uploadViewModel.inputStream = contentResolver.openInputStream(uri)!!
         }
         pickMedia.launch(PickVisualMediaRequest(ActivityResultContracts.PickVisualMedia.SingleMimeType("video/mp4")))
     }
 
     fun initObserve(){
         uploadViewModel.checkUploadSuccess.observe(this, Observer {
-            Toast.makeText(this, "Upload Success", Toast.LENGTH_SHORT).show()
+            Toast.makeText(applicationContext, "Upload Success", Toast.LENGTH_SHORT).show()
+        })
+        uploadViewModel.checkClose.observe(this, Observer {
+            finish()
         })
     }
 }

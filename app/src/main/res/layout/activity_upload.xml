@@ -27,6 +27,7 @@
                 android:layout_height="wrap_content"
                 android:background="#00000000"
                 android:layout_margin="@dimen/bottom_dialog_item_margin"
+                android:onClick="@{()->viewModel.close()}"
                 android:src="@drawable/ic_close_24"/>
 
             <TextView
@@ -54,6 +55,7 @@
             android:id="@+id/upload_button"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:onClick="@{()->viewModel.uploadVideo()}"
             android:text="동영상 업로드"
             app:layout_constraintBottom_toBottomOf="parent"/>
 
