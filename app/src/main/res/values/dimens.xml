@@ -20,6 +20,8 @@
     <dimen name="toolbar_margin">16dp</dimen>
     <dimen name="comment_like_box_width">60dp</dimen>
 
+    <dimen name="storage_list_item_margin">16dp</dimen>
+
     <dimen name="upload_list_item_margin">12dp</dimen>
     <dimen name="upload_list_item_fontSize">24sp</dimen>
     <dimen name="upload_list_item_icon_radius">40dp</dimen>
