@@ -1,4 +1,4 @@
-package com.clone.youtube.ui.storage
+package com.clone.youtube.ui.storage.offline
 
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
@@ -18,9 +18,9 @@ import retrofit2.await
 import javax.inject.Inject
 
 @HiltViewModel
-class StorageViewModel @Inject constructor() :
+class OfflineStorageViewModel @Inject constructor() :
     ViewModel() {
-    
+    val offlineVideoList = MutableLiveData<MainVideoListItem>()
 
 
 }

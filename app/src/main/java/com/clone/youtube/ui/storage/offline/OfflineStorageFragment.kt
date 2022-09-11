@@ -1,4 +1,4 @@
-package com.clone.youtube.ui.storage
+package com.clone.youtube.ui.storage.offline
 
 import android.os.Bundle
 import android.util.Log
@@ -16,7 +16,7 @@ import com.clone.youtube.MainActivity
 import com.clone.youtube.R
 import com.clone.youtube.adapters.MainVideoListAdapter
 import com.clone.youtube.databinding.FragmentHomeBinding
-import com.clone.youtube.databinding.FragmentStorageBinding
+import com.clone.youtube.databinding.FragmentOfflineStorageBinding
 import com.clone.youtube.model.Channel
 import com.clone.youtube.model.Comment
 import com.clone.youtube.model.MainVideoListItem
@@ -27,13 +27,13 @@ import java.time.LocalDateTime
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class StorageFragment : Fragment() {
+class OfflineStorageFragment : Fragment() {
 
     // This property is only valid between onCreateView and
     // onDestroyView.
     lateinit var mainActivity: MainActivity
-    private lateinit var binding: FragmentStorageBinding
-    val storageViewModel : StorageViewModel by viewModels()
+    private lateinit var binding: FragmentOfflineStorageBinding
+    val offlineStorageViewModel : OfflineStorageViewModel by viewModels()
 
     override fun onCreateView(
             inflater: LayoutInflater,
@@ -41,11 +41,10 @@ class StorageFragment : Fragment() {
             savedInstanceState: Bundle?
     ): View {
         mainActivity = activity as MainActivity
-        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_storage, container, false)
-        binding.viewModel = storageViewModel
+        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_offline_storage, container, false)
+        binding.viewModel = offlineStorageViewModel
         binding.lifecycleOwner = viewLifecycleOwner
 
-        mainActivity.setSupportActionBar(binding.mainToolbar)
 
         return binding.root
     }
@@ -53,6 +52,6 @@ class StorageFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-    }
 
+    }
 }
