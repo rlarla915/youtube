@@ -28,7 +28,7 @@ import java.time.LocalDateTime
 import javax.inject.Inject
 
 
-class VideoPlayerListAdapter @Inject constructor() :
+class VideoPlayerListAdapter :
         MainVideoListAdapter() {
                 var playerVideoInfo : PlayerVideoInfo? = null
         var playerVideoInfoEtc : MainVideoListItem? = null

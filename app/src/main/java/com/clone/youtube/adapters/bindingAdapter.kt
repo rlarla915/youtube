@@ -11,6 +11,7 @@ import com.bumptech.glide.Glide
 import com.clone.youtube.extensions.toLiteralString
 import com.clone.youtube.model.MainVideoListItem
 import com.clone.youtube.model.PlayerVideoInfo
+import com.clone.youtube.model.offline.OfflineVideo
 import com.google.android.exoplayer2.ExoPlayer
 import com.google.android.exoplayer2.MediaItem
 import com.google.android.exoplayer2.ui.PlayerView
@@ -24,6 +25,21 @@ object BindingAdapter {
     fun setVideoItemList(recyclerView: RecyclerView, itemList: ArrayList<MainVideoListItem>?) {
         val adapter = recyclerView.adapter as MainVideoListAdapter
         
+        // 시작할 때는 itemList가 null이기 때문에
+        if (itemList == null){
+            adapter.dataSet = arrayListOf()
+        }
+        else {
+            adapter.dataSet = itemList
+        }
+        adapter.notifyDataSetChanged()
+    }
+
+    @BindingAdapter("setOfflineVideoList")
+    @JvmStatic
+    fun setOfflineVideoList(recyclerView: RecyclerView, itemList: ArrayList<OfflineVideo>?) {
+        val adapter = recyclerView.adapter as OfflineVideoListAdapter
+
         // 시작할 때는 itemList가 null이기 때문에
         if (itemList == null){
             adapter.dataSet = arrayListOf()

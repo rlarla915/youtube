@@ -21,7 +21,7 @@
                 app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:setVideoList="@{viewModel.offlineVideoList}">
+                app:setOfflineVideoList="@{viewModel.offlineVideoList}">
             </androidx.recyclerview.widget.RecyclerView>
         </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 

@@ -6,6 +6,8 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.clone.youtube.model.MainVideoListItem
 import com.clone.youtube.model.VideoRepository
+import com.clone.youtube.model.offline.OfflineVideo
+import com.clone.youtube.model.offline.OfflineVideoRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.async
 import kotlinx.coroutines.awaitAll
@@ -18,9 +20,12 @@ import retrofit2.await
 import javax.inject.Inject
 
 @HiltViewModel
-class OfflineStorageViewModel @Inject constructor() :
+class OfflineStorageViewModel @Inject constructor(private val offlineVideoRepository: OfflineVideoRepository) :
     ViewModel() {
-    val offlineVideoList = MutableLiveData<MainVideoListItem>()
+    val offlineVideoList = MutableLiveData<ArrayList<OfflineVideo>>()
 
+    fun getOfflineVideoList(){
+        offlineVideoRepository.getOfflineVideo(offlineVideoList)
+    }
 
 }

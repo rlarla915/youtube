@@ -15,8 +15,10 @@ import com.clone.youtube.MainActivity
 import com.clone.youtube.R
 import com.clone.youtube.databinding.BottomSheetDialogEtcBinding
 import com.clone.youtube.databinding.ListItemMainvideoBinding
+import com.clone.youtube.databinding.ListItemOfflineStorageBinding
 import com.clone.youtube.extensions.toLiteralString
 import com.clone.youtube.model.MainVideoListItem
+import com.clone.youtube.model.offline.OfflineVideo
 import com.clone.youtube.ui.home.HomeFragmentDirections
 import com.clone.youtube.ui.play.PlayFragment
 import com.google.android.material.bottomsheet.BottomSheetDialog
@@ -26,18 +28,18 @@ import java.time.LocalDateTime
 import javax.inject.Inject
 
 
-open class MainVideoListAdapter :
-        RecyclerView.Adapter<RecyclerView.ViewHolder>() {
-        var dataSet = arrayListOf<MainVideoListItem>()
+class OfflineVideoListAdapter :
+        RecyclerView.Adapter<OfflineVideoListAdapter.ViewHolder>() {
+        var dataSet = arrayListOf<OfflineVideo>()
 
-        class ViewHolder(private val binding: ListItemMainvideoBinding, viewGroup: ViewGroup) :
+        class ViewHolder(private val binding: ListItemOfflineStorageBinding, viewGroup: ViewGroup) :
                 RecyclerView.ViewHolder(binding.root) {
                 val bottomSheetView : BottomSheetDialogEtcBinding = DataBindingUtil.inflate(LayoutInflater.from(viewGroup.context), R.layout.bottom_sheet_dialog_etc, viewGroup, false)
                 val bottomSheetDialog : BottomSheetDialog = BottomSheetDialog(viewGroup.context)
                 init {
                         bottomSheetDialog.setContentView(bottomSheetView.root)
                 }
-                fun bind(data: MainVideoListItem) {
+                fun bind(data: OfflineVideo) {
                         binding.listItem = data
                         binding.listItemButton.setOnClickListener {
                                 bottomSheetDialog.show()
@@ -47,16 +49,16 @@ open class MainVideoListAdapter :
                         }
                 }
 
-                private fun navigateToPlay(data : MainVideoListItem){ // 안되면 view parameter로 받아서
-                        val direction = HomeFragmentDirections.actionFragmentHomeToFragmentPlay(data)
-                        itemView.findNavController().navigate(direction)
+                private fun navigateToPlay(data : OfflineVideo){ // 안되면 view parameter로 받아서
+                        //val direction = HomeFragmentDirections.actionFragmentHomeToFragmentPlay(data)
+                        //itemView.findNavController().navigate(direction)
                 }
         }
         // Create new views (invoked by the layout manager)
-        override fun onCreateViewHolder(viewGroup: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
+        override fun onCreateViewHolder(viewGroup: ViewGroup, viewType: Int): ViewHolder {
                 // Create a new view, which defines the UI of the list item
-                val binding : ListItemMainvideoBinding = DataBindingUtil.inflate(
-                        LayoutInflater.from(viewGroup.context), R.layout.list_item_mainvideo,
+                val binding : ListItemOfflineStorageBinding = DataBindingUtil.inflate(
+                        LayoutInflater.from(viewGroup.context), R.layout.list_item_offline_storage,
                         viewGroup,
                         false
                 )
@@ -65,11 +67,11 @@ open class MainVideoListAdapter :
         }
 
         // Replace the contents of a view (invoked by the layout manager)
-        override fun onBindViewHolder(viewHolder: RecyclerView.ViewHolder, position: Int) {
+        override fun onBindViewHolder(viewHolder: ViewHolder, position: Int) {
 
                 // Get element from your dataset at this position and replace the
                 // contents of the view with that element
-                (viewHolder as ViewHolder).bind(dataSet[position])
+                viewHolder.bind(dataSet[position])
         }
 
         // Return the size of your dataset (invoked by the layout manager)
