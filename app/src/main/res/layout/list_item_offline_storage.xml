@@ -68,8 +68,8 @@
             android:gravity="left"
             android:textSize="@dimen/video_subtitle_fontSize"
             android:textColor="@color/sub_font_color"
-            app:setPlayerView="@{listItem.view}"
-            app:setPlayerCreateTime="@{listItem.createTime}"
+            app:setOfflinePlayerView="@{listItem.view}"
+            app:setOfflinePlayerCreateTime="@{listItem.createTime}"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/list_item_channel" />
         <ImageButton

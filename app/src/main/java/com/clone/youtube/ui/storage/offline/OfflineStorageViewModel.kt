@@ -22,10 +22,11 @@ import javax.inject.Inject
 @HiltViewModel
 class OfflineStorageViewModel @Inject constructor(private val offlineVideoRepository: OfflineVideoRepository) :
     ViewModel() {
-    val offlineVideoList = MutableLiveData<ArrayList<OfflineVideo>>()
+    val offlineVideoList = MutableLiveData<List<OfflineVideo>>()
 
-    fun getOfflineVideoList(){
-        offlineVideoRepository.getOfflineVideo(offlineVideoList)
+    fun getOfflineVideo(){
+        viewModelScope.launch {
+            offlineVideoRepository.getOfflineVideo(offlineVideoList)
+        }
     }
-
 }

@@ -6,6 +6,7 @@ import android.os.Build
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.annotation.RequiresApi
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.FragmentActivity
 import androidx.recyclerview.widget.RecyclerView
@@ -21,6 +22,8 @@ import com.clone.youtube.model.Comment
 import com.clone.youtube.model.MainVideoListItem
 import com.clone.youtube.model.PlayerVideoInfo
 import com.clone.youtube.ui.play.BottomSheetDialogComments
+import com.clone.youtube.ui.play.OnPlayerClick
+import com.clone.youtube.ui.play.PlayFragment
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import dagger.hilt.android.qualifiers.ActivityContext
 import java.time.Duration
@@ -28,11 +31,11 @@ import java.time.LocalDateTime
 import javax.inject.Inject
 
 
-class VideoPlayerListAdapter :
+class VideoPlayerListAdapter(private val clickListener: OnPlayerClick) :
         MainVideoListAdapter() {
-                var playerVideoInfo : PlayerVideoInfo? = null
+        var playerVideoInfo : PlayerVideoInfo? = null
         var playerVideoInfoEtc : MainVideoListItem? = null
-        class PlayerViewHolder(private val binding: ListItemPlayerBinding, private val viewGroup: ViewGroup) :
+        inner class PlayerViewHolder(private val binding: ListItemPlayerBinding, private val viewGroup: ViewGroup) :
                 RecyclerView.ViewHolder(binding.root) {
                 fun bind(playerVideoInfo : PlayerVideoInfo?, playerVideoInfoFromList : MainVideoListItem?) {
                         binding.videoInfo = playerVideoInfo
@@ -45,6 +48,9 @@ class VideoPlayerListAdapter :
                                 var bottomSheetDialogComments = BottomSheetDialogComments()
                                 val mainActivity = viewGroup.context as MainActivity
                                 bottomSheetDialogComments.show(mainActivity.supportFragmentManager, "comments")
+                        }
+                        binding.videoTextOfflineSave.setOnClickListener {
+                                clickListener.offlineStorage()
                         }
                 }
         }
@@ -71,6 +77,7 @@ class VideoPlayerListAdapter :
         }
 
         // Replace the contents of a view (invoked by the layout manager)
+        @RequiresApi(Build.VERSION_CODES.O)
         override fun onBindViewHolder(viewHolder: RecyclerView.ViewHolder, position: Int) {
                 when (position) {
                         0 -> {

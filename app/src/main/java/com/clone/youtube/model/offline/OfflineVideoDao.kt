@@ -8,11 +8,11 @@ import androidx.room.Query
 @Dao
 interface OfflineVideoDao {
     @Query("SELECT * FROM offlineVideo")
-    fun getAllVideo() : ArrayList<OfflineVideo>
+    suspend fun getAllVideo() : List<OfflineVideo>
 
     @Insert
-    fun insertAll(vararg offlineVideo: OfflineVideo)
+    suspend fun insertAll(vararg offlineVideo: OfflineVideo)
 
     @Delete
-    fun delete(offlineVideo: OfflineVideo)
+    suspend fun delete(offlineVideo: OfflineVideo)
 }

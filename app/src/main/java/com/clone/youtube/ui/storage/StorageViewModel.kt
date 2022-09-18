@@ -21,7 +21,5 @@ import javax.inject.Inject
 @HiltViewModel
 class StorageViewModel @Inject constructor(private val offlineVideoRepository: OfflineVideoRepository) :
     ViewModel() {
-    
-
 
 }

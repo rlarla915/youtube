@@ -1,10 +1,12 @@
 package com.clone.youtube.ui.play
 
 import android.content.pm.ActivityInfo
+import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.annotation.RequiresApi
 import androidx.core.view.WindowCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.WindowInsetsControllerCompat
@@ -34,7 +36,7 @@ import java.time.LocalDateTime
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class PlayFragment : Fragment() {
+class PlayFragment : Fragment(), OnPlayerClick {
 
     // This property is only valid between onCreateView and
     // onDestroyView.
@@ -73,9 +75,15 @@ class PlayFragment : Fragment() {
         playViewModel.loadPlayerVideoInfo()
 
         binding.recyclerVideoPlayer.layoutManager = LinearLayoutManager(mainActivity)
-        binding.recyclerVideoPlayer.adapter = VideoPlayerListAdapter()
+        binding.recyclerVideoPlayer.adapter = VideoPlayerListAdapter(this)
 
+        val x = mainActivity.getExternalFilesDir(null)
 
+    }
+
+    @RequiresApi(Build.VERSION_CODES.O)
+    override fun offlineStorage() {
+        playViewModel.setOfflineVideo()
     }
 
     override fun onPause() {

@@ -30,7 +30,7 @@ import javax.inject.Inject
 
 class OfflineVideoListAdapter :
         RecyclerView.Adapter<OfflineVideoListAdapter.ViewHolder>() {
-        var dataSet = arrayListOf<OfflineVideo>()
+        var dataSet = listOf<OfflineVideo>()
 
         class ViewHolder(private val binding: ListItemOfflineStorageBinding, viewGroup: ViewGroup) :
                 RecyclerView.ViewHolder(binding.root) {
