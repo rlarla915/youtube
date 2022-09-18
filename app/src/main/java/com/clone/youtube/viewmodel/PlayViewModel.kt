@@ -24,6 +24,7 @@ import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
 import java.io.File
 import java.sql.Timestamp
+import java.time.format.DateTimeFormatter
 import javax.inject.Inject
 
 @HiltViewModel
@@ -77,7 +78,8 @@ class PlayViewModel @Inject constructor(application: Application, private val vi
                 videoUrl = Uri.fromFile(fileVideo).toString(),
                 thumbnailUrl = Uri.fromFile(fileThumbnail).toString(),
                 title = playerVideoInfoFromList.value?.title!!,
-                createTime = Timestamp.valueOf(playerVideoInfoFromList.value?.createTime!!.toString()).time,
+                createTime = Timestamp.valueOf(playerVideoInfoFromList.value?.createTime!!.format(
+                    DateTimeFormatter.ofPattern("yyyy-MM-dd hh:mm:ss"))).time,
                 view = playerVideoInfoFromList.value?.view!!,
                 channelName = playerVideoInfoFromList.value?.channel?.name!!,
                 channelProfileUrl = playerVideoInfoFromList.value?.channel?.profileUrl!!)
@@ -91,7 +93,7 @@ class PlayViewModel @Inject constructor(application: Application, private val vi
             DownloadManager.Request(Uri.parse(url))
                 .setTitle("Downloading a video")
                 .setDescription("Download Offline Video")
-                .setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE)
+                .setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED)
                 .setDestinationUri(Uri.fromFile(fileVideo))
                 .setRequiresCharging(false)
                 .setAllowedOverMetered(true)

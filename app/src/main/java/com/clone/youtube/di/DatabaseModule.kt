@@ -1,30 +1,29 @@
 package com.clone.youtube.di
 
 import android.content.Context
+import androidx.room.Room
 import com.clone.youtube.model.AppDatabase
-import com.clone.youtube.model.offline.OfflineVideoDao
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import javax.inject.Singleton
-/*
+
 @InstallIn(SingletonComponent::class)
 @Module
 object DatabaseModule {
-
-    @Singleton
     @Provides
-    fun provideAppDatabase(@ApplicationContext context: Context): AppDatabase {
-        return AppDatabase.getInstance(context)
-    }
-
     @Singleton
+    fun provideAppDatabase(@ApplicationContext context: Context) : AppDatabase =
+        Room.databaseBuilder(
+            context,
+            AppDatabase::class.java,
+            "offline_db"
+        ).fallbackToDestructiveMigration()
+            .build()
+
     @Provides
-    fun provideOfflineVideoDao(appDatabase: AppDatabase): OfflineVideoDao {
-        return appDatabase.offlineVideoDao()
-    }
+    @Singleton
+    fun provideOfflineVideoDao(appDatabase: AppDatabase) = appDatabase.offlineVideoDao()
 }
-
- */

@@ -15,6 +15,7 @@ import com.bumptech.glide.Glide
 import com.clone.youtube.MainActivity
 import com.clone.youtube.R
 import com.clone.youtube.adapters.MainVideoListAdapter
+import com.clone.youtube.adapters.OfflineVideoListAdapter
 import com.clone.youtube.databinding.FragmentHomeBinding
 import com.clone.youtube.databinding.FragmentOfflineStorageBinding
 import com.clone.youtube.model.Channel
@@ -45,15 +46,15 @@ class OfflineStorageFragment : Fragment() {
         binding.viewModel = offlineStorageViewModel
         binding.lifecycleOwner = viewLifecycleOwner
 
+        Log.d("QQ", "ZZZZZ")
 
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         offlineStorageViewModel.getOfflineVideo()
-
-
+        binding.recyclerOfflineVideo.layoutManager = LinearLayoutManager(mainActivity)
+        binding.recyclerOfflineVideo.adapter = OfflineVideoListAdapter()
     }
 }

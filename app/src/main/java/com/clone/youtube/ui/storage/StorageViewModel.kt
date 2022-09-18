@@ -4,8 +4,8 @@ import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.clone.youtube.model.MainVideoListItem
-import com.clone.youtube.model.VideoRepository
+import androidx.navigation.findNavController
+import com.clone.youtube.extensions.Event
 import com.clone.youtube.model.offline.OfflineVideoRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.async
@@ -21,5 +21,10 @@ import javax.inject.Inject
 @HiltViewModel
 class StorageViewModel @Inject constructor(private val offlineVideoRepository: OfflineVideoRepository) :
     ViewModel() {
+    val checkNavigateToOfflineStorage = MutableLiveData<Event<String>>()
 
+    fun navigateToOfflineStorage(){
+        Log.d("ZZ", "clicked button")
+        checkNavigateToOfflineStorage.value = Event("offline_storage")
+    }
 }
