@@ -31,11 +31,11 @@ import java.time.LocalDateTime
 import javax.inject.Inject
 
 
-class VideoPlayerListAdapter(private val clickListener: OnPlayerClick) :
+class VideoPlayerListAdapter(private val clickListener: OnPlayerClick, private val mainActivity: MainActivity) :
         MainVideoListAdapter() {
         var playerVideoInfo : PlayerVideoInfo? = null
         var playerVideoInfoEtc : MainVideoListItem? = null
-        inner class PlayerViewHolder(private val binding: ListItemPlayerBinding, private val viewGroup: ViewGroup) :
+        inner class PlayerViewHolder(private val binding: ListItemPlayerBinding) :
                 RecyclerView.ViewHolder(binding.root) {
                 fun bind(playerVideoInfo : PlayerVideoInfo?, playerVideoInfoFromList : MainVideoListItem?) {
                         binding.videoInfo = playerVideoInfo
@@ -46,7 +46,6 @@ class VideoPlayerListAdapter(private val clickListener: OnPlayerClick) :
 
                         binding.videoCommentBox.setOnClickListener {
                                 var bottomSheetDialogComments = BottomSheetDialogComments()
-                                val mainActivity = viewGroup.context as MainActivity
                                 bottomSheetDialogComments.show(mainActivity.supportFragmentManager, "comments")
                         }
                         binding.videoTextOfflineSave.setOnClickListener {
@@ -67,7 +66,7 @@ class VideoPlayerListAdapter(private val clickListener: OnPlayerClick) :
                                         false
                                 )
 
-                                PlayerViewHolder(binding, viewGroup)
+                                PlayerViewHolder(binding)
                         }
                         else -> {
                                 super.onCreateViewHolder(viewGroup, viewType)

@@ -9,8 +9,8 @@ import java.time.LocalDateTime
 
 @Entity
 data class OfflineVideo(
-    @PrimaryKey(autoGenerate = true)
-    val uid : Long?,
+    @PrimaryKey
+    val key: String,
     @ColumnInfo(name = "video_url")
     var videoUrl : String,
     @ColumnInfo(name = "thumbnail_url")
@@ -25,6 +25,4 @@ data class OfflineVideo(
     var channelName: String,
     @ColumnInfo(name = "channel_profile_url")
     var channelProfileUrl: String
-) {
-    constructor(videoUrl: String, thumbnailUrl: String, title: String, createTime: Long, view: Int, channelName: String, channelProfileUrl: String) : this(null, videoUrl, thumbnailUrl, title, createTime, view, channelName, channelProfileUrl)
-}
+)

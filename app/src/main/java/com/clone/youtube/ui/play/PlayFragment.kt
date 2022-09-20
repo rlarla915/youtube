@@ -13,30 +13,21 @@ import androidx.core.view.WindowInsetsControllerCompat
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.Observer
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.clone.youtube.MainActivity
 import com.clone.youtube.R
+import com.clone.youtube.adapters.MainVideoListAdapter
 import com.clone.youtube.adapters.VideoPlayerListAdapter
 import com.clone.youtube.databinding.FragmentPlayBinding
-import com.clone.youtube.databinding.VideoControllerBinding
-import com.clone.youtube.model.Channel
-import com.clone.youtube.model.Comment
-import com.clone.youtube.model.MainVideoListItem
-import com.clone.youtube.viewmodel.HomeViewModel
-import com.clone.youtube.viewmodel.PlayViewModel
 import com.google.android.exoplayer2.ExoPlayer
-import com.google.android.exoplayer2.MediaItem
 import com.google.android.exoplayer2.util.Util
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.video_controller.view.*
-import java.time.LocalDateTime
-import javax.inject.Inject
 
 @AndroidEntryPoint
-class PlayFragment : Fragment(), OnPlayerClick {
+class PlayFragment : Fragment() {
 
     // This property is only valid between onCreateView and
     // onDestroyView.
@@ -75,16 +66,16 @@ class PlayFragment : Fragment(), OnPlayerClick {
         playViewModel.loadPlayerVideoInfo()
 
         binding.recyclerVideoPlayer.layoutManager = LinearLayoutManager(mainActivity)
-        binding.recyclerVideoPlayer.adapter = VideoPlayerListAdapter(this)
-
-        val x = mainActivity.getExternalFilesDir(null)
+        binding.recyclerVideoPlayer.adapter = MainVideoListAdapter()//VideoPlayerListAdapter(this, mainActivity)
 
     }
 
+    /*
     @RequiresApi(Build.VERSION_CODES.O)
     override fun offlineStorage() {
         playViewModel.setOfflineVideo()
     }
+     */
 
     override fun onPause() {
         super.onPause()

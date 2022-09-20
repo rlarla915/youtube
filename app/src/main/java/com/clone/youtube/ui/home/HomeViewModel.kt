@@ -1,4 +1,4 @@
-package com.clone.youtube.viewmodel
+package com.clone.youtube.ui.home
 
 import android.util.Log
 import androidx.lifecycle.MutableLiveData

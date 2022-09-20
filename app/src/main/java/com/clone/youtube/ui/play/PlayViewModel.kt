@@ -1,4 +1,4 @@
-package com.clone.youtube.viewmodel
+package com.clone.youtube.ui.play
 
 import android.annotation.SuppressLint
 import android.app.Application
@@ -8,6 +8,7 @@ import android.net.Uri
 import android.os.Build
 import android.util.Log
 import androidx.annotation.RequiresApi
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.getSystemService
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
@@ -69,12 +70,19 @@ class PlayViewModel @Inject constructor(application: Application, private val vi
         }
     }
 
+    fun clickCommentBox(){
+        var mainActivity = context as AppCompatActivity
+        var bottomSheetDialogComments = BottomSheetDialogComments()
+        bottomSheetDialogComments.show(mainActivity.supportFragmentManager, "comments")
+    }
+
     // offline storage
     @RequiresApi(Build.VERSION_CODES.O)
     fun setOfflineVideo(){
         viewModelScope.launch {
             downloadFromUrl("https://file-examples.com/wp-content/uploads/2017/04/file_example_MP4_1280_10MG.mp4")
             val offlineVideo : OfflineVideo = OfflineVideo(
+                key = playerVideoInfoFromList.value?.id!!,
                 videoUrl = Uri.fromFile(fileVideo).toString(),
                 thumbnailUrl = Uri.fromFile(fileThumbnail).toString(),
                 title = playerVideoInfoFromList.value?.title!!,
@@ -118,7 +126,6 @@ class PlayViewModel @Inject constructor(application: Application, private val vi
         }
         downloadManager.enqueue(requestThumbnail)
         downloadId = downloadManager.enqueue(requestVideo)
-
     }
 
 
