@@ -14,6 +14,7 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.clone.youtube.extensions.Event
 import com.clone.youtube.model.MainVideoListItem
 import com.clone.youtube.model.PlayerVideoInfo
 import com.clone.youtube.model.VideoRepository
@@ -38,6 +39,8 @@ class PlayViewModel @Inject constructor(application: Application, private val vi
     val playWhenReady = MutableLiveData<Boolean>(true)
     val currentWindow = MutableLiveData<Int>(0)
     val playBackPosition = MutableLiveData<Long>(0L)
+
+    val clickComments = MutableLiveData<Event<String>>()
 
     lateinit var fileVideo: File
     lateinit var fileThumbnail: File
@@ -70,10 +73,8 @@ class PlayViewModel @Inject constructor(application: Application, private val vi
         }
     }
 
-    fun clickCommentBox(){
-        var mainActivity = context as AppCompatActivity
-        var bottomSheetDialogComments = BottomSheetDialogComments()
-        bottomSheetDialogComments.show(mainActivity.supportFragmentManager, "comments")
+    fun clickCommentsBox(){
+        clickComments.value = Event("comments")
     }
 
     // offline storage

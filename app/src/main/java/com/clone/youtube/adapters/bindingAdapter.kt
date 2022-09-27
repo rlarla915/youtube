@@ -39,6 +39,21 @@ object BindingAdapter {
         adapter.notifyDataSetChanged()
     }
 
+    @BindingAdapter("setUnderVideoList")
+    @JvmStatic
+    fun setUnderVideoItemList(recyclerView: RecyclerView, itemList: ArrayList<MainVideoListItem>?) {
+        val adapter = recyclerView.adapter as UnderVideoListAdapter
+
+        // 시작할 때는 itemList가 null이기 때문에
+        if (itemList == null){
+            adapter.dataSet = arrayListOf()
+        }
+        else {
+            adapter.dataSet = itemList
+        }
+        adapter.notifyDataSetChanged()
+    }
+
     @BindingAdapter("setOfflineVideoList")
     @JvmStatic
     fun setOfflineVideoList(recyclerView: RecyclerView, itemList: List<OfflineVideo>?) {

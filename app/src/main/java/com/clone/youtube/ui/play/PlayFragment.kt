@@ -7,17 +7,20 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.annotation.RequiresApi
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.WindowCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.WindowInsetsControllerCompat
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Observer
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.clone.youtube.MainActivity
 import com.clone.youtube.R
 import com.clone.youtube.adapters.MainVideoListAdapter
+import com.clone.youtube.adapters.UnderVideoListAdapter
 import com.clone.youtube.adapters.VideoPlayerListAdapter
 import com.clone.youtube.databinding.FragmentPlayBinding
 import com.google.android.exoplayer2.ExoPlayer
@@ -53,6 +56,7 @@ class PlayFragment : Fragment() {
 
         playViewModel.playerVideoInfoFromList.value = args.videoInfoFromList
 
+        initCommentsClick()
         binding.videoPlayer.exo_fullscreen.setOnClickListener {
             changeFullScreen(it)
         }
@@ -66,7 +70,7 @@ class PlayFragment : Fragment() {
         playViewModel.loadPlayerVideoInfo()
 
         binding.recyclerVideoPlayer.layoutManager = LinearLayoutManager(mainActivity)
-        binding.recyclerVideoPlayer.adapter = MainVideoListAdapter()//VideoPlayerListAdapter(this, mainActivity)
+        binding.recyclerVideoPlayer.adapter = UnderVideoListAdapter() //VideoPlayerListAdapter(this, mainActivity)
 
     }
 
@@ -114,6 +118,13 @@ class PlayFragment : Fragment() {
         binding.videoPlayer.player = player
         playViewModel.play()
 
+    }
+
+    private fun initCommentsClick(){
+        playViewModel.clickComments.observe(viewLifecycleOwner, Observer {
+            var bottomSheetDialogComments = BottomSheetDialogComments()
+            bottomSheetDialogComments.show(mainActivity.supportFragmentManager, "comments")
+        })
     }
 
 

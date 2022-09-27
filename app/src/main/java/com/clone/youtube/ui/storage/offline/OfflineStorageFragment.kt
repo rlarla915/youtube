@@ -18,8 +18,6 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class OfflineStorageFragment : Fragment() {
 
-    // This property is only valid between onCreateView and
-    // onDestroyView.
     lateinit var mainActivity: MainActivity
     private lateinit var binding: FragmentOfflineStorageBinding
     val offlineStorageViewModel : OfflineStorageViewModel by viewModels()
