@@ -13,7 +13,7 @@ class VideoPagingSource(val service : VideoApiService, val query: String)
             return LoadResult.Page(
                 data = response.body()!!, // [fix] response.videos
                 prevKey = null,
-                nextKey = nextPageNumber // [fix] response.nextPageNumber
+                nextKey = nextPageNumber + params.loadSize // [fix] response.nextPageNumber
             )
         } catch (e : Exception){
             // network failure

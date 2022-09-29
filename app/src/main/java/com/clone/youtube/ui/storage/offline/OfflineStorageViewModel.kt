@@ -4,6 +4,8 @@ import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import androidx.paging.PagingData
+import androidx.paging.cachedIn
 import com.clone.youtube.model.MainVideoListItem
 import com.clone.youtube.model.VideoRepository
 import com.clone.youtube.model.offline.OfflineVideo
@@ -12,6 +14,7 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.async
 import kotlinx.coroutines.awaitAll
 import kotlinx.coroutines.coroutineScope
+import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.launch
 import retrofit2.Call
 import retrofit2.Callback
@@ -22,11 +25,8 @@ import javax.inject.Inject
 @HiltViewModel
 class OfflineStorageViewModel @Inject constructor(private val offlineVideoRepository: OfflineVideoRepository) :
     ViewModel() {
-    val offlineVideoList = MutableLiveData<List<OfflineVideo>>()
 
-    fun getOfflineVideo(){
-        viewModelScope.launch {
-            offlineVideoRepository.getOfflineVideo(offlineVideoList)
-        }
+    fun getOfflineVideo() : Flow<PagingData<OfflineVideo>> {
+        return offlineVideoRepository.getOfflineVideo("").cachedIn(viewModelScope)
     }
 }

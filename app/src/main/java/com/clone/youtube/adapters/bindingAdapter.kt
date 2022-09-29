@@ -24,6 +24,7 @@ import java.util.*
 import kotlin.collections.ArrayList
 
 object BindingAdapter {
+    /*
     @BindingAdapter("setVideoList")
     @JvmStatic
     fun setVideoItemList(recyclerView: RecyclerView, itemList: ArrayList<MainVideoListItem>?) {
@@ -39,29 +40,15 @@ object BindingAdapter {
         adapter.notifyDataSetChanged()
     }
 
+     */
+
     @BindingAdapter("setUnderVideoList")
     @JvmStatic
     fun setUnderVideoItemList(recyclerView: RecyclerView, itemList: ArrayList<MainVideoListItem>?) {
         val adapter = recyclerView.adapter as UnderVideoListAdapter
-
         // 시작할 때는 itemList가 null이기 때문에
         if (itemList == null){
             adapter.dataSet = arrayListOf()
-        }
-        else {
-            adapter.dataSet = itemList
-        }
-        adapter.notifyDataSetChanged()
-    }
-
-    @BindingAdapter("setOfflineVideoList")
-    @JvmStatic
-    fun setOfflineVideoList(recyclerView: RecyclerView, itemList: List<OfflineVideo>?) {
-        val adapter = recyclerView.adapter as OfflineVideoListAdapter
-
-        // 시작할 때는 itemList가 null이기 때문에
-        if (itemList == null){
-            adapter.dataSet = listOf()
         }
         else {
             adapter.dataSet = itemList
@@ -130,6 +117,7 @@ object BindingAdapter {
             Glide.with(circleImageView.context).load(url).into(circleImageView)
         }
     }
+    /*
 
     @BindingAdapter("setPlayerInfo", "setPlayerInfoFromList", "setPlayerVideoList")
     @JvmStatic
@@ -146,6 +134,8 @@ object BindingAdapter {
         }
         adapter.notifyDataSetChanged()
     }
+
+     */
 
     @BindingAdapter("setVideoUrl", "setPlayWhenReady", "setCurrentWindow", "setPlayBackPosition")
     @JvmStatic

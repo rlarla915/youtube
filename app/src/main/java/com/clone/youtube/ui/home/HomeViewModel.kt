@@ -4,6 +4,7 @@ import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import androidx.paging.PagingData
 import androidx.paging.cachedIn
 import com.clone.youtube.model.MainVideoListItem
 import com.clone.youtube.model.VideoRepository
@@ -23,12 +24,9 @@ import javax.inject.Inject
 class HomeViewModel @Inject constructor(private val videoRepository: VideoRepository) :
     ViewModel() {
 
-    val mainVideoList = MutableLiveData<ArrayList<MainVideoListItem>>()
+    val mainVideoList : MutableLiveData<PagingData<MainVideoListItem>> = videoRepository.getVideoList("").cachedIn(viewModelScope) as MutableLiveData<PagingData<MainVideoListItem>>
 
     fun loadMainVideoList() {
-        viewModelScope.launch {
-            mainVideoList.value  = videoRepository.getVideoList("").cachedIn(this) as MutableLiveData<ArrayList<MainVideoListItem>>
-        }
 
 
         /*

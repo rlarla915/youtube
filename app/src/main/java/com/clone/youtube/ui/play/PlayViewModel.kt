@@ -14,6 +14,8 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import androidx.paging.PagingData
+import androidx.paging.cachedIn
 import com.clone.youtube.extensions.Event
 import com.clone.youtube.model.MainVideoListItem
 import com.clone.youtube.model.PlayerVideoInfo
@@ -36,6 +38,7 @@ class PlayViewModel @Inject constructor(application: Application, private val vi
     val playerVideoInfo = MutableLiveData<PlayerVideoInfo>()
     val playerVideoInfoFromList = MutableLiveData<MainVideoListItem>()
     val playerVideoList = MutableLiveData<ArrayList<MainVideoListItem>>()
+    //val playerVideoList : MutableLiveData<PagingData<MainVideoListItem>> = videoRepository.getVideoList("").cachedIn(viewModelScope) as MutableLiveData<PagingData<MainVideoListItem>> // [fix] query
     val playWhenReady = MutableLiveData<Boolean>(true)
     val currentWindow = MutableLiveData<Int>(0)
     val playBackPosition = MutableLiveData<Long>(0L)
@@ -68,7 +71,7 @@ class PlayViewModel @Inject constructor(application: Application, private val vi
         viewModelScope.launch {
             listOf(
                 async { videoRepository.getVideoInfo(playerVideoInfo) },
-                async { videoRepository.getVideoList(playerVideoList) }
+                async { videoRepository.getUnderVideoList(playerVideoList) }
             )
         }
     }

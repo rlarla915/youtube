@@ -40,11 +40,6 @@ class StorageFragment : Fragment() {
         return binding.root
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-
-    }
-
     fun initObserve(){
         storageViewModel.checkNavigateToOfflineStorage.observe(viewLifecycleOwner, Observer {
             val direction = StorageFragmentDirections.actionFragmentStorageToOfflineStorage()

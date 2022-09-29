@@ -1,13 +1,10 @@
 package com.clone.youtube.ui.play
 
 import android.content.pm.ActivityInfo
-import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.annotation.RequiresApi
-import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.WindowCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.WindowInsetsControllerCompat
@@ -21,7 +18,6 @@ import com.clone.youtube.MainActivity
 import com.clone.youtube.R
 import com.clone.youtube.adapters.MainVideoListAdapter
 import com.clone.youtube.adapters.UnderVideoListAdapter
-import com.clone.youtube.adapters.VideoPlayerListAdapter
 import com.clone.youtube.databinding.FragmentPlayBinding
 import com.google.android.exoplayer2.ExoPlayer
 import com.google.android.exoplayer2.util.Util
@@ -39,6 +35,7 @@ class PlayFragment : Fragment() {
     //private lateinit var controllerBinding: VideoControllerBinding
     val playViewModel : PlayViewModel by viewModels()
     private var player : ExoPlayer? = null
+    //private var adapter = MainVideoListAdapter()
 
     var fullscreen : Boolean = false
 
@@ -50,13 +47,16 @@ class PlayFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         mainActivity = activity as MainActivity
-        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_play, container, false)
+        binding = FragmentPlayBinding.inflate(inflater, container, false)
         binding.lifecycleOwner = viewLifecycleOwner
         binding.viewModel = playViewModel
 
         playViewModel.playerVideoInfoFromList.value = args.videoInfoFromList
 
-        initCommentsClick()
+        binding.recyclerVideoPlayer.layoutManager = LinearLayoutManager(mainActivity)
+        binding.recyclerVideoPlayer.adapter = UnderVideoListAdapter() // [fix] apply endless scroll or two viewholder paging adapter
+
+        initObserve()
         binding.videoPlayer.exo_fullscreen.setOnClickListener {
             changeFullScreen(it)
         }
@@ -69,8 +69,7 @@ class PlayFragment : Fragment() {
 
         playViewModel.loadPlayerVideoInfo()
 
-        binding.recyclerVideoPlayer.layoutManager = LinearLayoutManager(mainActivity)
-        binding.recyclerVideoPlayer.adapter = UnderVideoListAdapter() //VideoPlayerListAdapter(this, mainActivity)
+         //VideoPlayerListAdapter(this, mainActivity)
 
     }
 
@@ -120,11 +119,18 @@ class PlayFragment : Fragment() {
 
     }
 
-    private fun initCommentsClick(){
+    private fun initObserve(){
         playViewModel.clickComments.observe(viewLifecycleOwner, Observer {
             var bottomSheetDialogComments = BottomSheetDialogComments()
             bottomSheetDialogComments.show(mainActivity.supportFragmentManager, "comments")
         })
+
+        /*
+        playViewModel.playerVideoList.observe(viewLifecycleOwner){
+            adapter.submitData(viewLifecycleOwner.lifecycle, it)
+        }
+
+         */
     }
 
 

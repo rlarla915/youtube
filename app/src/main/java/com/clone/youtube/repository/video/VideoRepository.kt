@@ -36,4 +36,11 @@ class VideoRepository @Inject constructor(@LocalJsonServer retrofit: Retrofit) {
                         liveDataVideoInfo.postValue(response.body())
                 }
         }
+
+        suspend fun getUnderVideoList(liveDataList : MutableLiveData<ArrayList<MainVideoListItem>>) {
+                val response = client.getVideoList()
+                if (response.isSuccessful && response.body() != null){
+                        liveDataList.postValue(ArrayList(response.body()))
+                }
+        }
 }
