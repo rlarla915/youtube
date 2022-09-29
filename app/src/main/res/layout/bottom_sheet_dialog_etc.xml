@@ -5,7 +5,7 @@
     <data>
         <variable
             name="home"
-            type="com.clone.youtube.viewmodel.HomeViewModel" />
+            type="com.clone.youtube.ui.home.HomeViewModel" />
     </data>
     <RelativeLayout
         android:layout_width="match_parent"

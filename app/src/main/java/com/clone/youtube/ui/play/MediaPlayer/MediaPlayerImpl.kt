@@ -1,14 +1,9 @@
 package com.clone.youtube.ui.play.MediaPlayer
 
 import android.content.Context
-import androidx.fragment.app.viewModels
 import androidx.lifecycle.MutableLiveData
-import com.clone.youtube.viewmodel.PlayViewModel
-import com.google.android.exoplayer2.DefaultLoadControl
 import com.google.android.exoplayer2.ExoPlayer
 import com.google.android.exoplayer2.MediaItem
-import com.google.android.exoplayer2.trackselection.DefaultTrackSelector
-import com.google.android.exoplayer2.util.Util
 
 class MediaPlayerImpl : MediaPlayer {
 

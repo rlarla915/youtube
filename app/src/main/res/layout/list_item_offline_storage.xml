@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+    <data>
+        <variable
+            name="listItem"
+            type="com.clone.youtube.model.offline.OfflineVideo" />
+    </data>
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        tools:context=".ui.home.HomeFragment">
+
+        <ImageView
+            android:id="@+id/list_item_offline_thumbnail"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintDimensionRatio="16:9"
+            android:scaleType="centerCrop"
+            android:layout_marginTop="8dp"
+            app:imageUrl="@{listItem.thumbnailUrl}"
+            app:layout_constraintHorizontal_bias="4"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"/>
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/list_item_box"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:paddingBottom="12dp"
+            app:layout_constraintHorizontal_bias="6"
+            app:layout_constraintStart_toEndOf="@id/list_item_offline_thumbnail"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:id="@+id/list_item_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="12dp"
+            android:layout_marginTop="8dp"
+            android:gravity="left"
+            android:textSize="@dimen/video_title_fontSize"
+            android:textColor="@color/main_font_color"
+            android:text="@{listItem.title}"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent"/>
+
+        <TextView
+            android:id="@+id/list_item_channel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="12dp"
+            android:layout_marginTop="4dp"
+            android:gravity="left"
+            android:textSize="@dimen/video_subtitle_fontSize"
+            android:textColor="@color/sub_font_color"
+            app:text="@{listItem.channelName}"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/list_item_title" />
+
+        <TextView
+            android:id="@+id/list_item_sub_info"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="12dp"
+            android:layout_marginTop="4dp"
+            android:gravity="left"
+            android:textSize="@dimen/video_subtitle_fontSize"
+            android:textColor="@color/sub_font_color"
+            app:setOfflinePlayerView="@{listItem.view}"
+            app:setOfflinePlayerCreateTime="@{listItem.createTime}"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/list_item_channel" />
+        <ImageButton
+            android:id="@+id/list_item_button"
+            android:layout_marginTop="8dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_baseline_more_vert_24"
+            android:background="?android:attr/windowBackground"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

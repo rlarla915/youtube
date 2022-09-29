@@ -1,5 +1,7 @@
 package com.clone.youtube.adapters
 
+import android.graphics.Bitmap
+import android.os.Build
 import android.util.Log
 import android.widget.ImageView
 import android.widget.TextView
@@ -10,19 +12,40 @@ import com.bumptech.glide.Glide
 import com.clone.youtube.extensions.toLiteralString
 import com.clone.youtube.model.MainVideoListItem
 import com.clone.youtube.model.PlayerVideoInfo
+import com.clone.youtube.model.offline.OfflineVideo
 import com.google.android.exoplayer2.ExoPlayer
 import com.google.android.exoplayer2.MediaItem
 import com.google.android.exoplayer2.ui.PlayerView
 import com.google.android.exoplayer2.ui.StyledPlayerView
 import de.hdodenhof.circleimageview.CircleImageView
+import java.time.Instant
 import java.time.LocalDateTime
+import java.util.*
+import kotlin.collections.ArrayList
 
 object BindingAdapter {
+    /*
     @BindingAdapter("setVideoList")
     @JvmStatic
     fun setVideoItemList(recyclerView: RecyclerView, itemList: ArrayList<MainVideoListItem>?) {
         val adapter = recyclerView.adapter as MainVideoListAdapter
         
+        // 시작할 때는 itemList가 null이기 때문에
+        if (itemList == null){
+            adapter.dataSet = arrayListOf()
+        }
+        else {
+            adapter.dataSet = itemList
+        }
+        adapter.notifyDataSetChanged()
+    }
+
+     */
+
+    @BindingAdapter("setUnderVideoList")
+    @JvmStatic
+    fun setUnderVideoItemList(recyclerView: RecyclerView, itemList: ArrayList<MainVideoListItem>?) {
+        val adapter = recyclerView.adapter as UnderVideoListAdapter
         // 시작할 때는 itemList가 null이기 때문에
         if (itemList == null){
             adapter.dataSet = arrayListOf()
@@ -43,6 +66,17 @@ object BindingAdapter {
     @BindingAdapter("setPlayerView", "setPlayerCreateTime")
     @JvmStatic
     fun setPlayerSubInfo(textView: TextView, view:Int?, createTime : LocalDateTime){
+        textView.text = view?.toLiteralString() +"회 • " + createTime?.toLiteralString() + " 전"
+    }
+
+    @BindingAdapter("setOfflinePlayerView", "setOfflinePlayerCreateTime")
+    @JvmStatic
+    fun setOfflinePlayerSubInfo(textView: TextView, view:Int?, timestamp : Long){
+        val createTime = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            LocalDateTime.ofInstant(Instant.ofEpochMilli(timestamp), TimeZone.getDefault().toZoneId())
+        } else {
+            TODO("VERSION.SDK_INT < O")
+        }
         textView.text = view?.toLiteralString() +"회 • " + createTime?.toLiteralString() + " 전"
     }
 
@@ -67,6 +101,15 @@ object BindingAdapter {
         }
     }
 
+    @BindingAdapter("thumbnailBitmap")
+    @JvmStatic
+    fun thumbnailBitmap(imageView: ImageView, bitmap: Bitmap?){
+        if (bitmap != null) {
+            Log.d("XX", "bitmap")
+            Glide.with(imageView.context).load(bitmap).into(imageView)
+        }
+    }
+
     @BindingAdapter("imageUrl")
     @JvmStatic
     fun imageUrl(circleImageView: CircleImageView, url: String?){
@@ -74,6 +117,7 @@ object BindingAdapter {
             Glide.with(circleImageView.context).load(url).into(circleImageView)
         }
     }
+    /*
 
     @BindingAdapter("setPlayerInfo", "setPlayerInfoFromList", "setPlayerVideoList")
     @JvmStatic
@@ -90,6 +134,8 @@ object BindingAdapter {
         }
         adapter.notifyDataSetChanged()
     }
+
+     */
 
     @BindingAdapter("setVideoUrl", "setPlayWhenReady", "setCurrentWindow", "setPlayBackPosition")
     @JvmStatic

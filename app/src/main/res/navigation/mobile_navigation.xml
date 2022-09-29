@@ -32,14 +32,35 @@
     </fragment>
 
     <fragment
-        android:id="@+id/navigation_dashboard"
+        android:id="@+id/navigation_shorts"
         android:name="com.clone.youtube.ui.dashboard.DashboardFragment"
-        android:label="@string/title_dashboard"
+        android:label="@string/title_shorts"
         tools:layout="@layout/fragment_dashboard" />
 
     <fragment
-        android:id="@+id/navigation_notifications"
-        android:name="com.clone.youtube.ui.notifications.NotificationsFragment"
-        android:label="@string/title_notifications"
-        tools:layout="@layout/fragment_notifications" />
+        android:id="@+id/navigation_subscribe"
+        android:name="com.clone.youtube.ui.dashboard.DashboardFragment"
+        android:label="@string/title_subscribe"
+        tools:layout="@layout/fragment_dashboard" />
+
+    <fragment
+        android:id="@+id/navigation_storage"
+        android:name="com.clone.youtube.ui.storage.StorageFragment"
+        android:label="@string/title_store"
+        tools:layout="@layout/fragment_storage">
+
+        <action
+            android:id="@+id/action_fragment_storage_to_offline_storage"
+            app:destination="@id/navigation_offline_storage"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/navigation_offline_storage"
+        android:name="com.clone.youtube.ui.storage.offline.OfflineStorageFragment"
+        android:label="오프라인 저장"
+        tools:layout="@layout/fragment_offline_storage" />
 </navigation>

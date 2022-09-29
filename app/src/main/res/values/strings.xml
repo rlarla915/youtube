@@ -2,8 +2,18 @@
 <resources>
     <string name="app_name">youtube</string>
     <string name="title_home">Home</string>
+    <string name="title_shorts">Shorts</string>
+    <string name="title_subscribe">구독</string>
+    <string name="title_store">보관함</string>
     <string name="title_play">Play</string>
+    <string name="title_upload">만들기</string>
     <string name="title_dashboard">Dashboard</string>
     <string name="title_notifications">Notifications</string>
+    <string name="upload_shorts">Shorts 동영상 만들기</string>
+    <string name="upload_video">동영상 업로드</string>
+    <string name="upload_streaming">실시간 스트리밍 시작</string>
     <string name="mid_dot"> • </string>
+    <string name="title_upload_activity">업로드</string>
+    <string name="title_appbar">Premium</string>
+    <string name="offline_store_title">오프라인 저장 동영상</string>
 </resources>

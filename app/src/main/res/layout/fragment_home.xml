@@ -6,7 +6,7 @@
     <data>
         <variable
             name="viewModel"
-            type="com.clone.youtube.viewmodel.HomeViewModel" />
+            type="com.clone.youtube.ui.home.HomeViewModel" />
     </data>
     <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="match_parent"
@@ -65,9 +65,7 @@
                 android:id="@+id/recycler_main_video"
                 app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:setVideoList="@{viewModel.mainVideoList}">
-            </androidx.recyclerview.widget.RecyclerView>
+                android:layout_height="wrap_content"/>
         </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
     </androidx.coordinatorlayout.widget.CoordinatorLayout>

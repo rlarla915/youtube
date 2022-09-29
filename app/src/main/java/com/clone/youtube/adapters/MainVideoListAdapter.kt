@@ -9,6 +9,8 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.navigation.findNavController
+import androidx.paging.PagingDataAdapter
+import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.clone.youtube.MainActivity
@@ -26,11 +28,10 @@ import java.time.LocalDateTime
 import javax.inject.Inject
 
 
-open class MainVideoListAdapter @Inject constructor() :
-        RecyclerView.Adapter<RecyclerView.ViewHolder>() {
-        var dataSet = arrayListOf<MainVideoListItem>()
+class MainVideoListAdapter :
+        PagingDataAdapter<MainVideoListItem, MainVideoListAdapter.MainVideoViewHolder>(MainVideoDiffCallback()) {
 
-        class ViewHolder(private val binding: ListItemMainvideoBinding, viewGroup: ViewGroup) :
+        class MainVideoViewHolder(private val binding: ListItemMainvideoBinding, viewGroup: ViewGroup) :
                 RecyclerView.ViewHolder(binding.root) {
                 val bottomSheetView : BottomSheetDialogEtcBinding = DataBindingUtil.inflate(LayoutInflater.from(viewGroup.context), R.layout.bottom_sheet_dialog_etc, viewGroup, false)
                 val bottomSheetDialog : BottomSheetDialog = BottomSheetDialog(viewGroup.context)
@@ -52,26 +53,31 @@ open class MainVideoListAdapter @Inject constructor() :
                         itemView.findNavController().navigate(direction)
                 }
         }
-        // Create new views (invoked by the layout manager)
-        override fun onCreateViewHolder(viewGroup: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-                // Create a new view, which defines the UI of the list item
-                val binding : ListItemMainvideoBinding = DataBindingUtil.inflate(
-                        LayoutInflater.from(viewGroup.context), R.layout.list_item_mainvideo,
+
+        override fun onBindViewHolder(holder: MainVideoViewHolder, position: Int) {
+                val item = getItem(position)
+                if (item != null){
+                        holder.bind(item)
+                }
+        }
+
+        override fun onCreateViewHolder(viewGroup: ViewGroup, viewType: Int): MainVideoViewHolder {
+                val binding : ListItemMainvideoBinding = ListItemMainvideoBinding.inflate(
+                        LayoutInflater.from(viewGroup.context),
                         viewGroup,
                         false
                 )
 
-                return ViewHolder(binding, viewGroup)
+                return MainVideoViewHolder(binding, viewGroup)
+        }
+}
+
+private class MainVideoDiffCallback : DiffUtil.ItemCallback<MainVideoListItem>() {
+        override fun areItemsTheSame(oldItem: MainVideoListItem, newItem: MainVideoListItem): Boolean {
+                return oldItem.id == newItem.id
         }
 
-        // Replace the contents of a view (invoked by the layout manager)
-        override fun onBindViewHolder(viewHolder: RecyclerView.ViewHolder, position: Int) {
-
-                // Get element from your dataset at this position and replace the
-                // contents of the view with that element
-                (viewHolder as ViewHolder).bind(dataSet[position])
+        override fun areContentsTheSame(oldItem: MainVideoListItem, newItem: MainVideoListItem): Boolean {
+                return oldItem == newItem
         }
-
-        // Return the size of your dataset (invoked by the layout manager)
-        override fun getItemCount() = dataSet.size
 }

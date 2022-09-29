@@ -1,15 +1,18 @@
-package com.clone.youtube.viewmodel
+package com.clone.youtube.ui.home
 
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import androidx.paging.PagingData
+import androidx.paging.cachedIn
 import com.clone.youtube.model.MainVideoListItem
 import com.clone.youtube.model.VideoRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.async
 import kotlinx.coroutines.awaitAll
 import kotlinx.coroutines.coroutineScope
+import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import retrofit2.Call
 import retrofit2.Callback
@@ -21,12 +24,17 @@ import javax.inject.Inject
 class HomeViewModel @Inject constructor(private val videoRepository: VideoRepository) :
     ViewModel() {
 
-    val mainVideoList = MutableLiveData<ArrayList<MainVideoListItem>>()
+    val mainVideoList : MutableLiveData<PagingData<MainVideoListItem>> = videoRepository.getVideoList("").cachedIn(viewModelScope) as MutableLiveData<PagingData<MainVideoListItem>>
 
     fun loadMainVideoList() {
+
+
+        /*
         viewModelScope.launch {
             videoRepository.getVideoList(mainVideoList)
         }
+
+         */
         /* // 여러개의 api를 비동기적으로 처리하기 위해서 coroutines 사용.
         coroutineScope {
             listOf(
