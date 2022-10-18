@@ -43,7 +43,7 @@ class MainActivity : AppCompatActivity() {
         // 이거 어떻게 viewModel로 옮길지 생각
         binding.fabUpload.setOnClickListener {
             var bottomSheetDialogUpload = BottomSheetDialogUpload()
-            bottomSheetDialogUpload.show(supportFragmentManager, "comments")
+            bottomSheetDialogUpload.show(supportFragmentManager, "Upload")
         }
     }
 }

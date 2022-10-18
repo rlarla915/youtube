@@ -1,17 +1,16 @@
 package com.clone.youtube.model
 
 import android.os.Parcelable
-import android.view.View
 import com.google.gson.annotations.SerializedName
 import kotlinx.android.parcel.Parcelize
-import java.time.LocalDateTime
+import org.threeten.bp.LocalDateTime
 
 @Parcelize
-data class MainVideoListItem(
+data class VideoListItem(
     @SerializedName("id")
     var id: String,
     @SerializedName("videoUrl")
-    var videoUrl : String,
+    var videoUrl: String,
     @SerializedName("thumbnailUrl")
     var thumbnailUrl: String,
     @SerializedName("title")

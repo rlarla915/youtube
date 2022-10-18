@@ -1,101 +1,78 @@
 package com.clone.youtube.adapters
 
 import android.graphics.Bitmap
-import android.os.Build
 import android.util.Log
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.databinding.BindingAdapter
-import androidx.lifecycle.MutableLiveData
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.clone.youtube.extensions.toLiteralString
-import com.clone.youtube.model.MainVideoListItem
-import com.clone.youtube.model.PlayerVideoInfo
-import com.clone.youtube.model.offline.OfflineVideo
-import com.google.android.exoplayer2.ExoPlayer
-import com.google.android.exoplayer2.MediaItem
-import com.google.android.exoplayer2.ui.PlayerView
-import com.google.android.exoplayer2.ui.StyledPlayerView
+import com.clone.youtube.model.VideoListItem
 import de.hdodenhof.circleimageview.CircleImageView
-import java.time.Instant
-import java.time.LocalDateTime
+import org.threeten.bp.Instant
+import org.threeten.bp.LocalDateTime
 import java.util.*
 import kotlin.collections.ArrayList
 
 object BindingAdapter {
-    /*
-    @BindingAdapter("setVideoList")
-    @JvmStatic
-    fun setVideoItemList(recyclerView: RecyclerView, itemList: ArrayList<MainVideoListItem>?) {
-        val adapter = recyclerView.adapter as MainVideoListAdapter
-        
-        // 시작할 때는 itemList가 null이기 때문에
-        if (itemList == null){
-            adapter.dataSet = arrayListOf()
-        }
-        else {
-            adapter.dataSet = itemList
-        }
-        adapter.notifyDataSetChanged()
-    }
-
-     */
 
     @BindingAdapter("setUnderVideoList")
     @JvmStatic
-    fun setUnderVideoItemList(recyclerView: RecyclerView, itemList: ArrayList<MainVideoListItem>?) {
+    fun setUnderVideoItemList(recyclerView: RecyclerView, itemList: ArrayList<VideoListItem>?) {
         val adapter = recyclerView.adapter as UnderVideoListAdapter
         // 시작할 때는 itemList가 null이기 때문에
-        if (itemList == null){
+        if (itemList == null) {
             adapter.dataSet = arrayListOf()
-        }
-        else {
+        } else {
             adapter.dataSet = itemList
         }
         adapter.notifyDataSetChanged()
     }
 
-
     @BindingAdapter("setChannelName", "setView", "setCreateTime")
     @JvmStatic
-    fun setSubInfo(textView: TextView, channelName:String?, view:Int?, createTime : LocalDateTime){
-        textView.text = channelName + " • 조회수 " + view?.toLiteralString() +"회 • " + createTime?.toLiteralString() + " 전"
+    fun setSubInfo(
+        textView: TextView,
+        channelName: String?,
+        view: Int?,
+        createTime: LocalDateTime
+    ) {
+        textView.text =
+            channelName + " • 조회수 " + view?.toLiteralString() + "회 • " + createTime?.toLiteralString() + " 전"
     }
 
     @BindingAdapter("setPlayerView", "setPlayerCreateTime")
     @JvmStatic
-    fun setPlayerSubInfo(textView: TextView, view:Int?, createTime : LocalDateTime){
-        textView.text = view?.toLiteralString() +"회 • " + createTime?.toLiteralString() + " 전"
+    fun setPlayerSubInfo(textView: TextView, view: Int?, createTime: LocalDateTime) {
+        textView.text = view?.toLiteralString() + "회 • " + createTime?.toLiteralString() + " 전"
     }
 
     @BindingAdapter("setOfflinePlayerView", "setOfflinePlayerCreateTime")
     @JvmStatic
-    fun setOfflinePlayerSubInfo(textView: TextView, view:Int?, timestamp : Long){
-        val createTime = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            LocalDateTime.ofInstant(Instant.ofEpochMilli(timestamp), TimeZone.getDefault().toZoneId())
-        } else {
-            TODO("VERSION.SDK_INT < O")
-        }
-        textView.text = view?.toLiteralString() +"회 • " + createTime?.toLiteralString() + " 전"
+    fun setOfflinePlayerSubInfo(textView: TextView, view: Int?, timestamp: Long) {
+        val createTime = LocalDateTime.ofInstant(
+            Instant.ofEpochMilli(timestamp),
+            TimeZone.getDefault().toZoneId()
+        )
+        textView.text = view?.toLiteralString() + "회 • " + createTime?.toLiteralString() + " 전"
     }
 
     @BindingAdapter("setLiteralString")
     @JvmStatic
-    fun setLiteralString(textView: TextView, number: Int?){
+    fun setLiteralString(textView: TextView, number: Int?) {
         textView.text = number?.toLiteralString()
     }
 
     @BindingAdapter("setChannelSubscribe")
     @JvmStatic
-    fun setChannelSubscribe(textView: TextView, number: Int?){
+    fun setChannelSubscribe(textView: TextView, number: Int?) {
         textView.text = "구독자 " + number?.toLiteralString() + "명"
     }
 
-
     @BindingAdapter("imageUrl")
     @JvmStatic
-    fun imageUrl(imageView: ImageView, url: String?){
+    fun imageUrl(imageView: ImageView, url: String?) {
         if (url != null) {
             Glide.with(imageView.context).load(url).into(imageView)
         }
@@ -103,7 +80,7 @@ object BindingAdapter {
 
     @BindingAdapter("thumbnailBitmap")
     @JvmStatic
-    fun thumbnailBitmap(imageView: ImageView, bitmap: Bitmap?){
+    fun thumbnailBitmap(imageView: ImageView, bitmap: Bitmap?) {
         if (bitmap != null) {
             Log.d("XX", "bitmap")
             Glide.with(imageView.context).load(bitmap).into(imageView)
@@ -112,44 +89,9 @@ object BindingAdapter {
 
     @BindingAdapter("imageUrl")
     @JvmStatic
-    fun imageUrl(circleImageView: CircleImageView, url: String?){
+    fun imageUrl(circleImageView: CircleImageView, url: String?) {
         if (url != null) {
             Glide.with(circleImageView.context).load(url).into(circleImageView)
-        }
-    }
-    /*
-
-    @BindingAdapter("setPlayerInfo", "setPlayerInfoFromList", "setPlayerVideoList")
-    @JvmStatic
-    fun setPlayerItemList(recyclerView: RecyclerView, playerVideoInfo: PlayerVideoInfo?, playerVideoInfoFromList : MainVideoListItem?, itemList: ArrayList<MainVideoListItem>?) {
-        val adapter = recyclerView.adapter as VideoPlayerListAdapter
-        adapter.playerVideoInfo = playerVideoInfo
-        adapter.playerVideoInfoEtc = playerVideoInfoFromList
-        // 시작할 때는 itemList가 null이기 때문에
-        if (itemList == null){
-            adapter.dataSet = arrayListOf()
-        }
-        else {
-            adapter.dataSet = itemList
-        }
-        adapter.notifyDataSetChanged()
-    }
-
-     */
-
-    @BindingAdapter("setVideoUrl", "setPlayWhenReady", "setCurrentWindow", "setPlayBackPosition")
-    @JvmStatic
-    fun setExoPlayerVideoUrl(playerView: PlayerView, url:String?, playWhenReady : Boolean, currentWindow : Int, playBackPosition : Long){
-        val exoPlayer = playerView.player
-        if (url == null){
-
-        }
-        else {
-            val mediaItem = MediaItem.fromUri(url)
-            exoPlayer?.setMediaItem(mediaItem)
-            exoPlayer?.playWhenReady = playWhenReady
-            exoPlayer?.seekTo(currentWindow, playBackPosition)
-            exoPlayer?.prepare()
         }
     }
 }

@@ -17,7 +17,7 @@ import com.clone.youtube.model.Channel
 import com.clone.youtube.model.Comment
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
-import java.time.LocalDateTime
+import org.threeten.bp.LocalDateTime
 
 class BottomSheetDialogComments : BottomSheetDialogFragment() {
     lateinit var binding : BottomSheetDialogCommentsBinding

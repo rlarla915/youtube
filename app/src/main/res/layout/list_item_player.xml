@@ -8,7 +8,7 @@
             type="com.clone.youtube.model.PlayerVideoInfo" />
         <variable
             name="videoInfoFromList"
-            type="com.clone.youtube.model.MainVideoListItem" />
+            type="com.clone.youtube.model.VideoListItem" />
     </data>
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"

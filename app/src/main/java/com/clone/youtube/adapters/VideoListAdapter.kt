@@ -4,6 +4,8 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.navigation.findNavController
+import androidx.paging.PagingDataAdapter
+import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.clone.youtube.R
 import com.clone.youtube.databinding.BottomSheetDialogEtcBinding
@@ -12,9 +14,10 @@ import com.clone.youtube.model.VideoListItem
 import com.clone.youtube.ui.home.HomeFragmentDirections
 import com.google.android.material.bottomsheet.BottomSheetDialog
 
-open class UnderVideoListAdapter :
-    RecyclerView.Adapter<RecyclerView.ViewHolder>() {
-    var dataSet = arrayListOf<VideoListItem>()
+class VideoListAdapter :
+    PagingDataAdapter<VideoListItem, VideoListAdapter.ViewHolder>(
+        DiffCallback()
+    ) {
 
     class ViewHolder(
         private val binding: ListItemMainvideoBinding,
@@ -45,9 +48,16 @@ open class UnderVideoListAdapter :
         }
     }
 
-    override fun onCreateViewHolder(viewGroup: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-        val binding: ListItemMainvideoBinding = DataBindingUtil.inflate(
-            LayoutInflater.from(viewGroup.context), R.layout.list_item_mainvideo,
+    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+        val item = getItem(position)
+        if (item != null) {
+            holder.bind(item)
+        }
+    }
+
+    override fun onCreateViewHolder(viewGroup: ViewGroup, viewType: Int): ViewHolder {
+        val binding: ListItemMainvideoBinding = ListItemMainvideoBinding.inflate(
+            LayoutInflater.from(viewGroup.context),
             viewGroup,
             false
         )
@@ -55,10 +65,17 @@ open class UnderVideoListAdapter :
         return ViewHolder(binding, viewGroup)
     }
 
-    // Replace the contents of a view (invoked by the layout manager)
-    override fun onBindViewHolder(viewHolder: RecyclerView.ViewHolder, position: Int) {
-        (viewHolder as ViewHolder).bind(dataSet[position])
-    }
+    private class DiffCallback : DiffUtil.ItemCallback<VideoListItem>() {
+        override fun areItemsTheSame(oldItem: VideoListItem, newItem: VideoListItem): Boolean {
+            return oldItem.id == newItem.id
+        }
 
-    override fun getItemCount() = dataSet.size
+        override fun areContentsTheSame(
+            oldItem: VideoListItem,
+            newItem: VideoListItem
+        ): Boolean {
+            return oldItem == newItem
+        }
+    }
 }
+

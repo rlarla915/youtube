@@ -1,23 +1,16 @@
 package com.clone.youtube.ui.play
 
-import android.annotation.SuppressLint
 import android.app.Application
 import android.app.DownloadManager
 import android.content.Context
 import android.net.Uri
 import android.os.Build
-import android.util.Log
 import androidx.annotation.RequiresApi
-import androidx.appcompat.app.AppCompatActivity
-import androidx.core.content.getSystemService
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import androidx.paging.PagingData
-import androidx.paging.cachedIn
 import com.clone.youtube.extensions.Event
-import com.clone.youtube.model.MainVideoListItem
+import com.clone.youtube.model.VideoListItem
 import com.clone.youtube.model.PlayerVideoInfo
 import com.clone.youtube.model.VideoRepository
 import com.clone.youtube.model.offline.OfflineVideo
@@ -28,7 +21,7 @@ import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
 import java.io.File
 import java.sql.Timestamp
-import java.time.format.DateTimeFormatter
+import org.threeten.bp.format.DateTimeFormatter
 import javax.inject.Inject
 
 @HiltViewModel
@@ -36,9 +29,9 @@ class PlayViewModel @Inject constructor(application: Application, private val vi
     // 여기서 repository를 두개를 inject받는게 맞는가?
     private val context = getApplication<Application>().applicationContext
     val playerVideoInfo = MutableLiveData<PlayerVideoInfo>()
-    val playerVideoInfoFromList = MutableLiveData<MainVideoListItem>()
-    val playerVideoList = MutableLiveData<ArrayList<MainVideoListItem>>()
-    //val playerVideoList : MutableLiveData<PagingData<MainVideoListItem>> = videoRepository.getVideoList("").cachedIn(viewModelScope) as MutableLiveData<PagingData<MainVideoListItem>> // [fix] query
+    val playerVideoInfoFromList = MutableLiveData<VideoListItem>()
+    val playerVideoList = MutableLiveData<ArrayList<VideoListItem>>()
+    //val playerVideoList : MutableLiveData<PagingData<VideoListItem>> = videoRepository.getVideoList("").cachedIn(viewModelScope) as MutableLiveData<PagingData<VideoListItem>> // [fix] query
     val playWhenReady = MutableLiveData<Boolean>(true)
     val currentWindow = MutableLiveData<Int>(0)
     val playBackPosition = MutableLiveData<Long>(0L)
