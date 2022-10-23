@@ -4,9 +4,9 @@ import com.google.gson.annotations.SerializedName
 
 data class PlayerVideoInfo(
     @SerializedName("like")
-    var like: Int,
+    val like: Int,
     @SerializedName("bestComment")
-    var bestComment: BestComment,
+    val bestComment: BestComment,
     @SerializedName("numComments")
-    var numComments: Int
+    val numComments: Int
 )

@@ -12,6 +12,7 @@ import com.clone.youtube.model.VideoListItem
 import de.hdodenhof.circleimageview.CircleImageView
 import org.threeten.bp.Instant
 import org.threeten.bp.LocalDateTime
+import org.threeten.bp.ZoneId
 import java.util.*
 import kotlin.collections.ArrayList
 
@@ -53,7 +54,7 @@ object BindingAdapter {
     fun setOfflinePlayerSubInfo(textView: TextView, view: Int?, timestamp: Long) {
         val createTime = LocalDateTime.ofInstant(
             Instant.ofEpochMilli(timestamp),
-            TimeZone.getDefault().toZoneId()
+            ZoneId.systemDefault()
         )
         textView.text = view?.toLiteralString() + "회 • " + createTime?.toLiteralString() + " 전"
     }
@@ -82,7 +83,6 @@ object BindingAdapter {
     @JvmStatic
     fun thumbnailBitmap(imageView: ImageView, bitmap: Bitmap?) {
         if (bitmap != null) {
-            Log.d("XX", "bitmap")
             Glide.with(imageView.context).load(bitmap).into(imageView)
         }
     }

@@ -9,16 +9,13 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
-import com.clone.youtube.MainActivity
+import com.clone.youtube.ui.main.MainActivity
 import com.clone.youtube.R
 import com.clone.youtube.databinding.FragmentStorageBinding
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class StorageFragment : Fragment() {
-
-    // This property is only valid between onCreateView and
-    // onDestroyView.
     lateinit var mainActivity: MainActivity
     private lateinit var binding: FragmentStorageBinding
     val storageViewModel : StorageViewModel by viewModels()

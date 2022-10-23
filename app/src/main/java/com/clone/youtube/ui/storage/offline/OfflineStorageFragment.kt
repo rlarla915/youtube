@@ -1,7 +1,6 @@
 package com.clone.youtube.ui.storage.offline
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,7 +9,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.clone.youtube.MainActivity
+import com.clone.youtube.ui.main.MainActivity
 import com.clone.youtube.R
 import com.clone.youtube.adapters.OfflineVideoListAdapter
 import com.clone.youtube.databinding.FragmentOfflineStorageBinding

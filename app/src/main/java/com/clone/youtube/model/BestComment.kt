@@ -4,7 +4,7 @@ import com.google.gson.annotations.SerializedName
 
 data class BestComment(
     @SerializedName("channelProfileUrl")
-    var channelProfileUrl: String,
+    val channelProfileUrl: String,
     @SerializedName("text")
-    var text: String
+    val text: String
 )

@@ -7,9 +7,9 @@ import kotlinx.android.parcel.Parcelize
 @Parcelize
 data class Channel(
     @SerializedName("name")
-    var name: String,
+    val name: String,
     @SerializedName("profileUrl")
-    var profileUrl: String,
+    val profileUrl: String,
     @SerializedName("subscribe")
-    var subscribe: Int
+    val subscribe: Int
 ) : Parcelable

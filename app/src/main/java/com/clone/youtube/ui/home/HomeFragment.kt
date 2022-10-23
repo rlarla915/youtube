@@ -8,7 +8,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
-import com.clone.youtube.MainActivity
+import com.clone.youtube.ui.main.MainActivity
 import com.clone.youtube.R
 import com.clone.youtube.adapters.VideoListAdapter
 import com.clone.youtube.databinding.FragmentHomeBinding
@@ -17,7 +17,8 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class HomeFragment : Fragment() {
     private val mainActivity: MainActivity by lazy { activity as MainActivity }
-    private lateinit var binding: FragmentHomeBinding
+    private lateinit var _binding: FragmentHomeBinding
+    private val binding get() = _binding
     private val homeViewModel: HomeViewModel by viewModels()
     private val adapter = VideoListAdapter()
 
@@ -26,7 +27,7 @@ class HomeFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        binding = FragmentHomeBinding.inflate(inflater, container, false)
+        _binding = FragmentHomeBinding.inflate(inflater, container, false)
         binding.viewModel = homeViewModel
         binding.lifecycleOwner = viewLifecycleOwner
 
@@ -47,7 +48,7 @@ class HomeFragment : Fragment() {
     }
 
     private fun initObserve() {
-        homeViewModel.mainVideoList.observe(viewLifecycleOwner) {
+        homeViewModel.videoList.observe(viewLifecycleOwner) {
             adapter.submitData(viewLifecycleOwner.lifecycle, it)
         }
     }

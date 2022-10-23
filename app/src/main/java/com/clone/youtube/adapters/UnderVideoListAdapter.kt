@@ -7,7 +7,7 @@ import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.clone.youtube.R
 import com.clone.youtube.databinding.BottomSheetDialogEtcBinding
-import com.clone.youtube.databinding.ListItemMainvideoBinding
+import com.clone.youtube.databinding.ListItemVideoBinding
 import com.clone.youtube.model.VideoListItem
 import com.clone.youtube.ui.home.HomeFragmentDirections
 import com.google.android.material.bottomsheet.BottomSheetDialog
@@ -17,7 +17,7 @@ open class UnderVideoListAdapter :
     var dataSet = arrayListOf<VideoListItem>()
 
     class ViewHolder(
-        private val binding: ListItemMainvideoBinding,
+        private val binding: ListItemVideoBinding,
         private val viewGroup: ViewGroup
     ) :
         RecyclerView.ViewHolder(binding.root) {
@@ -46,8 +46,8 @@ open class UnderVideoListAdapter :
     }
 
     override fun onCreateViewHolder(viewGroup: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-        val binding: ListItemMainvideoBinding = DataBindingUtil.inflate(
-            LayoutInflater.from(viewGroup.context), R.layout.list_item_mainvideo,
+        val binding: ListItemVideoBinding = DataBindingUtil.inflate(
+            LayoutInflater.from(viewGroup.context), R.layout.list_item_video,
             viewGroup,
             false
         )

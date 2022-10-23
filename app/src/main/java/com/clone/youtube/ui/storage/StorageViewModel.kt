@@ -24,7 +24,6 @@ class StorageViewModel @Inject constructor(private val offlineVideoRepository: O
     val checkNavigateToOfflineStorage = MutableLiveData<Event<String>>()
 
     fun navigateToOfflineStorage(){
-        Log.d("ZZ", "clicked button")
         checkNavigateToOfflineStorage.value = Event("offline_storage")
     }
 }

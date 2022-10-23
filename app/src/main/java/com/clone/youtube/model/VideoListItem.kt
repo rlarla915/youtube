@@ -8,17 +8,17 @@ import org.threeten.bp.LocalDateTime
 @Parcelize
 data class VideoListItem(
     @SerializedName("id")
-    var id: String,
+    val id: String,
     @SerializedName("videoUrl")
-    var videoUrl: String,
+    val videoUrl: String,
     @SerializedName("thumbnailUrl")
-    var thumbnailUrl: String,
+    val thumbnailUrl: String,
     @SerializedName("title")
-    var title: String,
+    val title: String,
     @SerializedName("createTime")
-    var createTime: LocalDateTime,
+    val createTime: LocalDateTime,
     @SerializedName("view")
-    var view: Int,
+    val view: Int,
     @SerializedName("channel")
-    var channel: Channel
+    val channel: Channel
 ) : Parcelable

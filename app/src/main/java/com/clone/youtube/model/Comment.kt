@@ -6,8 +6,8 @@ import org.threeten.bp.LocalDateTime
 
 @Parcelize
 data class Comment(
-    var channel: Channel,
-    var time: LocalDateTime,
-    var likes: Int,
-    var text: String
+    val channel: Channel,
+    val time: LocalDateTime,
+    val likes: Int,
+    val text: String
 ) : Parcelable

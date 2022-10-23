@@ -1,4 +1,4 @@
-package com.clone.youtube.ui.play.MediaPlayer
+package com.clone.youtube.ui.play.mediaplayer
 
 import android.content.Context
 import androidx.lifecycle.MutableLiveData
@@ -16,8 +16,12 @@ class MediaPlayerImpl : MediaPlayer {
         return exoPlayer
     }
 
-
-    override fun play(url: String, playWhenReady : Boolean, currentWindow : Int, playBackPosition : Long) {
+    override fun play(
+        url: String,
+        playWhenReady: Boolean,
+        currentWindow: Int,
+        playBackPosition: Long
+    ) {
         val mediaItem = MediaItem.fromUri(url)
         exoPlayer.setMediaItem(mediaItem)
         exoPlayer.playWhenReady = playWhenReady
@@ -29,13 +33,15 @@ class MediaPlayerImpl : MediaPlayer {
         exoPlayer = ExoPlayer.Builder(context).build()
     }
 
-    override fun releasePlayer(playWhenReady : MutableLiveData<Boolean>, currentWindow : MutableLiveData<Int>, playBackPosition : MutableLiveData<Long>) {
+    override fun releasePlayer(
+        playWhenReady: MutableLiveData<Boolean>,
+        currentWindow: MutableLiveData<Int>,
+        playBackPosition: MutableLiveData<Long>
+    ) {
         playBackPosition.postValue(exoPlayer.currentPosition)
         currentWindow.postValue(exoPlayer.currentMediaItemIndex)
         playWhenReady.postValue(exoPlayer.playWhenReady)
         exoPlayer.release()
     }
-
-
 
 }
