@@ -8,6 +8,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
+import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import com.clone.youtube.ui.main.MainActivity
 import com.clone.youtube.R
@@ -30,18 +31,18 @@ class StorageFragment : Fragment() {
         binding.viewModel = storageViewModel
         binding.lifecycleOwner = viewLifecycleOwner
 
-        mainActivity.setSupportActionBar(binding.mainToolbar)
+        mainActivity.setSupportActionBar(binding.storageToolbar)
 
-        initObserve()
+        initClickListener()
 
         return binding.root
     }
 
-    private fun initObserve() {
-        storageViewModel.checkNavigateToOfflineStorage.observe(viewLifecycleOwner, Observer {
+    private fun initClickListener() {
+        binding.offlineStoreContainer.setOnClickListener {
             val direction = StorageFragmentDirections.actionFragmentStorageToOfflineStorage()
-            findNavController().navigate(direction)
-        })
+            mainActivity.navController.navigate(direction)
+        }
     }
 
 }

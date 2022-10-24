@@ -19,6 +19,7 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var _binding: ActivityMainBinding
     val binding get() = _binding
+    val navController by lazy { findNavController(R.id.nav_host_fragment_activity_main) }
     private val mainViewModel: MainViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -29,7 +30,6 @@ class MainActivity : AppCompatActivity() {
         binding.lifecycleOwner = this
 
         val navView: BottomNavigationView = binding.navView
-        val navController = findNavController(R.id.nav_host_fragment_activity_main)
         val appBarConfiguration = AppBarConfiguration(
             setOf(
                 R.id.navigation_home,
@@ -46,5 +46,9 @@ class MainActivity : AppCompatActivity() {
             val bottomSheetDialogUpload = BottomSheetDialogUpload()
             bottomSheetDialogUpload.show(supportFragmentManager, "Upload")
         }
+    }
+
+    override fun onSupportNavigateUp(): Boolean {
+        return navController.navigateUp() || super.onSupportNavigateUp()
     }
 }

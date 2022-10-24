@@ -36,6 +36,8 @@ class OfflineStorageFragment : Fragment() {
         binding.viewModel = offlineStorageViewModel
         binding.lifecycleOwner = viewLifecycleOwner
 
+        mainActivity.setSupportActionBar(binding.offlineStorageToolbar)
+
         binding.recyclerOfflineVideo.layoutManager = LinearLayoutManager(mainActivity)
         binding.recyclerOfflineVideo.adapter = adapter
 

@@ -35,7 +35,7 @@ class UploadActivity : AppCompatActivity() {
                     finish()
                 } else {
                     val bitmap = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
-                        contentResolver.loadThumbnail(uri!!, Size(400, 250), null)
+                        contentResolver.loadThumbnail(uri, Size(400, 250), null)
                     } else {
                         TODO("VERSION.SDK_INT < Q")
                     }

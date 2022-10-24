@@ -8,10 +8,57 @@
             name="viewModel"
             type="com.clone.youtube.ui.storage.offline.OfflineStorageViewModel" />
     </data>
+
     <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
+        <com.google.android.material.appbar.AppBarLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fitsSystemWindows="true"
+            android:theme="@style/Widget.AppCompat.Light.ActionBar">
+            <com.google.android.material.appbar.MaterialToolbar
+                android:id="@+id/offline_storage_toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                android:theme="@style/ThemeOverlay.MaterialComponents.ActionBar"
+                app:popupTheme="@style/ThemeOverlay.MaterialComponents.Light"
+                app:layout_scrollFlags="scroll|enterAlways">
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
 
+                    <TextView
+                        android:id="@+id/fragment_toolbar_icon"
+                        android:layout_width="wrap_content"
+                        android:layout_height="24dp"
+                        android:drawableLeft="@drawable/toolbar_youtube_icon"
+                        android:text=" 오프라인 저장 동영상"
+                        android:textSize="16sp" />
+                    <ImageView
+                        android:id="@+id/fragment_toolbar_notification"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_toStartOf="@id/fragment_toolbar_search"
+                        android:layout_marginRight="@dimen/toolbar_margin"
+                        android:src="@drawable/ic_notifications_24"/>
+                    <ImageView
+                        android:id="@+id/fragment_toolbar_search"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_toStartOf="@id/fragment_toolbar_profile"
+                        android:layout_marginRight="@dimen/toolbar_margin"
+                        android:src="@drawable/ic_search_24"/>
+                    <de.hdodenhof.circleimageview.CircleImageView
+                        android:id="@+id/fragment_toolbar_profile"
+                        android:layout_width="@dimen/toolbar_profile_radius"
+                        android:layout_height="@dimen/toolbar_profile_radius"
+                        android:layout_alignParentEnd="true"/>
+                </RelativeLayout>
+
+            </com.google.android.material.appbar.MaterialToolbar>
+
+        </com.google.android.material.appbar.AppBarLayout>
         <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
             android:id="@+id/refresh_offline_video"
             android:layout_width="match_parent"
