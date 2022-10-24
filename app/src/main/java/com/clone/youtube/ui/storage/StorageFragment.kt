@@ -8,43 +8,41 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
+import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
-import com.clone.youtube.MainActivity
+import com.clone.youtube.ui.main.MainActivity
 import com.clone.youtube.R
 import com.clone.youtube.databinding.FragmentStorageBinding
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class StorageFragment : Fragment() {
-
-    // This property is only valid between onCreateView and
-    // onDestroyView.
-    lateinit var mainActivity: MainActivity
-    private lateinit var binding: FragmentStorageBinding
-    val storageViewModel : StorageViewModel by viewModels()
+    private val mainActivity: MainActivity by lazy { activity as MainActivity }
+    private lateinit var _binding: FragmentStorageBinding
+    private val binding get() = _binding
+    private val storageViewModel: StorageViewModel by viewModels()
 
     override fun onCreateView(
-            inflater: LayoutInflater,
-            container: ViewGroup?,
-            savedInstanceState: Bundle?
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
     ): View {
-        mainActivity = activity as MainActivity
-        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_storage, container, false)
+        _binding = DataBindingUtil.inflate(inflater, R.layout.fragment_storage, container, false)
         binding.viewModel = storageViewModel
         binding.lifecycleOwner = viewLifecycleOwner
 
-        mainActivity.setSupportActionBar(binding.mainToolbar)
+        mainActivity.setSupportActionBar(binding.storageToolbar)
 
-        initObserve()
+        initClickListener()
 
         return binding.root
     }
 
-    fun initObserve(){
-        storageViewModel.checkNavigateToOfflineStorage.observe(viewLifecycleOwner, Observer {
+    private fun initClickListener() {
+        binding.offlineStoreContainer.setOnClickListener {
             val direction = StorageFragmentDirections.actionFragmentStorageToOfflineStorage()
-            findNavController().navigate(direction)
-        })
+            mainActivity.navController.navigate(direction)
+        }
     }
 
 }

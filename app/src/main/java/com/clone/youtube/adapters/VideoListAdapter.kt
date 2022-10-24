@@ -3,25 +3,28 @@ package com.clone.youtube.adapters;
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
+import androidx.navigation.findNavController
 import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.clone.youtube.R
 import com.clone.youtube.databinding.BottomSheetDialogEtcBinding
-import com.clone.youtube.databinding.ListItemOfflineStorageBinding
-import com.clone.youtube.model.offline.OfflineVideo
+import com.clone.youtube.databinding.ListItemVideoBinding
+import com.clone.youtube.model.VideoListItem
+import com.clone.youtube.ui.home.HomeFragmentDirections
 import com.google.android.material.bottomsheet.BottomSheetDialog
 
-class OfflineVideoListAdapter :
-    PagingDataAdapter<OfflineVideo, OfflineVideoListAdapter.ViewHolder>(DiffCallback()) {
+class VideoListAdapter :
+    PagingDataAdapter<VideoListItem, VideoListAdapter.ViewHolder>(
+        DiffCallback()
+    ) {
 
     class ViewHolder(
-        private val binding: ListItemOfflineStorageBinding,
+        private val binding: ListItemVideoBinding,
         private val viewGroup: ViewGroup
     ) :
         RecyclerView.ViewHolder(binding.root) {
-
-        fun bind(data: OfflineVideo) {
+        fun bind(data: VideoListItem) {
             binding.listItem = data
             binding.listItemButton.setOnClickListener {
                 val bottomSheetView: BottomSheetDialogEtcBinding = DataBindingUtil.inflate(
@@ -39,8 +42,9 @@ class OfflineVideoListAdapter :
             }
         }
 
-        private fun navigateToPlay(data: OfflineVideo) {
-            // [fix] : need to add
+        private fun navigateToPlay(data: VideoListItem) {
+            val direction = HomeFragmentDirections.actionFragmentHomeToFragmentPlay(data)
+            itemView.findNavController().navigate(direction)
         }
     }
 
@@ -52,7 +56,7 @@ class OfflineVideoListAdapter :
     }
 
     override fun onCreateViewHolder(viewGroup: ViewGroup, viewType: Int): ViewHolder {
-        val binding = ListItemOfflineStorageBinding.inflate(
+        val binding: ListItemVideoBinding = ListItemVideoBinding.inflate(
             LayoutInflater.from(viewGroup.context),
             viewGroup,
             false
@@ -61,13 +65,17 @@ class OfflineVideoListAdapter :
         return ViewHolder(binding, viewGroup)
     }
 
-    private class DiffCallback : DiffUtil.ItemCallback<OfflineVideo>() {
-        override fun areItemsTheSame(oldItem: OfflineVideo, newItem: OfflineVideo): Boolean {
-            return oldItem.key == newItem.key
+    private class DiffCallback : DiffUtil.ItemCallback<VideoListItem>() {
+        override fun areItemsTheSame(oldItem: VideoListItem, newItem: VideoListItem): Boolean {
+            return oldItem.id == newItem.id
         }
 
-        override fun areContentsTheSame(oldItem: OfflineVideo, newItem: OfflineVideo): Boolean {
+        override fun areContentsTheSame(
+            oldItem: VideoListItem,
+            newItem: VideoListItem
+        ): Boolean {
             return oldItem == newItem
         }
     }
 }
+

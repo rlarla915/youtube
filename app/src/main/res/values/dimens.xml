@@ -1,7 +1,5 @@
 <resources>
     <!-- Default screen margins, per the Android Design guidelines. -->
-    <dimen name="activity_horizontal_margin">16dp</dimen>
-    <dimen name="activity_vertical_margin">16dp</dimen>
     <dimen name="bottom_dialog_item_margin">12dp</dimen>
     <dimen name="bottom_dialog_item_fontSize">20sp</dimen>
     <dimen name="video_title_fontSize">18sp</dimen>
@@ -25,5 +23,4 @@
     <dimen name="upload_list_item_margin">12dp</dimen>
     <dimen name="upload_list_item_fontSize">24sp</dimen>
     <dimen name="upload_list_item_icon_radius">40dp</dimen>
-    <dimen name="upload_list_item_icon_padding">6dp</dimen>
 </resources>

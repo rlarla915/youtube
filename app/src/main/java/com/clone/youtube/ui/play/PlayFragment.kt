@@ -8,56 +8,45 @@ import android.view.ViewGroup
 import androidx.core.view.WindowCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.WindowInsetsControllerCompat
-import androidx.databinding.DataBindingUtil
+import androidx.core.view.get
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.clone.youtube.MainActivity
-import com.clone.youtube.R
-import com.clone.youtube.adapters.MainVideoListAdapter
+import com.clone.youtube.ui.main.MainActivity
 import com.clone.youtube.adapters.UnderVideoListAdapter
 import com.clone.youtube.databinding.FragmentPlayBinding
+import com.clone.youtube.databinding.VideoControllerBinding
 import com.google.android.exoplayer2.ExoPlayer
-import com.google.android.exoplayer2.util.Util
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.android.synthetic.main.activity_main.*
-import kotlinx.android.synthetic.main.video_controller.view.*
 
 @AndroidEntryPoint
 class PlayFragment : Fragment() {
-
-    // This property is only valid between onCreateView and
-    // onDestroyView.
-    lateinit var mainActivity: MainActivity
-    private lateinit var binding: FragmentPlayBinding
-    //private lateinit var controllerBinding: VideoControllerBinding
-    val playViewModel : PlayViewModel by viewModels()
-    private var player : ExoPlayer? = null
-    //private var adapter = MainVideoListAdapter()
-
-    var fullscreen : Boolean = false
-
-    val args : PlayFragmentArgs by navArgs()
+    private val mainActivity: MainActivity by lazy { activity as MainActivity }
+    private lateinit var _binding: FragmentPlayBinding
+    private val binding get() = _binding
+    private lateinit var controllerBinding: VideoControllerBinding
+    private val playViewModel: PlayViewModel by viewModels()
+    private var player: ExoPlayer? = null
+    private var fullscreen: Boolean = false
+    private val args: PlayFragmentArgs by navArgs()
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        mainActivity = activity as MainActivity
-        binding = FragmentPlayBinding.inflate(inflater, container, false)
+        _binding = FragmentPlayBinding.inflate(inflater, container, false)
+        controllerBinding = VideoControllerBinding.inflate(inflater, container, false)
         binding.lifecycleOwner = viewLifecycleOwner
         binding.viewModel = playViewModel
-
-        playViewModel.playerVideoInfoFromList.value = args.videoInfoFromList
-
+        playViewModel.setPlayerVideoInfoFromList(args.videoInfoFromList)
         binding.recyclerVideoPlayer.layoutManager = LinearLayoutManager(mainActivity)
-        binding.recyclerVideoPlayer.adapter = UnderVideoListAdapter() // [fix] apply endless scroll or two viewholder paging adapter
-
+        binding.recyclerVideoPlayer.adapter =
+            UnderVideoListAdapter() // [fix] apply endless scroll or two viewholder paging adapter
         initObserve()
-        binding.videoPlayer.exo_fullscreen.setOnClickListener {
+        controllerBinding.exoFullscreen.setOnClickListener {
             changeFullScreen(it)
         }
 
@@ -68,77 +57,51 @@ class PlayFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         playViewModel.loadPlayerVideoInfo()
-
-         //VideoPlayerListAdapter(this, mainActivity)
-
     }
-
-    /*
-    @RequiresApi(Build.VERSION_CODES.O)
-    override fun offlineStorage() {
-        playViewModel.setOfflineVideo()
-    }
-     */
 
     override fun onPause() {
         super.onPause()
-        if (Util.SDK_INT < 24){
-            playViewModel.release()
-        }
+        playViewModel.release()
     }
 
     override fun onStop() {
         super.onStop()
-        if(Util.SDK_INT >= 24){
-            playViewModel.release()
-        }
+        playViewModel.release()
     }
 
     override fun onStart() {
         super.onStart()
-        if (Util.SDK_INT >= 24){
-            initPlayer()
-        }
+        initPlayer()
     }
 
     override fun onResume() {
         super.onResume()
         //hideSystemUi()
-        if ((Util.SDK_INT < 24 || player == null)){
+        if (player == null) {
             initPlayer()
         }
     }
 
-    // need to fix to make adaptive streaming format
-    // https://developer.android.com/codelabs/exoplayer-intro#4
-
-    private fun initPlayer(){
+    private fun initPlayer() {
         player = playViewModel.getMediaPlayer().getPlayer(mainActivity)
         binding.videoPlayer.player = player
         playViewModel.play()
 
     }
 
-    private fun initObserve(){
+    private fun initObserve() {
         playViewModel.clickComments.observe(viewLifecycleOwner, Observer {
-            var bottomSheetDialogComments = BottomSheetDialogComments()
+            val bottomSheetDialogComments = BottomSheetDialogComments()
             bottomSheetDialogComments.show(mainActivity.supportFragmentManager, "comments")
         })
-
-        /*
-        playViewModel.playerVideoList.observe(viewLifecycleOwner){
-            adapter.submitData(viewLifecycleOwner.lifecycle, it)
-        }
-
-         */
     }
-
 
     private fun hideSystemUi() {
         WindowCompat.setDecorFitsSystemWindows(mainActivity.window, false)
         WindowInsetsControllerCompat(mainActivity.window, binding.videoPlayer).let { controller ->
             controller.hide(WindowInsetsCompat.Type.systemBars())
-            controller.systemBarsBehavior = WindowInsetsControllerCompat.BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE
+            controller.systemBarsBehavior =
+                WindowInsetsControllerCompat.BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE
         }
     }
 
@@ -151,22 +114,21 @@ class PlayFragment : Fragment() {
     }
 
     private fun changeFullScreen(view: View) {
-        if (fullscreen){
-            if (mainActivity.supportActionBar != null){
+        if (fullscreen) {
+            if (mainActivity.supportActionBar != null) {
                 mainActivity.supportActionBar!!.show()
             }
             mainActivity.requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
             showSystemUi()
-            mainActivity.nav_view.visibility = View.VISIBLE
+            mainActivity.binding.navView.visibility = View.VISIBLE
             fullscreen = false
-        }
-        else {
-            if (mainActivity.supportActionBar != null){
+        } else {
+            if (mainActivity.supportActionBar != null) {
                 mainActivity.supportActionBar!!.hide()
             }
             mainActivity.requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE
             hideSystemUi()
-            mainActivity.nav_view.visibility = View.GONE
+            mainActivity.binding.navView.visibility = View.GONE
             fullscreen = true
         }
     }

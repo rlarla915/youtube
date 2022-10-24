@@ -8,10 +8,10 @@ import androidx.room.Query
 @Dao
 interface OfflineVideoDao {
     @Query("SELECT * FROM offlineVideo")
-    suspend fun getAllVideo() : List<OfflineVideo>
+    suspend fun getAllVideo(): List<OfflineVideo>
 
     @Query("SELECT count(*) != 0 FROM offlineVideo WHERE `key` = :key")
-    suspend fun containSelectedVideo(key : Int) : Boolean
+    suspend fun containSelectedVideo(key: Int): Boolean
 
     @Insert
     suspend fun insertAll(vararg offlineVideo: OfflineVideo)

@@ -1,6 +1,5 @@
 package com.clone.youtube.repository
 
-import android.os.Build
 import com.google.gson.*
 import dagger.Module
 import dagger.Provides
@@ -8,12 +7,11 @@ import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 import okhttp3.ResponseBody
 import retrofit2.Converter
-import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import java.lang.reflect.Type
-import java.time.LocalDateTime
-import java.time.format.DateTimeFormatter
+import org.threeten.bp.LocalDateTime
+import org.threeten.bp.format.DateTimeFormatter
 import javax.inject.Qualifier
 import javax.inject.Singleton
 
@@ -30,9 +28,9 @@ annotation class GoogleCloudStorage
 object RetrofitModule {
 
     @Singleton
-    @Provides // module에서 provides를 하는 이유는 retrofit같은 외부 라이브러리 객체도 의존성 주입을 할 수 있기 때문. inject를 못함
+    @Provides
     @LocalJsonServer
-    fun getRetrofitInstanceLocal() : Retrofit {
+    fun getRetrofitInstanceLocal(): Retrofit {
         return Retrofit.Builder()
             .baseUrl("http://10.0.2.2:8080/")
             .addConverterFactory(GsonConverterFactory.create(gson))
@@ -40,9 +38,9 @@ object RetrofitModule {
     }
 
     @Singleton
-    @Provides // module에서 provides를 하는 이유는 retrofit같은 외부 라이브러리 객체도 의존성 주입을 할 수 있기 때문. inject를 못함
+    @Provides
     @GoogleCloudStorage
-    fun getRetrofitInstanceCloud() : Retrofit {
+    fun getRetrofitInstanceCloud(): Retrofit {
         return Retrofit.Builder()
             .baseUrl("https://storage.googleapis.com/")
             .addConverterFactory(NullOnEmptyConverterFactory())
@@ -50,38 +48,37 @@ object RetrofitModule {
             .build()
     }
 
-    class MyJsonDeserializer() : JsonDeserializer<LocalDateTime>{
+    class MyJsonDeserializer() : JsonDeserializer<LocalDateTime> {
         override fun deserialize(
             json: JsonElement?,
             typeOfT: Type?,
             context: JsonDeserializationContext?
         ): LocalDateTime {
-            return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                // json 파일에도 createTime이 아래 pattern을 맞추고 있어야 함.
-                LocalDateTime.parse(json?.asString, DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss"))
-            } else {
-                TODO("VERSION.SDK_INT < O")
-            }
+            return LocalDateTime.parse(
+                json?.asString,
+                DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss")
+            )
+
         }
 
     }
 
-    val gson : Gson = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+    private val gson: Gson =
         GsonBuilder().registerTypeAdapter(LocalDateTime::class.java, MyJsonDeserializer()).create()
-    } else {
-        TODO("VERSION.SDK_INT < O")
-    }
 
     class NullOnEmptyConverterFactory : Converter.Factory() {
-        override fun responseBodyConverter(type: Type?, annotations: Array<Annotation>?, retrofit: Retrofit?): Converter<ResponseBody, *>? {
-            val delegate = retrofit!!.nextResponseBodyConverter<Any>(this, type!!, annotations!!)
+        override fun responseBodyConverter(
+            type: Type,
+            annotations: Array<out Annotation>,
+            retrofit: Retrofit
+        ): Converter<ResponseBody, *> {
+            val delegate = retrofit.nextResponseBodyConverter<Any>(this, type, annotations)
             return Converter<ResponseBody, Any> {
-                if (it.contentLength() == 0L)  return@Converter null
+                if (it.contentLength() == 0L) return@Converter null
                 delegate.convert(it)
             }
         }
 
     }
-
 
 }

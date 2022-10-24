@@ -7,12 +7,16 @@
     <string name="title_store">보관함</string>
     <string name="title_play">Play</string>
     <string name="title_upload">만들기</string>
-    <string name="title_dashboard">Dashboard</string>
-    <string name="title_notifications">Notifications</string>
+
+    <!-- Commonly Use -->
+
+    <!-- Comments -->
+    <string name="comment_list_item_name">%1$s • %2$s 전</string>
+
+    <!-- Upload -->
     <string name="upload_shorts">Shorts 동영상 만들기</string>
     <string name="upload_video">동영상 업로드</string>
     <string name="upload_streaming">실시간 스트리밍 시작</string>
-    <string name="mid_dot"> • </string>
     <string name="title_upload_activity">업로드</string>
     <string name="title_appbar">Premium</string>
     <string name="offline_store_title">오프라인 저장 동영상</string>
