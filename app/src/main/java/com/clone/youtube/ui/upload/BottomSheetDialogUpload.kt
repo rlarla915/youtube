@@ -16,20 +16,20 @@ import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class BottomSheetDialogUpload : BottomSheetDialogFragment() {
-    lateinit var binding: BottomSheetDialogUploadBinding
-    lateinit var mainActivity: MainActivity
-    val bottomSheetDialogUploadViewModel: BottomSheetDialogUploadViewModel by viewModels()
+    private lateinit var _binding: BottomSheetDialogUploadBinding
+    private val binding get() = _binding
+    private val mainActivity: MainActivity by lazy { activity as MainActivity }
+    private val bottomSheetDialogUploadViewModel: BottomSheetDialogUploadViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding =
+        _binding =
             DataBindingUtil.inflate(inflater, R.layout.bottom_sheet_dialog_upload, container, false)
         binding.lifecycleOwner = viewLifecycleOwner
         binding.viewModel = bottomSheetDialogUploadViewModel
-        mainActivity = activity as MainActivity
         binding.bottomDialogClose.setOnClickListener {
             this.dismiss()
         }

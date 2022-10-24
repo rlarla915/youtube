@@ -16,17 +16,17 @@ import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class StorageFragment : Fragment() {
-    lateinit var mainActivity: MainActivity
-    private lateinit var binding: FragmentStorageBinding
-    val storageViewModel : StorageViewModel by viewModels()
+    private val mainActivity: MainActivity by lazy { activity as MainActivity }
+    private lateinit var _binding: FragmentStorageBinding
+    private val binding get() = _binding
+    private val storageViewModel: StorageViewModel by viewModels()
 
     override fun onCreateView(
-            inflater: LayoutInflater,
-            container: ViewGroup?,
-            savedInstanceState: Bundle?
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
     ): View {
-        mainActivity = activity as MainActivity
-        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_storage, container, false)
+        _binding = DataBindingUtil.inflate(inflater, R.layout.fragment_storage, container, false)
         binding.viewModel = storageViewModel
         binding.lifecycleOwner = viewLifecycleOwner
 
@@ -37,7 +37,7 @@ class StorageFragment : Fragment() {
         return binding.root
     }
 
-    fun initObserve(){
+    private fun initObserve() {
         storageViewModel.checkNavigateToOfflineStorage.observe(viewLifecycleOwner, Observer {
             val direction = StorageFragmentDirections.actionFragmentStorageToOfflineStorage()
             findNavController().navigate(direction)

@@ -14,7 +14,7 @@ import javax.inject.Inject
 class OfflineStorageViewModel @Inject constructor(private val offlineVideoRepository: OfflineVideoRepository) :
     ViewModel() {
 
-    fun getOfflineVideo() : Flow<PagingData<OfflineVideo>> {
+    fun getOfflineVideo(): Flow<PagingData<OfflineVideo>> {
         return offlineVideoRepository.getOfflineVideo("").cachedIn(viewModelScope)
     }
 }

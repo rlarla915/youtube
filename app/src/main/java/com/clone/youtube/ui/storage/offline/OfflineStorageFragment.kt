@@ -20,18 +20,19 @@ import kotlinx.coroutines.launch
 @AndroidEntryPoint
 class OfflineStorageFragment : Fragment() {
 
-    lateinit var mainActivity: MainActivity
-    private lateinit var binding: FragmentOfflineStorageBinding
-    val offlineStorageViewModel : OfflineStorageViewModel by viewModels()
+    private val mainActivity: MainActivity by lazy { activity as MainActivity }
+    private lateinit var _binding: FragmentOfflineStorageBinding
+    private val binding get() = _binding
+    private val offlineStorageViewModel: OfflineStorageViewModel by viewModels()
     private val adapter = OfflineVideoListAdapter()
 
     override fun onCreateView(
-            inflater: LayoutInflater,
-            container: ViewGroup?,
-            savedInstanceState: Bundle?
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
     ): View {
-        mainActivity = activity as MainActivity
-        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_offline_storage, container, false)
+        _binding =
+            DataBindingUtil.inflate(inflater, R.layout.fragment_offline_storage, container, false)
         binding.viewModel = offlineStorageViewModel
         binding.lifecycleOwner = viewLifecycleOwner
 
@@ -42,8 +43,7 @@ class OfflineStorageFragment : Fragment() {
         return binding.root
     }
 
-
-    private fun initAdapter(){
+    private fun initAdapter() {
         lifecycleScope.launch {
             offlineStorageViewModel.getOfflineVideo().collectLatest {
                 adapter.submitData(it)
