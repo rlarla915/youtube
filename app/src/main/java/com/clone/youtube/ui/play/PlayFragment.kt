@@ -1,7 +1,11 @@
 package com.clone.youtube.ui.play
 
+import android.app.PictureInPictureParams
 import android.content.pm.ActivityInfo
+import android.content.pm.PackageManager
+import android.os.Build
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -9,16 +13,18 @@ import androidx.core.view.WindowCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.WindowInsetsControllerCompat
 import androidx.core.view.get
+import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
+import androidx.media3.exoplayer.ExoPlayer
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.clone.youtube.R
 import com.clone.youtube.ui.main.MainActivity
 import com.clone.youtube.adapters.UnderVideoListAdapter
 import com.clone.youtube.databinding.FragmentPlayBinding
 import com.clone.youtube.databinding.VideoControllerBinding
-import com.google.android.exoplayer2.ExoPlayer
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -26,7 +32,7 @@ class PlayFragment : Fragment() {
     private val mainActivity: MainActivity by lazy { activity as MainActivity }
     private lateinit var _binding: FragmentPlayBinding
     private val binding get() = _binding
-    private lateinit var controllerBinding: VideoControllerBinding
+    //private lateinit var controllerBinding: VideoControllerBinding
     private val playViewModel: PlayViewModel by viewModels()
     private var player: ExoPlayer? = null
     private var fullscreen: Boolean = false
@@ -38,7 +44,7 @@ class PlayFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentPlayBinding.inflate(inflater, container, false)
-        controllerBinding = VideoControllerBinding.inflate(inflater, container, false)
+        //controllerBinding = DataBindingUtil.inflate(inflater, R.layout.video_controller, container, false)
         binding.lifecycleOwner = viewLifecycleOwner
         binding.viewModel = playViewModel
         playViewModel.setPlayerVideoInfoFromList(args.videoInfoFromList)
@@ -46,9 +52,18 @@ class PlayFragment : Fragment() {
         binding.recyclerVideoPlayer.adapter =
             UnderVideoListAdapter() // [fix] apply endless scroll or two viewholder paging adapter
         initObserve()
-        controllerBinding.exoFullscreen.setOnClickListener {
+
+        binding.videoPlayer.findViewById<View>(R.id.exo_fullscreen).setOnClickListener {
+            Log.d("QQ", "clicked!!")
             changeFullScreen(it)
         }
+/*
+        controllerBinding.exoFullscreen.setOnClickListener {
+            Log.d("QQ", "clicked!!")
+            changeFullScreen(it)
+        }
+
+ */
 
         return binding.root
     }
