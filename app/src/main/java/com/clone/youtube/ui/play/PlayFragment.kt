@@ -24,7 +24,6 @@ import com.clone.youtube.R
 import com.clone.youtube.ui.main.MainActivity
 import com.clone.youtube.adapters.UnderVideoListAdapter
 import com.clone.youtube.databinding.FragmentPlayBinding
-import com.clone.youtube.databinding.VideoControllerBinding
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -53,10 +52,13 @@ class PlayFragment : Fragment() {
             UnderVideoListAdapter() // [fix] apply endless scroll or two viewholder paging adapter
         initObserve()
 
+        /*
         binding.videoPlayer.findViewById<View>(R.id.exo_fullscreen).setOnClickListener {
             Log.d("QQ", "clicked!!")
             changeFullScreen(it)
         }
+
+         */
 /*
         controllerBinding.exoFullscreen.setOnClickListener {
             Log.d("QQ", "clicked!!")

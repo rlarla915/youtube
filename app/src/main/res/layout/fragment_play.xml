@@ -21,8 +21,7 @@
             <androidx.media3.ui.PlayerView
                 android:id="@+id/video_player"
                 android:layout_width="match_parent"
-                android:layout_height="0dp"
-                app:controller_layout_id="@layout/video_controller"
+                android:layout_height="match_parent"
                 app:show_timeout="10000"
                 app:use_controller="true"/>
         </FrameLayout>
