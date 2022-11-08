@@ -6,6 +6,7 @@ import android.content.res.Configuration
 import android.os.Build
 import android.os.Bundle
 import android.util.Log
+import android.view.View
 import androidx.activity.viewModels
 import androidx.annotation.RequiresApi
 import com.google.android.material.bottomnavigation.BottomNavigationView
@@ -85,9 +86,12 @@ class MainActivity : AppCompatActivity() {
         newConfig: Configuration
     ) {
         if (isInPictureInPictureMode){
-
+            binding.fabUpload.visibility = View.GONE
+            binding.navView.visibility = View.GONE
         }
         else {
+            binding.fabUpload.visibility = View.VISIBLE
+            binding.navView.visibility = View.VISIBLE
 
         }
 
