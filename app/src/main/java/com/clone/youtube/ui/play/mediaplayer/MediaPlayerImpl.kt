@@ -10,13 +10,13 @@ import com.google.android.exoplayer2.MediaItem
 
 class MediaPlayerImpl : MediaPlayer {
 
-    private lateinit var exoPlayer: ExoPlayer
+    private var exoPlayer: ExoPlayer? = null
     private lateinit var context: Context
 
     override fun getPlayer(context: Context): ExoPlayer {
         this.context = context
         initializePlayer()
-        return exoPlayer
+        return exoPlayer!!
     }
 
     override fun play(
@@ -26,10 +26,12 @@ class MediaPlayerImpl : MediaPlayer {
         playBackPosition: Long
     ) {
         val mediaItem = MediaItem.fromUri(url)
-        exoPlayer.setMediaItem(mediaItem)
-        exoPlayer.playWhenReady = playWhenReady
-        exoPlayer.seekTo(currentWindow, playBackPosition)
-        exoPlayer.prepare()
+        exoPlayer?.run {
+            this.setMediaItem(mediaItem)
+            this.playWhenReady = playWhenReady
+            this.seekTo(currentWindow, playBackPosition)
+            this.prepare()
+        }
     }
 
     private fun initializePlayer() {
@@ -41,10 +43,11 @@ class MediaPlayerImpl : MediaPlayer {
         currentWindow: MutableLiveData<Int>,
         playBackPosition: MutableLiveData<Long>
     ) {
-        playBackPosition.postValue(exoPlayer.currentPosition)
-        currentWindow.postValue(exoPlayer.currentMediaItemIndex)
-        playWhenReady.postValue(exoPlayer.playWhenReady)
-        exoPlayer.release()
+        playBackPosition.postValue(exoPlayer?.currentPosition)
+        currentWindow.postValue(exoPlayer?.currentMediaItemIndex)
+        playWhenReady.postValue(exoPlayer?.playWhenReady)
+        exoPlayer?.release()
+        exoPlayer = null
     }
 
 }

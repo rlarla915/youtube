@@ -61,11 +61,11 @@ class MainActivity : AppCompatActivity() {
         return navController.navigateUp() || super.onSupportNavigateUp()
     }
 
-    fun enterPIPMode(){
+    private fun enterPIPMode(){
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O && packageManager.hasSystemFeature(
                 PackageManager.FEATURE_PICTURE_IN_PICTURE) ){
             // need to update positions
-            Log.d("QQ", "AAAAA")
+            Log.d("QQ", "enter pip mode")
             val params = PictureInPictureParams.Builder()
             enterPictureInPictureMode(params.build())
         }

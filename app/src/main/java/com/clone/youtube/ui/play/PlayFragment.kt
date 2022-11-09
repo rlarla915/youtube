@@ -66,11 +66,6 @@ class PlayFragment : Fragment() {
         playViewModel.loadPlayerVideoInfo()
     }
 
-    override fun onPause() {
-        super.onPause()
-        playViewModel.release()
-    }
-
     override fun onStop() {
         super.onStop()
         playViewModel.release()
@@ -83,7 +78,7 @@ class PlayFragment : Fragment() {
 
     override fun onResume() {
         super.onResume()
-        //hideSystemUi()
+        hideSystemUi()
         if (player == null) {
             initPlayer()
         }
