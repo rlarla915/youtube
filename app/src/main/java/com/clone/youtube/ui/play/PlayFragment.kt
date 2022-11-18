@@ -3,8 +3,10 @@ package com.clone.youtube.ui.play
 import android.app.PictureInPictureParams
 import android.content.pm.ActivityInfo
 import android.content.pm.PackageManager
+import android.media.session.MediaSession
 import android.os.Build
 import android.os.Bundle
+import android.support.v4.media.session.MediaSessionCompat
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -26,6 +28,7 @@ import com.clone.youtube.ui.main.MainActivity
 import com.clone.youtube.adapters.UnderVideoListAdapter
 import com.clone.youtube.databinding.FragmentPlayBinding
 import com.google.android.exoplayer2.ExoPlayer
+import com.google.android.exoplayer2.ext.mediasession.MediaSessionConnector
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -38,6 +41,8 @@ class PlayFragment : Fragment() {
     private var fullscreen: Boolean = false
     private val args: PlayFragmentArgs by navArgs()
     private val fullScreenButton : ImageButton by lazy { binding.videoPlayer.findViewById<ImageButton>(R.id.exo_fullscreen) }
+    private var mediaSession : MediaSessionCompat? = null
+    private var mediaSessionConnector : MediaSessionConnector? = null
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -68,12 +73,14 @@ class PlayFragment : Fragment() {
 
     override fun onStop() {
         super.onStop()
+        mediaSession?.release()
         playViewModel.release()
     }
 
     override fun onStart() {
         super.onStart()
         initPlayer()
+        mediaSession?.isActive = true
     }
 
     override fun onResume() {
@@ -89,6 +96,9 @@ class PlayFragment : Fragment() {
         binding.videoPlayer.player = player
         playViewModel.play()
 
+        mediaSession = MediaSessionCompat(mainActivity, "Player")
+        mediaSessionConnector = MediaSessionConnector(mediaSession!!)
+        mediaSessionConnector!!.setPlayer(player)
     }
 
     private fun initObserve() {

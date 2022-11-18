@@ -65,7 +65,7 @@ dependencies {
 
     // Exo player
     implementation "com.google.android.exoplayer:exoplayer:2.18.1"
-
+    implementation "com.google.android.exoplayer:extension-mediasession:2.18.1"
     /* // Apply media3 later
     def mediaVersion = "1.0.0-beta02"
     implementation "androidx.media3:media3-exoplayer:$mediaVersion"
